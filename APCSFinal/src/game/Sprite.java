@@ -3,12 +3,9 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class Sprite {
-	public float x,y;
+	public float x,y, angle;
 	protected float width,height;
 	private PImage img;
-	private boolean inMeleeAttack;
-	private int meleeAnimationFrames;
-	private float meleeAttackDirectionAngle;
 	
 	public Sprite(float x, float y,PImage img) {
 		this.x=x;
@@ -16,22 +13,29 @@ public class Sprite {
 		this.img=img;
 		width=img.width;
 		height=img.height;
+		angle=PApplet.PI/4;
 	}
 	
 	public void draw(PApplet drawer) {
+		drawer.imageMode(PApplet.CENTER);
+		drawer.rectMode(PApplet.CENTER);
+		drawer.strokeWeight(10);
 		drawer.image(img, x,y,width,height);
-		if(inMeleeAttack) {
-			int maxFrames = 10;
-			float a = meleeAttackDirectionAngle;
-			float m = meleeAnimationFrames;
-			float cx = x+width/2f;
-			float cy = y+height/2f;
-			drawer.line(cx, cy, cx+200*PApplet.cos(a), cy+200*PApplet.sin(a));
-			drawer.line(cx,cy,cx+200*PApplet.cos(PApplet.PI*m/maxFrames+a-PApplet.PI/2),cy+200*PApplet.sin(PApplet.PI*m/maxFrames+a-PApplet.PI/2));
-			meleeAnimationFrames++;
-			if(m>maxFrames)
-				inMeleeAttack=false;
-		}
+		drawer.rotate(angle);
+			Vector v = new Vector(x,y);
+			v.rotate(angle);
+			Vector v2 = new Vector(x,y);
+			v2.subtract(v);
+			drawer.translate(v2.x, v2.y);
+			drawer.image(img, x,y,width,height);
+			v2.draw(drawer, x, y);
+			drawer.point(x, y);
+			drawer.noFill();
+			drawer.strokeWeight(1);
+			drawer.rect(x,y,width,height);
+		drawer.rotate(-angle);
+		drawer.strokeWeight(10);
+		drawer.point(x, y);
 	}
 	
 	public void scale(float scaleFactor) {
@@ -52,11 +56,7 @@ public class Sprite {
 		return height;
 	}
 	
-	public void melee(float angle) {
-		meleeAttackDirectionAngle = angle;
-		meleeAnimationFrames=0;
-		inMeleeAttack=true;
-	}
+	
 	
 	
 }

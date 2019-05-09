@@ -1,25 +1,24 @@
 package testers;
 
+import game.Player;
 import game.Sprite;
 import processing.core.PApplet;
 
 public class EricTester extends PApplet {
-	private Sprite p;
+	private Player p;
 	
 	public void settings() {
 		size(500,500);
 	}
 	
 	public void setup() {
-		p=new Sprite(200,200,loadImage("resources\\images\\duck.png"));
+		p=new Player(200,200,loadImage("resources\\images\\duck.png"));
 		p.scale(0.25f);
 	}
 	
 	public void draw() {
 		background(255);
 		p.draw(this);
-		noFill();
-		rect(p.x,p.y,p.getWidth(),p.getHeight());
 	}
 	
 	public void mouseClicked() {
