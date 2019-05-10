@@ -40,34 +40,43 @@ public class Obstacle {
 
 	/**
 	 * Draws the Obstacle
+	 * 
 	 * @param drawer the PApplet on which the obstacle is drawn
 	 */
 	public void draw(PApplet drawer) {
 		drawer.rect(x - width / 2, y - height / 2, x + width / 2, y + width / 2);
 	}
+
 	/**
 	 * Returns the X coordinate of the center
+	 * 
 	 * @return center's x coordinate
 	 */
 	public int getX() {
 		return x;
 	}
+
 	/**
 	 * Returns the Y coordinate of the center
+	 * 
 	 * @return center's y coordinate
 	 */
 	public int getY() {
 		return y;
 	}
+
 	/**
 	 * Returns the obstacle's width
+	 * 
 	 * @return width
 	 */
 	public int getWidth() {
 		return width;
 	}
+
 	/**
 	 * Returns the obstacle's height
+	 * 
 	 * @return height
 	 */
 	public int getHeight() {
