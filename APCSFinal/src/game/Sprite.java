@@ -13,7 +13,7 @@ public class Sprite {
 		this.img=img;
 		width=img.width;
 		height=img.height;
-		angle=PApplet.PI/4;
+		angle=0;
 	}
 	
 	public void draw(PApplet drawer) {
@@ -48,7 +48,25 @@ public class Sprite {
 		return height;
 	}
 	
-	
+	public boolean intersects(Sprite other) {
+		Vector[] thisEdges = new Vector[2];
+		thisEdges[0] = new Vector(width*PApplet.cos(angle),width*PApplet.sin(angle));
+		thisEdges[1] = new Vector(height*PApplet.cos(angle),-height*PApplet.sin(angle));
+		Vector[][] points = new Vector[2][4];
+		Sprite[] sprites  = new Sprite[] {this,other};
+		for(int i:new int[]{0,1}) {
+			points[i][0] = new Vector(sprites[i].x,sprites[i].y);
+			points[i][1] = points[i][0].addN(thisEdges[0]);
+			points[i][2] = points[i][0].addN(thisEdges[1]);
+			points[i][3] = points[i][0].addN(thisEdges[0]).addN(thisEdges[1]);
+		}
+		for(int i:new int[] {0,1}) {
+			for(int j=0;j<4;j++) {
+				
+			}
+		}
+		return false;
+	}
 	
 	
 }

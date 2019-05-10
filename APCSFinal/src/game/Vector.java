@@ -41,6 +41,23 @@ public class Vector {
 	}
 	
 	/**
+	 * Adds other to this
+	 * @param other
+	 */
+	public void add(Vector other) {
+		x+=other.x;
+		y+=other.y;
+	}
+	
+	/**
+	 * Adds other to this
+	 * @param other
+	 */
+	public Vector addN(Vector other) {
+		return new Vector(x+other.x, y+other.y);
+	}
+	
+	/**
 	 * Subtracts other from this
 	 * @param other
 	 */
