@@ -49,21 +49,37 @@ public class Sprite {
 	}
 	
 	public boolean intersects(Sprite other) {
-		Vector[] thisEdges = new Vector[2];
-		thisEdges[0] = new Vector(width*PApplet.cos(angle),width*PApplet.sin(angle));
-		thisEdges[1] = new Vector(height*PApplet.cos(angle),-height*PApplet.sin(angle));
+		Vector[] edges = new Vector[2];
+		edges[0] = new Vector(width*PApplet.cos(angle),width*PApplet.sin(angle));
+		edges[1] = new Vector(height*PApplet.cos(angle),-height*PApplet.sin(angle));
+		edges[2] = new Vector(other.width*PApplet.cos(other.angle),other.width*PApplet.sin(other.angle));
+		edges[3] = new Vector(other.height*PApplet.cos(other.angle),-other.height*PApplet.sin(other.angle));
 		Vector[][] points = new Vector[2][4];
 		Sprite[] sprites  = new Sprite[] {this,other};
 		for(int i:new int[]{0,1}) {
 			points[i][0] = new Vector(sprites[i].x,sprites[i].y);
-			points[i][1] = points[i][0].addN(thisEdges[0]);
-			points[i][2] = points[i][0].addN(thisEdges[1]);
-			points[i][3] = points[i][0].addN(thisEdges[0]).addN(thisEdges[1]);
+			points[i][1] = points[i][0].addN(edges[0]);
+			points[i][2] = points[i][0].addN(edges[1]);
+			points[i][3] = points[i][0].addN(edges[0]).addN(edges[1]);
 		}
-		for(int i:new int[] {0,1}) {
-			for(int j=0;j<4;j++) {
-				
+		for(Vector v: edges) {
+			float maxThis=0,minThis=0,maxOther=0,minOther=0;
+			for(Vector b: points[0]) {
+				float l = b.getOrthogonalComponentTo(v).length();
+				if(l>maxThis)
+					maxThis=l;
+				else if(l<minThis)
+					minThis=l;
 			}
+			for(Vector b: points[1]) {
+				float l = b.getOrthogonalComponentTo(v).length();
+				if(l>maxOther)
+					maxOther=l;
+				else if(l<minOther)
+					minOther=l;
+			}
+			if(Math.min(maxThis, maxOther)<=Math.max(minThis, minOther))
+				return true;
 		}
 		return false;
 	}
