@@ -15,7 +15,7 @@ public class Vector {
 	
 	public Vector getParallelComponentTo(Vector other) {
 		Vector v = new Vector(other.x,other.y);
-		v.multiply(this.dot(other)/length()/other.length());//math magic
+		v.multiply(this.dot(other)/other.length()/other.length());//math magic
 		return v;
 	}
 	
@@ -41,6 +41,15 @@ public class Vector {
 	}
 	
 	/**
+	 * multiplies this vector by a scalar and stores the result in a new vector, leaving this unchanged
+	 * @param scalar
+	 * @return
+	 */
+	public Vector multiplyN(float scalar) {
+		return new Vector(x*scalar,y*scalar);
+	}
+	
+	/**
 	 * Adds other to this
 	 * @param other
 	 */
@@ -50,7 +59,7 @@ public class Vector {
 	}
 	
 	/**
-	 * Adds other to this
+	 * Adds other to this and stores the result in a new vector instead of changing this
 	 * @param other
 	 */
 	public Vector addN(Vector other) {
