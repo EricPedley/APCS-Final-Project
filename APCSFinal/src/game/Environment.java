@@ -2,6 +2,14 @@ package game;
 import java.util.ArrayList;
 
 public class Environment {
-	private Player player;
+	private Player players;
 	private ArrayList<Enemy> enemies;
+	
+	public Environment() {
+		
+	}
+	public Environment() {
+		
+	}
+	
 }
