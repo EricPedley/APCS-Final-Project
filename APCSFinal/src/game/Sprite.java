@@ -60,22 +60,26 @@ public class Sprite {
 
 	public boolean intersects(Sprite other, PApplet drawer) {//git please work
 		Vector[] edges = new Vector[4];
+		
 		edges[0] = new Vector(width * PApplet.cos(angle), width * PApplet.sin(angle));
 		edges[1] = new Vector(-height * PApplet.sin(angle), height * PApplet.cos(angle));
 		edges[2] = new Vector(other.width * PApplet.cos(other.angle), other.width * PApplet.sin(other.angle));
 		edges[3] = new Vector(-other.height * PApplet.sin(other.angle), other.height * PApplet.cos(other.angle));
-		edges[2].draw(drawer, other.x - other.width / 2, other.y - other.height / 2);
+		
 		//edges[3].draw(drawer, other.x - other.width / 2, other.y - other.height / 2);
 		Vector[][] points = new Vector[2][4];
 		Sprite[] sprites = new Sprite[] { this, other };
 		for (int i : new int[] { 0, 1 }) {
-			points[i][0] = new Vector(sprites[i].x - sprites[i].getWidth() / 2,
-					sprites[i].y - sprites[i].getHeight() / 2);
+			float l = (float)(Math.sqrt(sprites[i].width*sprites[i].width+sprites[i].height*sprites[i].height))/2;//length of half the diagonal of this rectangle
+			float a = -PApplet.atan(sprites[i].height/sprites[i].width);
+			points[i][0] = new Vector(sprites[i].x - l * PApplet.cos(a-sprites[i].angle),
+					sprites[i].y + l * PApplet.sin(a-sprites[i].angle));
 			points[i][1] = points[i][0].addN(edges[0+2*i]);
 			points[i][2] = points[i][0].addN(edges[1+2*i]);
 			points[i][3] = points[i][0].addN(edges[0]).addN(edges[1]);
 			points[i][0].draw(drawer, 0, 0);
 		}
+		edges[2].draw(drawer,points[1][0].x, points[1][0].y);
 		for (Vector v : edges) {//for each edge of both rectangles
 			v.rotate(PApplet.PI / 2);//v is the perpendicular vector to the edge
 			v.draw(drawer, 100, 100);
