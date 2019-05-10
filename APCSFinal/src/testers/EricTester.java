@@ -1,11 +1,13 @@
 package testers;
 
+import game.Enemy;
 import game.Player;
 import game.Sprite;
 import processing.core.PApplet;
 
 public class EricTester extends PApplet {
 	private Player p;
+	private Enemy e;
 	
 	public void settings() {
 		size(500,500);
@@ -26,6 +28,9 @@ public class EricTester extends PApplet {
 	}
 	
 	public void keyPressed() {
+		p.angle+= PApplet.PI/12;
+		if(p.angle>PApplet.PI*2)
+			p.angle=0;
 		p.x=mouseX;
 		p.y=mouseY;
 	}

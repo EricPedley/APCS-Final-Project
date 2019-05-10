@@ -15,7 +15,7 @@ public class Vector {
 	
 	public Vector getParallelComponentTo(Vector other) {
 		Vector v = new Vector(other.x,other.y);
-		v.multiply(this.dot(other)/length()/other.length());
+		v.multiply(this.dot(other)/length()/other.length());//math magic
 		return v;
 	}
 	
@@ -49,17 +49,21 @@ public class Vector {
 		y-=other.y;
 	}
 	/**
-	 * Rotates this vector clockwise by angle, in radians
+	 * Rotates this vector counter-clockwise(clockwise for usual upside-down coord system) by angle, in radians
 	 * @param angle
 	 */
 	public void rotate(float angle) {
 		float a  = PApplet.atan(y/x)+ ((x<0)? PApplet.PI:0);
 		float l = length();
-		x = length()*PApplet.cos(a+angle);
-		y = length()*PApplet.sin(a+angle);
+		x = l*PApplet.cos(a+angle);
+		y = l*PApplet.sin(a+angle);
 	}
 	
 	public void draw(PApplet drawer,float x, float y) {
 		drawer.line(x, y,x+this.x, y+this.y);
+	}
+	
+	public String toString() {
+		return "["+x+","+y+"]";
 	}
 }
