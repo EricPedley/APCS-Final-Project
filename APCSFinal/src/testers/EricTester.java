@@ -1,11 +1,13 @@
 package testers;
 
+import game.Enemy;
 import game.Player;
 import game.Sprite;
 import processing.core.PApplet;
 
 public class EricTester extends PApplet {
 	private Player p;
+	private Enemy e;
 	
 	public void settings() {
 		size(500,500);

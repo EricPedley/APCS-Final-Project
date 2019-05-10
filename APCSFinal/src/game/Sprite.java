@@ -18,11 +18,8 @@ public class Sprite {
 	
 	public void draw(PApplet drawer) {
 		drawer.imageMode(PApplet.CENTER);
-		drawer.rectMode(PApplet.CENTER);
-		drawer.strokeWeight(10);
-		//drawer.image(img, x,y,width,height);
 		drawer.pushMatrix();
-		drawer.rotate(angle);
+			drawer.rotate(angle);
 			Vector v = new Vector(x,y);
 			v.rotate(-angle);
 			Vector v2 = new Vector(x,y);
@@ -30,13 +27,7 @@ public class Sprite {
 			v2.multiply(-1);
 			drawer.translate(v2.x, v2.y);
 			drawer.image(img, x,y,width,height);
-			drawer.point(x, y);
-			drawer.noFill();
-			drawer.strokeWeight(1);
-			drawer.rect(x,y,width,height);
 		drawer.popMatrix();
-		drawer.strokeWeight(10);
-		drawer.point(x, y);
 	}
 	
 	public void scale(float scaleFactor) {

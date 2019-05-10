@@ -15,7 +15,7 @@ public class Vector {
 	
 	public Vector getParallelComponentTo(Vector other) {
 		Vector v = new Vector(other.x,other.y);
-		v.multiply(this.dot(other)/length()/other.length());
+		v.multiply(this.dot(other)/length()/other.length());//math magic
 		return v;
 	}
 	
