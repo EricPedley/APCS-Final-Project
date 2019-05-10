@@ -10,7 +10,7 @@ public class EricTester extends PApplet {
 	private Enemy e;
 	
 	public void settings() {
-		size(500,500);
+		size(700,700);
 	}
 	
 	public void setup() {
@@ -39,7 +39,6 @@ public class EricTester extends PApplet {
 	}
 	
 	public void keyPressed() {
-		
 		p.x=mouseX;
 		p.y=mouseY;
 	}
