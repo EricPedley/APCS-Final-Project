@@ -18,6 +18,7 @@ public class Sprite {
 	
 	public void draw(PApplet drawer) {
 		drawer.imageMode(PApplet.CENTER);
+		//drawer.rectMode(PApplet.CENTER);
 		drawer.pushMatrix();
 			drawer.rotate(angle);
 			Vector v = new Vector(x,y);
@@ -27,6 +28,8 @@ public class Sprite {
 			v2.multiply(-1);
 			drawer.translate(v2.x, v2.y);
 			drawer.image(img, x,y,width,height);
+			drawer.noFill();
+			//drawer.rect(x,y,width,height);
 		drawer.popMatrix();
 	}
 	
@@ -54,8 +57,8 @@ public class Sprite {
 		edges[1] = new Vector(-height*PApplet.sin(angle),height*PApplet.cos(angle));
 		edges[2] = new Vector(other.width*PApplet.cos(other.angle),other.width*PApplet.sin(other.angle));
 		edges[3] = new Vector(-other.height*PApplet.sin(other.angle),other.height*PApplet.cos(other.angle));
-		edges[2].draw(drawer, other.x-other.width/2, other.y-other.width/2);
-		edges[3].draw(drawer, other.x-other.width/2, other.y-other.width/2);
+		edges[2].draw(drawer, other.x-other.width/2, other.y-other.height/2);
+		edges[3].draw(drawer, other.x-other.width/2, other.y-other.height/2);
 		Vector[][] points = new Vector[2][4];
 		Sprite[] sprites  = new Sprite[] {this,other};
 		for(int i:new int[]{0,1}) {
@@ -63,6 +66,7 @@ public class Sprite {
 			points[i][1] = points[i][0].addN(edges[0]);
 			points[i][2] = points[i][0].addN(edges[1]);
 			points[i][3] = points[i][0].addN(edges[0]).addN(edges[1]);
+			points[i][0].draw(drawer, 0, 0);
 		}
 		for(Vector v: edges) {
 			float maxThis=0,minThis=0,maxOther=0,minOther=0;
@@ -81,10 +85,10 @@ public class Sprite {
 				else if(l<minOther)
 					minOther=l;
 			}
-			if(Math.min(maxThis, maxOther)>=Math.max(minThis, minOther))
-				return true;
+			if(!(Math.min(maxThis, maxOther)>=Math.max(minThis, minOther)))
+				return false;
 		}
-		return false;
+		return true;
 	}
 	
 	
