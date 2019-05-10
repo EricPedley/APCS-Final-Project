@@ -12,4 +12,8 @@ public class Environment {
 		
 	}
 	
+	public void draw(PApplet p) {
+		
+	}
+	
 }

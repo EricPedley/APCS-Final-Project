@@ -91,7 +91,6 @@ public class Level {
 							
 							tileType[i][count] = Integer.parseInt(line.substring(0,line.indexOf(',')));
 							i++;
-							//System.out.println(gameData[i][count]);
 						}
 						count++;
 					}
@@ -120,9 +119,9 @@ public class Level {
 			enemyProjectiles.remove(p);
 	}
 	
-	public void addProjectile(Projectile p,boolean isHero) {
-		if(isHero)
-		myProjectiles.add(p);
+	public void addProjectile(Projectile p,boolean isPlayer) {
+		if(isPlayer)
+			myProjectiles.add(p);
 		else
 			enemyProjectiles.add(p);
 	}
@@ -138,6 +137,7 @@ public class Level {
 	public ArrayList<Projectile> getEnemyProjectiles(){
 		return this.enemyProjectiles;
 	}
+	
 	
 	public void draw(PApplet p) {
 		
@@ -185,14 +185,16 @@ public class Level {
 		
 	}
 	
+	
+	
 	public Player getPlayer() {
 		return p;
 	}
 	
 
-	public ArrayList<Projectile> getMyProjectiles() {
+/*	public ArrayList<Projectile> getMyProjectiles() {
 		// TODO Auto-generated method stub
 		return myProjectiles;
-	}
+	}*/
 }
 }
