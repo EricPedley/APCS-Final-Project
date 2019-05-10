@@ -26,6 +26,9 @@ public class EricTester extends PApplet {
 	}
 	
 	public void keyPressed() {
+		p.angle+= PApplet.PI/12;
+		if(p.angle>PApplet.PI*2)
+			p.angle=0;
 		p.x=mouseX;
 		p.y=mouseY;
 	}
