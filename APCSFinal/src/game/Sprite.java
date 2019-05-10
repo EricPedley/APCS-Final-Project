@@ -77,7 +77,6 @@ public class Sprite {
 			points[i][0].draw(drawer, 0, 0);
 		}
 		for (Vector v : edges) {//for each edge of both rectangles
-		//Vector v = edges[2];
 			v.rotate(PApplet.PI / 2);//v is the perpendicular vector to the edge
 			v.draw(drawer, 100, 100);
 			float maxThis = 0, minThis = 1000000, maxOther = 0, minOther = 1000000;
