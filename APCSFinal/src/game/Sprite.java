@@ -58,7 +58,7 @@ public class Sprite {
 		return height;
 	}
 
-	public boolean intersects(Sprite other, PApplet drawer) {
+	public boolean intersects(Sprite other, PApplet drawer) {//git please work
 		Vector[] edges = new Vector[4];
 		edges[0] = new Vector(width * PApplet.cos(angle), width * PApplet.sin(angle));
 		edges[1] = new Vector(-height * PApplet.sin(angle), height * PApplet.cos(angle));
