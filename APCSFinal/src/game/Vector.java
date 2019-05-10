@@ -85,8 +85,32 @@ public class Vector {
 		y = l*PApplet.sin(a+angle);
 	}
 	
+	/**
+	 * Does the same thing as rotate but stores the change in a new vector and doesn't change this vector
+	 * @param angle
+	 * @return
+	 */
+	public Vector rotateN(float angle) {
+		float a  = PApplet.atan(y/x)+ ((x<0)? PApplet.PI:0);
+		float l = length();
+		return new Vector(l*PApplet.cos(a+angle),l*PApplet.sin(a+angle));
+	}
+	
+	/**
+	 * draws this vector as a line starting at (x,y)
+	 * @param drawer
+	 * @param x
+	 * @param y
+	 */
 	public void draw(PApplet drawer,float x, float y) {
 		drawer.line(x, y,x+this.x, y+this.y);
+	}
+	/**
+	 * Draws this vector as a point
+	 * @param drawer
+	 */
+	public void draw(PApplet drawer) {
+		drawer.point(x, y);
 	}
 	
 	public String toString() {

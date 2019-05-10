@@ -77,28 +77,37 @@ public class Sprite {
 			points[i][1] = points[i][0].addN(edges[0+2*i]);
 			points[i][2] = points[i][0].addN(edges[1+2*i]);
 			points[i][3] = points[i][0].addN(edges[0]).addN(edges[1]);
-			points[i][0].draw(drawer, 0, 0);
 		}
 		edges[2].draw(drawer,points[1][0].x, points[1][0].y);
-		for (Vector v : edges) {//for each edge of both rectangles
-			v.rotate(PApplet.PI / 2);//v is the perpendicular vector to the edge
+		edges[3].draw(drawer,points[1][0].x, points[1][0].y);
+		//for (Vector v : edges) {//for each edge of both rectangles
+		Vector v = edges[2];
+			v=v.rotateN(PApplet.PI / 2);//v is the perpendicular vector to the edge
 			v.draw(drawer, 100, 100);
 			float maxThis = 0, minThis = 1000000, maxOther = 0, minOther = 1000000;
 			for (Vector b : points[0]) {//for each point of the 1st rectangle
-				float l = b.getParallelComponentTo(v).length();//l is the projection of the point onto v
+				Vector parallel = b.getParallelComponentTo(v);
+				float l = parallel.length();//l is the projection of the point onto v
+				if(!floatEquals(parallel.x,0)&&parallel.x<0||!floatEquals(parallel.y,0)&&parallel.y<0)
+					l*=-1;
 				//System.out.println(l+"|"+b.y);
 				if (l > maxThis)
 					maxThis = l;
 				else if (l < minThis)
 					minThis = l;
 			}
-			for (Vector b : points[1]) {
-				float l = b.getParallelComponentTo(v).length();
+			for (Vector b : points[1]) {//for each point of the 2nd rectangle
+				Vector parallel = b.getParallelComponentTo(v);
+				System.out.println(parallel);
+				float l = parallel.length();//l is the projection of the point onto v
+				if(!floatEquals(parallel.x,0)&&parallel.x<0||!floatEquals(parallel.y,0)&&parallel.y<0)
+					l*=-1;
 				if (l > maxOther)
 					maxOther = l;
 				else if (l < minOther)
 					minOther = l;
 			}
+			//System.out.println(maxThis+"|"+minThis+"|"+maxOther+"|"+minOther);
 			drawer.strokeWeight(20);
 			drawer.stroke(255,0,0);
 			drawer.point(maxThis, 200);
@@ -111,8 +120,12 @@ public class Sprite {
 			drawer.strokeWeight(1);
 			if (!(Math.min(maxThis, maxOther) >= Math.max(minThis, minOther)))
 				return false;
-		}
+		//}
 		return true;
+	}
+	
+	private boolean floatEquals(float a, float b) {
+		return Math.abs(a-b)<0.0001;
 	}
 
 }
