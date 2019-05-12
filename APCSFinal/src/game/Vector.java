@@ -116,4 +116,12 @@ public class Vector {
 	public String toString() {
 		return "["+x+","+y+"]";
 	}
+
+	/**
+	 * Returns the angle of this vector in radians
+	 * @return
+	 */
+	public float getAngle() {
+		return PApplet.atan(y/x)+ ((x<0)? PApplet.PI:0);
+	}
 }
