@@ -58,7 +58,7 @@ public class Sprite {
 		return height;
 	}
 
-	public boolean intersects(Sprite other) {
+	public boolean intersects(Sprite other,PApplet drawer) {
 		Vector[] edges = new Vector[4];
 
 		edges[0] = new Vector(width * PApplet.cos(angle), width * PApplet.sin(angle));
@@ -78,11 +78,12 @@ public class Sprite {
 			points[i][2] = points[i][0].addN(edges[1 + 2 * i]);
 			points[i][3] = points[i][0].addN(edges[0]).addN(edges[1]);
 		}
+		int count =0;
 		for (Vector v : edges) {// for each edge of both rectangles
-			v = v.rotateN(PApplet.PI / 2);// v is the perpendicular vector to the edge
+			//v = v.rotateN(PApplet.PI / 2);// v is the perpendicular vector to the edge
 			float maxThis = 0, minThis = 1000000, maxOther = 0, minOther = 1000000;
 			for (Vector b : points[0]) {// for each point of the 1st rectangle
-				Vector parallel = b.getParallelComponentTo(v);
+				Vector parallel = b.getOrthogonalComponentTo(v);
 				float l = parallel.length();// l is the projection of the point onto v
 				if (l > maxThis)
 					maxThis = l;
@@ -90,13 +91,23 @@ public class Sprite {
 					minThis = l;
 			}
 			for (Vector b : points[1]) {// for each point of the 2nd rectangle
-				Vector parallel = b.getParallelComponentTo(v);
+				Vector parallel = b.getOrthogonalComponentTo(v);
 				float l = parallel.length();// l is the projection of the point onto v
 				if (l > maxOther)
 					maxOther = l;
 				if (l < minOther)
 					minOther = l;
 			}
+			drawer.strokeWeight(20);
+			drawer.stroke(255,0,0);
+			drawer.point(maxThis, 200+count);
+			drawer.stroke(255,255,0);
+			drawer.point(minThis, 200+count);
+			drawer.stroke(0,0,255);
+			drawer.point(maxOther, 200+count);
+			drawer.stroke(0,255,255);
+			drawer.point(minOther, 200+count);
+			count+=100;
 			if (!(Math.min(maxThis, maxOther) >= Math.max(minThis, minOther)))
 				return false;
 		}

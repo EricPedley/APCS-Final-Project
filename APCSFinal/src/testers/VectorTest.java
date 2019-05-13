@@ -11,7 +11,7 @@ public class VectorTest extends PApplet {
 	}
 	
 	public void setup() {
-		v2 = new Vector(0,200);
+		v2 = new Vector(120,200);
 	}
 	
 	public void draw() {
@@ -22,7 +22,9 @@ public class VectorTest extends PApplet {
 		stroke(0,255,0);
 		v2.draw(this, width/2, height/2);
 		stroke(0,0,255);
-		v1.getParallelComponentTo(v2).draw(this, width/2, height/2);
+		Vector v3 = v1.getParallelComponentTo(v2);
+		v3.draw(this, width/2, height/2);
+		v1.getOrthogonalComponentTo(v2).draw(this,width/2+v3.x,height/2+v3.y);
 		stroke(0);
 		line(mouseX,mouseY,0,mouseY);
 	}

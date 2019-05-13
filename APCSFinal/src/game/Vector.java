@@ -20,7 +20,7 @@ public class Vector {
 	}
 	
 	public Vector getOrthogonalComponentTo(Vector other) {
-		Vector v = new Vector(other.x,other.y);
+		Vector v = new Vector(x,y);
 		v.subtract(getParallelComponentTo(other));
 		return v;
 	}

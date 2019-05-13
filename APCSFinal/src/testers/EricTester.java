@@ -14,7 +14,7 @@ public class EricTester extends PApplet {
 	}
 	
 	public void setup() {
-		p=new Player(200,200,loadImage("resources\\images\\duck.png"));
+		p=new Player(200,200,loadImage("resources\\images\\pacman.jpg"));
 		e=new Enemy(200,200,loadImage("resources\\images\\god.png"));
 		p.scale(0.25f);
 		e.scale(0.5f);
@@ -24,7 +24,7 @@ public class EricTester extends PApplet {
 		background(255);
 		p.draw(this);
 		e.draw(this);
-		if(e.intersects(p))
+		if(e.intersects(p,this))
 			System.out.println("yayy");
 	}
 	
