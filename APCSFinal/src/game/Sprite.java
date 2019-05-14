@@ -74,9 +74,17 @@ public class Sprite {
 			float a = -PApplet.atan(sprites[i].height / sprites[i].width);
 			points[i][0] = new Vector(sprites[i].x - l * PApplet.cos(a - sprites[i].angle),
 					sprites[i].y + l * PApplet.sin(a - sprites[i].angle));
+			drawer.stroke(255,0,0);
+			points[i][0].draw(drawer);
 			points[i][1] = points[i][0].addN(edges[0 + 2 * i]);
+			drawer.stroke(255,255,0);
+			points[i][1].draw(drawer);
 			points[i][2] = points[i][0].addN(edges[1 + 2 * i]);
-			points[i][3] = points[i][0].addN(edges[0]).addN(edges[1]);
+			drawer.stroke(0,0,255);
+			points[i][2].draw(drawer);
+			points[i][3] = points[i][0].addN(edges[0+ 2 * i]).addN(edges[1+ 2 * i]);
+			drawer.stroke(0,255,255);
+			points[i][3].draw(drawer);
 		}
 		int count =0;
 		for (Vector v : edges) {// for each edge of both rectangles
