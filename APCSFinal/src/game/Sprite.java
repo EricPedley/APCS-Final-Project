@@ -58,7 +58,7 @@ public class Sprite {
 		return height;
 	}
 
-	public boolean intersects(Sprite other,PApplet drawer) {
+	public boolean intersects(Sprite other) {
 		Vector[] edges = new Vector[4];
 
 		edges[0] = new Vector(width * PApplet.cos(angle), width * PApplet.sin(angle));
@@ -74,19 +74,19 @@ public class Sprite {
 			float a = -PApplet.atan(sprites[i].height / sprites[i].width);
 			points[i][0] = new Vector(sprites[i].x - l * PApplet.cos(a - sprites[i].angle),
 					sprites[i].y + l * PApplet.sin(a - sprites[i].angle));
-			drawer.stroke(255,0,0);
-			points[i][0].draw(drawer);
+			//drawer.stroke(255,0,0);
+			//points[i][0].draw(drawer);
 			points[i][1] = points[i][0].addN(edges[0 + 2 * i]);
-			drawer.stroke(255,255,0);
-			points[i][1].draw(drawer);
+			//drawer.stroke(255,255,0);
+			//points[i][1].draw(drawer);
 			points[i][2] = points[i][0].addN(edges[1 + 2 * i]);
-			drawer.stroke(0,0,255);
-			points[i][2].draw(drawer);
+			//drawer.stroke(0,0,255);
+			//points[i][2].draw(drawer);
 			points[i][3] = points[i][0].addN(edges[0+ 2 * i]).addN(edges[1+ 2 * i]);
-			drawer.stroke(0,255,255);
-			points[i][3].draw(drawer);
+			//drawer.stroke(0,255,255);
+			//points[i][3].draw(drawer);
 		}
-		int count =0;
+		//int count =0;
 		for (Vector v : edges) {// for each edge of both rectangles
 			//v = v.rotateN(PApplet.PI / 2);// v is the perpendicular vector to the edge
 			float maxThis = 0, minThis = 1000000, maxOther = 0, minOther = 1000000;
@@ -106,16 +106,16 @@ public class Sprite {
 				if (l < minOther)
 					minOther = l;
 			}
-			drawer.strokeWeight(20);
-			drawer.stroke(255,0,0);
-			drawer.point(maxThis, 200+count);
-			drawer.stroke(255,255,0);
-			drawer.point(minThis, 200+count);
-			drawer.stroke(0,0,255);
-			drawer.point(maxOther, 200+count);
-			drawer.stroke(0,255,255);
-			drawer.point(minOther, 200+count);
-			count+=100;
+//			drawer.strokeWeight(20);
+//			drawer.stroke(255,0,0);
+//			drawer.point(maxThis, 200+count);
+//			drawer.stroke(255,255,0);
+//			drawer.point(minThis, 200+count);
+//			drawer.stroke(0,0,255);
+//			drawer.point(maxOther, 200+count);
+//			drawer.stroke(0,255,255);
+//			drawer.point(minOther, 200+count);
+//			count+=100;
 			if (!(Math.min(maxThis, maxOther) >= Math.max(minThis, minOther)))
 				return false;
 		}

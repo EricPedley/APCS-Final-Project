@@ -24,7 +24,7 @@ public class EricTester extends PApplet {
 		background(255);
 		p.draw(this);
 		e.draw(this);
-		if(e.intersects(p,this))
+		if(e.intersects(p))
 			System.out.println("yayy");
 	}
 	
