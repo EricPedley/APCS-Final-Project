@@ -53,13 +53,14 @@ public class Sprite {
 		y += dY;
 	}
 	
-	public void updatePos() {
+	public void updatePos(Level l,PApplet debugger) {
 		vel.add(acc);
+		int xScaled = (int)(x/l.TILE_SIZE);
+		int yScaled = (int)(y/l.TILE_SIZE);
+		debugger.fill(0);
+		debugger.rect(xScaled*l.TILE_SIZE, yScaled*l.TILE_SIZE, l.TILE_SIZE, l.TILE_SIZE);
 		x+=vel.x;
 		y+=vel.y;
-		//angle= vel.getAngle()+PApplet.PI/2;
-		if(Double.isNaN(angle))
-			angle=0;
 	}
 
 	public float getWidth() {
@@ -134,8 +135,5 @@ public class Sprite {
 		return true;
 	}
 	
-	public void tryToMove() {
-		
-	}
 
 }

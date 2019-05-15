@@ -44,6 +44,10 @@ public class Level {
 		this.keys=keys;
 	}
 	
+	public int[][] getTileArray() {
+		return tileType;
+	}
+	
 	public void setPlayer(Player p) {
 		this.p = p;
 	}
@@ -57,8 +61,15 @@ public class Level {
 	
 
 	public void draw(PApplet drawer) {
+		drawer.noFill();
+		drawer.strokeWeight(1);
+		for(int i=0;i<40;i++) {
+			for(int j=0;j<40;j++) {
+				drawer.rect(i*TILE_SIZE, j*TILE_SIZE, TILE_SIZE, TILE_SIZE);
+			}
+		}
 		handleKeys();
-		p.updatePos();
+		p.updatePos(this,drawer);
 		p.draw(drawer);
 	}
 	
