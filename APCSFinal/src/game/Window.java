@@ -11,11 +11,10 @@ public class Window extends PApplet{
 	private float startX = 300, startY = 200;
 	
 	public void setup() {
-		//TileImageLoader.loadTileImages(this);
-		//ImageLoader.setUp(this);
-		//PImage leftImage = loadImage("Images"+fS+"Characters"+fS+"Main Character"+fS+"Main Character Left.gif");
-		//PImage rightImage = loadImage("Images"+fS+"Characters"+fS+"Main Character"+fS+"Main Character Right.gif");
-		p = new Player(startX,startY,);
+		ImageLoader.setUp(this);
+		PImage leftImage = loadImage("Images"+fS+"Characters"+fS+"Main Character"+fS+"Main Character Left.gif");
+		PImage rightImage = loadImage("Images"+fS+"Characters"+fS+"Main Character"+fS+"Main Character Right.gif");
+		p = new Player(startX,startY,m.getActiveRoom());
 		p.setHp(10);
 		p.setSpeed(5);
 		
