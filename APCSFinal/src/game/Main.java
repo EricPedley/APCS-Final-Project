@@ -10,7 +10,7 @@ import processing.core.PApplet;
 public class Main {
 	public static void main(String args[]) {
 
-		//Room r = new Room();
+		//Level l = new Level();
 		Window drawing = new Window();
 		PApplet.runSketch(new String[]{""}, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
