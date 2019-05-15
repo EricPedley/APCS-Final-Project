@@ -56,6 +56,10 @@ public class Level {
 		
 	}
 
+	/**
+	 * 
+	 * @param filename
+	 */
 	private void readData (String filename) {
 		File dataFile = new File(filename);
 
