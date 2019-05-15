@@ -56,9 +56,56 @@ public class Level {
 		
 	}
 
+	/**
+	 * 
+	 * @param filename
+	 */
+	private void readData (String filename) {
+		File dataFile = new File(filename);
+
+		if (dataFile.exists()) {
+			int count = 0;
+
+			FileReader reader = null;
+			Scanner in = null;
+			try {
+					reader = new FileReader(dataFile);
+					in = new Scanner(reader);
+					String s = in.nextLine();
+					x = Integer.parseInt(s.substring(0, s.indexOf(',')));
+					s = s.substring(s.indexOf(',') + 1); 
+					y = Integer.parseInt(s.substring(0, s.indexOf(',')));
+					tileType = new int[x][y];
+					
+
+					while (in.hasNext()) {
+						String line = in.nextLine();
+						for(int i = 0; line.indexOf(',') != -1; line = line.substring(line.indexOf(',') + 1) ) {
+							
+							
+							tileType[i][count] = Integer.parseInt(line.substring(0,line.indexOf(',')));
+							i++;
+							//System.out.println(gameData[i][count]);
+						}
+						count++;
+					}
+			} catch (IOException ex) {
+				throw new IllegalArgumentException("Data file " + filename + " cannot be read.");
+			} finally {
+				if (in != null)
+					in.close();
+			}
+			
+		} else {
+			throw new IllegalArgumentException("Data file " + filename + " does not exist.");
+		}
+	}
 
 	
-
+	/**
+	 *
+	 * @param drawer
+	 */
 	public void draw(PApplet drawer) {
 		
 		handleKeys();
