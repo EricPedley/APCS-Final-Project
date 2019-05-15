@@ -4,6 +4,11 @@ import processing.core.PApplet;
 
 public class Vector {
 	public float x,y;
+	
+	public Vector() {
+		this(0,0);
+	}
+	
 	public Vector(float x, float y) {
 		this.x=x;
 		this.y=y;
@@ -123,5 +128,10 @@ public class Vector {
 	 */
 	public float getAngle() {
 		return PApplet.atan(y/x)+ ((x<0)? PApplet.PI:0);
+	}
+	
+	public void scaleMagnitudeTo(float magnitude) {
+		float l = length();
+		multiply(magnitude/l);
 	}
 }

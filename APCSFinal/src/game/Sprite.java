@@ -5,6 +5,7 @@ import processing.core.PImage;
 
 public class Sprite {
 	public float x, y, angle;
+	public Vector vel,acc;
 	protected float width, height;
 	private PImage img;
 
@@ -15,6 +16,8 @@ public class Sprite {
 		width = img.width;
 		height = img.height;
 		angle = 0;
+		vel=new Vector();
+		acc=new Vector();
 	}
 
 	/**
@@ -45,9 +48,18 @@ public class Sprite {
 		height *= scaleFactor;
 	}
 
-	public void move(float dX, float dY) {
+	public void moveBy(float dX, float dY) {
 		x += dX;
 		y += dY;
+	}
+	
+	public void updatePos() {
+		vel.add(acc);
+		x+=vel.x;
+		y+=vel.y;
+		//angle= vel.getAngle()+PApplet.PI/2;
+		if(Double.isNaN(angle))
+			angle=0;
 	}
 
 	public float getWidth() {
