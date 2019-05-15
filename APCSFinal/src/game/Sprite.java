@@ -55,10 +55,29 @@ public class Sprite {
 	
 	public void updatePos(Level l,PApplet debugger) {
 		vel.add(acc);
-		int xScaled = (int)(x/l.TILE_SIZE);
-		int yScaled = (int)(y/l.TILE_SIZE);
+		debugger.noFill();
+		debugger.strokeWeight(1);
+		for(int i=0;i<40;i++) {
+			for(int j=0;j<40;j++) {
+				debugger.rect(i*Level.TILE_SIZE, j*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+			}
+		}
 		debugger.fill(0);
-		debugger.rect(xScaled*l.TILE_SIZE, yScaled*l.TILE_SIZE, l.TILE_SIZE, l.TILE_SIZE);
+		int xScaled = (int)(x/Level.TILE_SIZE);
+		int yScaled = (int)(y/Level.TILE_SIZE);
+		float xRatio = x/Level.TILE_SIZE-xScaled;
+		float yRatio = y/Level.TILE_SIZE-yScaled;
+		if(xRatio>0.5) {
+			debugger.rect((xScaled+1)*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+		} else {
+			debugger.rect((xScaled-1)*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+		}
+		if(yRatio>0.5) {
+			debugger.rect(xScaled*Level.TILE_SIZE, (yScaled+1)*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+		} else {
+			debugger.rect(xScaled*Level.TILE_SIZE, (yScaled-1)*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+		}
+		debugger.rect(xScaled*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
 		x+=vel.x;
 		y+=vel.y;
 	}

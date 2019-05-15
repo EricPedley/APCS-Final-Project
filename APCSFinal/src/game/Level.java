@@ -24,7 +24,7 @@ public class Level {
 	
 	//Constuctors
 	public Level(int levelNumber, int numEnemies,PApplet loader) {
-		p= new Player(200,200,loader.loadImage("resources"+fs+"images"+fs+"god.png"));
+		p= new Player(200,200,loader.loadImage("resources"+fs+"images"+fs+"halo.png"));
 		p.scale(0.25f);
 		myProjectiles = new ArrayList<Projectile>();
 		enemyProjectiles = new ArrayList<Projectile>();
@@ -60,13 +60,7 @@ public class Level {
 	
 
 	public void draw(PApplet drawer) {
-		drawer.noFill();
-		drawer.strokeWeight(1);
-		for(int i=0;i<40;i++) {
-			for(int j=0;j<40;j++) {
-				drawer.rect(i*TILE_SIZE, j*TILE_SIZE, TILE_SIZE, TILE_SIZE);
-			}
-		}
+		
 		handleKeys();
 		p.updatePos(this,drawer);
 		p.draw(drawer);
