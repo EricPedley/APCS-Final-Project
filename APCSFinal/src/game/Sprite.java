@@ -67,15 +67,17 @@ public class Sprite {
 		int yScaled = (int)(y/Level.TILE_SIZE);
 		float xRatio = x/Level.TILE_SIZE-xScaled;
 		float yRatio = y/Level.TILE_SIZE-yScaled;
+		int offSetY = 0;
+		if(yRatio<0.5)
+			offSetY=-1;
+		else
+			offSetY=1;
 		if(xRatio>0.5) {
+			debugger.rect((xScaled+1)*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
 			debugger.rect((xScaled+1)*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
 		} else {
 			debugger.rect((xScaled-1)*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
-		}
-		if(yRatio>0.5) {
-			debugger.rect(xScaled*Level.TILE_SIZE, (yScaled+1)*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
-		} else {
-			debugger.rect(xScaled*Level.TILE_SIZE, (yScaled-1)*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+			debugger.rect((xScaled+1)*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
 		}
 		debugger.rect(xScaled*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
 		x+=vel.x;
