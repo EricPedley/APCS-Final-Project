@@ -24,6 +24,9 @@ public class Level {
 	
 	//Constuctors
 	public Level(int levelNumber, int numEnemies,PApplet loader) {
+		p= new Player(200,200,loader.loadImage("resources"+fs+"images"+fs+"halo.png"));
+		p.scale(0.25f);
+		readData("Levels"+fs+"Test_Level.txt");
 		p= new Player(200,200,loader.loadImage("resources"+fs+"images"+fs+"knight.png"));
 		p.scale(0.1f);
 		myProjectiles = new ArrayList<Projectile>();

@@ -24,7 +24,7 @@ public class Window extends PApplet{
 	//set up
 	public void setup() {
 		state = GameState.INGAME;
-		currentLevel = new Level(2, 2,this);
+		currentLevel = new Level(1, 2,this);
 		currentLevel.passKeysReference(keys);
 	}
 	
