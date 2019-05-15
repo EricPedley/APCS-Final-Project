@@ -79,9 +79,8 @@ public class Level {
 		if(v.length()>0) {
 			v.scaleMagnitudeTo(1f);
 			p.angle=v.getAngle()+PApplet.PI/2;
-			p.x+=5*v.x;
-			p.y+=5*v.y;
 		}
+		p.vel=v.multiplyN(5f);
 	}
 	
 	

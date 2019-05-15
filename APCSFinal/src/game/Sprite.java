@@ -133,9 +133,9 @@ public class Sprite {
 		}
 		return true;
 	}
-
-	private boolean floatEquals(float a, float b) {
-		return Math.abs(a - b) < 0.0001;
+	
+	public void tryToMove() {
+		
 	}
 
 }
