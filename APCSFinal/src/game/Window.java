@@ -3,21 +3,19 @@ package game;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Window{
+public class Window extends PApplet{
 
-	private Map m = new Map();
 	private boolean[] keys = new boolean[500];
 	private static String fS = System.getProperty("file.separator");
 	private Player p;
 	private float startX = 300, startY = 200;
 	
 	public void setup() {
-		TileImageLoader.loadTileImages(this);
-		ImageLoader.setUp(this);
-		 PImage leftImage = loadImage("Images"+fS+"Characters"+fS+"Main Character"+fS+"Main Character Left.gif");
-		 PImage rightImage = loadImage("Images"+fS+"Characters"+fS+"Main Character"+fS+"Main Character Right.gif");
-		m=new Map();
-		p = new Player(startX,startY,m.getActiveRoom());
+		//TileImageLoader.loadTileImages(this);
+		//ImageLoader.setUp(this);
+		//PImage leftImage = loadImage("Images"+fS+"Characters"+fS+"Main Character"+fS+"Main Character Left.gif");
+		//PImage rightImage = loadImage("Images"+fS+"Characters"+fS+"Main Character"+fS+"Main Character Right.gif");
+		p = new Player(startX,startY,);
 		p.setHp(10);
 		p.setSpeed(5);
 		
