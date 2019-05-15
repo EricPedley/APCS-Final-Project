@@ -12,20 +12,19 @@ import processing.core.PImage;
 public class Level {
 	private int[][] tileType;
 	private int x = 42, y = 15;
-	private Tile[] tileIndices = new Tile[20];
+	//private Tile[] tileIndices = new Tile[20];
 	private ArrayList<Projectile> myProjectiles;
 	private ArrayList<Projectile> enemyProjectiles;
 	private ArrayList<Enemy> enemies;
 	public static final int TILE_SIZE = 64; 
 	private String fs = System.getProperty("file.separator");
 	private int numEnemies;
-	private boolean upDoor, downDoor, rightDoor, leftDoor;
 	private Player p;
 	private boolean[] keys;
 	
 	//Constuctors
 	public Level(int levelNumber, int numEnemies,PApplet loader) {
-		p= new Player(200,200,loader.loadImage("resources\\images\\god.png"));
+		p= new Player(200,200,loader.loadImage("resources"+fs+"images"+fs+"god.png"));
 		p.scale(0.25f);
 		myProjectiles = new ArrayList<Projectile>();
 		enemyProjectiles = new ArrayList<Projectile>();
