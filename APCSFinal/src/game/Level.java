@@ -107,7 +107,6 @@ public class Level {
 	 * @param drawer
 	 */
 	public void draw(PApplet drawer) {
-		
 		handleKeys();
 		p.updatePos(this,drawer);
 		p.draw(drawer);

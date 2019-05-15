@@ -65,28 +65,32 @@ public class Sprite {
 			}
 		}
 		debugger.fill(0);
-		for(Vector v: getCoordsScaledToTiles()) {
+		ArrayList<Vector> scaledCoords = getCoordsScaledToTiles();
+		for(Vector v: scaledCoords) {
 			debugger.rect(v.x*Level.TILE_SIZE,v.y*Level.TILE_SIZE,Level.TILE_SIZE,Level.TILE_SIZE);
 		}
-//		int xScaled = (int)(x/Level.TILE_SIZE);
-//		int yScaled = (int)(y/Level.TILE_SIZE);
-//		float xRatio = x/Level.TILE_SIZE-xScaled;
-//		float yRatio = y/Level.TILE_SIZE-yScaled;
-//		int offSetY = (int) Math.round((yRatio-0.6)*2);
-////		if(yRatio<0.5) {
-////			offSetY=-1;
-////		} else {
-////			offSetY=1;
-////		}
-//		debugger.rect(xScaled*Level.TILE_SIZE, (yScaled+offSetY)*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
-//		if(xRatio>0.5) {
-//			debugger.rect((xScaled+1)*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
-//			debugger.rect((xScaled+1)*Level.TILE_SIZE, (yScaled+offSetY)*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
-//		} else {
-//			debugger.rect((xScaled-1)*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
-//			debugger.rect((xScaled-1)*Level.TILE_SIZE, (yScaled+offSetY)*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
-//		}
-//		debugger.rect(xScaled*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+		
+		Vector[] topTiles = new Vector[] {scaledCoords.get(0),null,null};
+		for(Vector v: scaledCoords) {
+			if(v.y<topTiles[0].y) {
+				topTiles[0]=v;
+				topTiles[1]=null;
+				topTiles[2]=null;
+			} else if(v.y==topTiles[0].y) {
+				if(topTiles[1]==null)
+					topTiles[1]=v;
+				else {
+					System.out.println("does stuff");
+					topTiles[2]=v;
+				}
+			}
+		}
+		debugger.fill(255,0,0);
+		for(Vector v: topTiles) {
+			if(v!=null)
+				debugger.rect(v.x*Level.TILE_SIZE,v.y*Level.TILE_SIZE,Level.TILE_SIZE,Level.TILE_SIZE);
+		}
+
 		x+=vel.x;
 		y+=vel.y;
 	}
