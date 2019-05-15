@@ -10,6 +10,7 @@ public class Window extends PApplet{
 	private Player p;
 	private float startX = 300, startY = 200;
 	
+	//set up
 	public void setup() {
 		ImageLoader.setUp(this);
 		PImage leftImage = loadImage("Images"+fS+"Characters"+fS+"Main Character"+fS+"Main Character Left.gif");
