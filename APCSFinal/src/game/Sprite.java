@@ -53,13 +53,33 @@ public class Sprite {
 		y += dY;
 	}
 	
-	public void updatePos() {
+	public void updatePos(Level l,PApplet debugger) {
 		vel.add(acc);
+		debugger.noFill();
+		debugger.strokeWeight(1);
+		for(int i=0;i<40;i++) {
+			for(int j=0;j<40;j++) {
+				debugger.rect(i*Level.TILE_SIZE, j*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+			}
+		}
+		debugger.fill(0);
+		int xScaled = (int)(x/Level.TILE_SIZE);
+		int yScaled = (int)(y/Level.TILE_SIZE);
+		float xRatio = x/Level.TILE_SIZE-xScaled;
+		float yRatio = y/Level.TILE_SIZE-yScaled;
+		if(xRatio>0.5) {
+			debugger.rect((xScaled+1)*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+		} else {
+			debugger.rect((xScaled-1)*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+		}
+		if(yRatio>0.5) {
+			debugger.rect(xScaled*Level.TILE_SIZE, (yScaled+1)*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+		} else {
+			debugger.rect(xScaled*Level.TILE_SIZE, (yScaled-1)*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+		}
+		debugger.rect(xScaled*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
 		x+=vel.x;
 		y+=vel.y;
-		//angle= vel.getAngle()+PApplet.PI/2;
-		if(Double.isNaN(angle))
-			angle=0;
 	}
 
 	public float getWidth() {
@@ -134,8 +154,5 @@ public class Sprite {
 		return true;
 	}
 	
-	public void tryToMove() {
-		
-	}
 
 }

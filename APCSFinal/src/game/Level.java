@@ -24,7 +24,7 @@ public class Level {
 	
 	//Constuctors
 	public Level(int levelNumber, int numEnemies,PApplet loader) {
-		p= new Player(200,200,loader.loadImage("resources"+fs+"images"+fs+"god.png"));
+		p= new Player(200,200,loader.loadImage("resources"+fs+"images"+fs+"halo.png"));
 		p.scale(0.25f);
 		myProjectiles = new ArrayList<Projectile>();
 		enemyProjectiles = new ArrayList<Projectile>();
@@ -41,6 +41,10 @@ public class Level {
 	 */
 	public void passKeysReference(boolean[] keys) {
 		this.keys=keys;
+	}
+	
+	public int[][] getTileArray() {
+		return tileType;
 	}
 	
 	public void setPlayer(Player p) {
@@ -99,8 +103,9 @@ public class Level {
 	 * @param drawer
 	 */
 	public void draw(PApplet drawer) {
+		
 		handleKeys();
-		p.updatePos();
+		p.updatePos(this,drawer);
 		p.draw(drawer);
 	}
 	
