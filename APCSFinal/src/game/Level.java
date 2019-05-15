@@ -75,9 +75,10 @@ public class Level {
 					reader = new FileReader(dataFile);
 					in = new Scanner(reader);
 					String s = in.nextLine();
+					System.out.println(s);
 					x = Integer.parseInt(s.substring(0, s.indexOf(',')));
 					s = s.substring(s.indexOf(',') + 1); 
-					y = Integer.parseInt(s.substring(0, s.indexOf(',')));
+					y = Integer.parseInt(s);//s.substring(s.indexOf(',')));
 					tileType = new int[x][y];
 					
 

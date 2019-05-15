@@ -57,39 +57,51 @@ public class Sprite {
 	
 	public void updatePos(Level l,PApplet debugger) {
 		vel.add(acc);
+		int[][] tiles = l.getTileArray();
 		debugger.noFill();
 		debugger.strokeWeight(1);
-		for(int i=0;i<40;i++) {
-			for(int j=0;j<40;j++) {
+		for(int i=0;i<45;i++) {
+			for(int j=0;j<11;j++) {
+				debugger.fill(255);
+				if(tiles[i][j]==0)
+					debugger.fill(0,0,255);
 				debugger.rect(i*Level.TILE_SIZE, j*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
 			}
 		}
 		debugger.fill(0);
 		ArrayList<Vector> scaledCoords = getCoordsScaledToTiles();
-		for(Vector v: scaledCoords) {
-			debugger.rect(v.x*Level.TILE_SIZE,v.y*Level.TILE_SIZE,Level.TILE_SIZE,Level.TILE_SIZE);
-		}
-		
-		Vector[] topTiles = new Vector[] {scaledCoords.get(0),null,null};
-		for(Vector v: scaledCoords) {
-			if(v.y<topTiles[0].y) {
-				topTiles[0]=v;
-				topTiles[1]=null;
-				topTiles[2]=null;
-			} else if(v.y==topTiles[0].y) {
-				if(topTiles[1]==null)
-					topTiles[1]=v;
-				else {
-					System.out.println("does stuff");
-					topTiles[2]=v;
-				}
+//		for(Vector v: scaledCoords) {
+//			debugger.rect(v.x*Level.TILE_SIZE,v.y*Level.TILE_SIZE,Level.TILE_SIZE,Level.TILE_SIZE);
+//		}
+		Vector v = scaledCoords.get(4);
+		Vector[] transformations = {new Vector(-1,-1),new Vector(0,-1),new Vector(1,-1),new Vector(-1,0),new Vector(1,0),new Vector(-1,1),new Vector(0,1),new Vector(1,1)};
+		for(int i=0;i<8;i++) {
+			Vector v2 = v.addN(transformations[i]);
+			if(tiles[(int) v2.x][(int) v2.y]==0) {
+				debugger.rect(v2.x*Level.TILE_SIZE, v2.y*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
 			}
 		}
-		debugger.fill(255,0,0);
-		for(Vector v: topTiles) {
-			if(v!=null)
-				debugger.rect(v.x*Level.TILE_SIZE,v.y*Level.TILE_SIZE,Level.TILE_SIZE,Level.TILE_SIZE);
-		}
+		debugger.rect(v.x*Level.TILE_SIZE,v.y*Level.TILE_SIZE,Level.TILE_SIZE,Level.TILE_SIZE);
+
+//		Vector[] topTiles = new Vector[] {scaledCoords.get(0),null,null};
+//		for(Vector v: scaledCoords) {
+//			if(v.y<topTiles[0].y) {
+//				topTiles[0]=v;
+//				topTiles[1]=null;
+//				topTiles[2]=null;
+//			} else if(v.y==topTiles[0].y) {
+//				if(topTiles[1]==null)
+//					topTiles[1]=v;
+//				else {
+//					topTiles[2]=v;
+//				}
+//			}
+//		}
+//		debugger.fill(255,0,0);
+//		for(Vector v: topTiles) {
+//			if(v!=null)
+//				debugger.rect(v.x*Level.TILE_SIZE,v.y*Level.TILE_SIZE,Level.TILE_SIZE,Level.TILE_SIZE);
+//		}
 
 		x+=vel.x;
 		y+=vel.y;
@@ -191,4 +203,6 @@ public class Sprite {
 	}
 	
 
+		
+	
 }
