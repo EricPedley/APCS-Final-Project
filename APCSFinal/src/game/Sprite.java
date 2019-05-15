@@ -1,5 +1,7 @@
 package game;
 
+import java.util.ArrayList;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -63,23 +65,53 @@ public class Sprite {
 			}
 		}
 		debugger.fill(0);
-		int xScaled = (int)(x/Level.TILE_SIZE);
-		int yScaled = (int)(y/Level.TILE_SIZE);
-		float xRatio = x/Level.TILE_SIZE-xScaled;
-		float yRatio = y/Level.TILE_SIZE-yScaled;
-		if(xRatio>0.5) {
-			debugger.rect((xScaled+1)*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
-		} else {
-			debugger.rect((xScaled-1)*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+		for(Vector v: getCoordsScaledToTiles()) {
+			debugger.rect(v.x*Level.TILE_SIZE,v.y*Level.TILE_SIZE,Level.TILE_SIZE,Level.TILE_SIZE);
 		}
-		if(yRatio>0.5) {
-			debugger.rect(xScaled*Level.TILE_SIZE, (yScaled+1)*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
-		} else {
-			debugger.rect(xScaled*Level.TILE_SIZE, (yScaled-1)*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
-		}
-		debugger.rect(xScaled*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+//		int xScaled = (int)(x/Level.TILE_SIZE);
+//		int yScaled = (int)(y/Level.TILE_SIZE);
+//		float xRatio = x/Level.TILE_SIZE-xScaled;
+//		float yRatio = y/Level.TILE_SIZE-yScaled;
+//		int offSetY = (int) Math.round((yRatio-0.6)*2);
+////		if(yRatio<0.5) {
+////			offSetY=-1;
+////		} else {
+////			offSetY=1;
+////		}
+//		debugger.rect(xScaled*Level.TILE_SIZE, (yScaled+offSetY)*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+//		if(xRatio>0.5) {
+//			debugger.rect((xScaled+1)*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+//			debugger.rect((xScaled+1)*Level.TILE_SIZE, (yScaled+offSetY)*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+//		} else {
+//			debugger.rect((xScaled-1)*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+//			debugger.rect((xScaled-1)*Level.TILE_SIZE, (yScaled+offSetY)*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+//		}
+//		debugger.rect(xScaled*Level.TILE_SIZE, yScaled*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
 		x+=vel.x;
 		y+=vel.y;
+	}
+	
+	public ArrayList<Vector> getCoordsScaledToTiles() {
+		Vector[] edges = new Vector[2];
+		edges[0] = new Vector(width * PApplet.cos(angle), width * PApplet.sin(angle));
+		edges[1] = new Vector(-height * PApplet.sin(angle), height * PApplet.cos(angle));
+		Vector[] points = new Vector[5];
+		float l = (float) (Math.sqrt(width * width + height * height))
+				/ 2;// length of half the diagonal of this rectangle
+		float a = -PApplet.atan(height / width);
+		points[0] = new Vector(x - l * PApplet.cos(a - angle),
+				y + l * PApplet.sin(a - angle));
+		points[1] = points[0].addN(edges[0]);
+		points[2] = points[0].addN(edges[1]);
+		points[3] = points[0].addN(edges[0]).addN(edges[1]);
+		points[4] = new Vector(x,y);
+		ArrayList<Vector> result = new ArrayList<Vector>();
+		for(Vector v: points) {
+			v.x=(int)(v.x/Level.TILE_SIZE);
+			v.y=(int)(v.y/Level.TILE_SIZE);
+			result.add(v);
+		}
+		return result;
 	}
 
 	public float getWidth() {

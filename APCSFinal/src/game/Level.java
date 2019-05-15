@@ -27,6 +27,8 @@ public class Level {
 		p= new Player(200,200,loader.loadImage("resources"+fs+"images"+fs+"halo.png"));
 		p.scale(0.25f);
 		readData("Levels"+fs+"Test_Level.txt");
+		p= new Player(200,200,loader.loadImage("resources"+fs+"images"+fs+"knight.png"));
+		p.scale(0.1f);
 		myProjectiles = new ArrayList<Projectile>();
 		enemyProjectiles = new ArrayList<Projectile>();
 		enemies = new ArrayList<Enemy>();
