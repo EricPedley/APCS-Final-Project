@@ -1,5 +1,11 @@
 package game;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -13,24 +19,24 @@ public class Level {
 	public static final int TILE_SIZE = 64; 
 	private String fs = System.getProperty("file.separator");
 	private int numEnemies;
-	public final PImage bulletImage;
+	//public final PImage bulletImage;
 	private boolean upDoor, downDoor, rightDoor, leftDoor;
 	//private Map map;
 	private Player p;
 	
 	//Constuctors
 	public Level(int levelNumber, int numEnemies) {
-		tileIndices = TileImageLoader.tileIndices;
+		//tileIndices = TileImageLoader.tileIndices;
 		myProjectiles = new ArrayList<Projectile>();
 		enemyProjectiles = new ArrayList<Projectile>();
 		enemies = new ArrayList<Enemy>();
 		PImage[] enemyImages = {};
 		
-		bulletImage = ImageLoader.BLUE_PROJECTILE;
+		//bulletImage = ImageLoader.BLUE_PROJECTILE;
 		readData("Levels" + fs + "Boss.txt");
 		for(int c = 0 ; c < numEnemies ; c++) {
 			
-			enemies.add(new Enemy(Math.random()*(x-4)*TILE_SIZE  + 2 * TILE_SIZE,Math.random()*(y-4)*TILE_SIZE  + 2 * TILE_SIZE,(int) (Math.random() * 2), this));
+			//enemies.add(new Enemy(Math.random()*(x-4)*TILE_SIZE  + 2 * TILE_SIZE,Math.random()*(y-4)*TILE_SIZE  + 2 * TILE_SIZE,(int) (Math.random() * 2), this));
 		}
 
 		
@@ -137,8 +143,9 @@ public class Level {
 	public ArrayList<Projectile> getEnemyProjectiles(){
 		return this.enemyProjectiles;
 	}
+
 	
-	
+
 	public void draw(PApplet p) {
 		
 		p.pushMatrix();
@@ -160,14 +167,14 @@ public class Level {
 			
 			if(enemies.get(i).isDead()) {
 				enemies.remove(i);
-				h.setHp(h.getHp() + 1);
+				p.setHp(p.getHp() + 1);
 			} else
 				enemies.get(i).draw(p);
 		}
 		
 		
 		for(int i = 0; i < enemyProjectiles.size(); i++) {
-			h.checkHit(enemyProjectiles.get(i));
+			p.checkHit(enemyProjectiles.get(i));
 		}
 		
 		for(int c=0;c<myProjectiles.size();c++) {
@@ -187,6 +194,7 @@ public class Level {
 	
 	
 	
+	
 	public Player getPlayer() {
 		return p;
 	}
@@ -197,4 +205,4 @@ public class Level {
 		return myProjectiles;
 	}*/
 }
-}
+

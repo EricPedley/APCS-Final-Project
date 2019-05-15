@@ -4,6 +4,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 
+
 public class Tile {
 	
 		
@@ -22,6 +23,5 @@ public class Tile {
 	public void draw(PApplet p, int size) {
 		p.image(image, 0, 0, size, size);
 	}
-		
 		
 }

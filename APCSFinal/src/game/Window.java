@@ -1,5 +1,13 @@
 package game;
 
+
+import processing.core.PApplet;
+import processing.core.PImage;
+
+public class Window {
+>>>>>>> branch 'master' of https://github.com/EricPedley/APCS-Final-Project
+
+<<<<<<< HEAD
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -68,5 +76,8 @@ public class Window extends PApplet{
 	public void mouseClicked() {
 		p.shoot(-startX+(float)h.getHitbox().x+mouseX, -startY+(float)h.getHitbox().y+mouseY, true);
 	}
+=======
+		
+>>>>>>> branch 'master' of https://github.com/EricPedley/APCS-Final-Project
 	
 }
