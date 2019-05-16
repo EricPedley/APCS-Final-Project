@@ -27,7 +27,6 @@ public class Enemy extends Sprite {
 	
 	public void act() {
 		framesWandered++;
-		System.out.println(framesWandered);
 		if(framesWandered>60) {
 			vel=new Vector(0,5);
 			vel.rotate((float)(Math.random()*Math.PI*2));

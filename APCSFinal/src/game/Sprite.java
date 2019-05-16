@@ -221,6 +221,7 @@ public class Sprite {
 				Vector v = vel.getParallelComponentTo(new Vector(x,y).subtractN(corner));
 				if(new Vector(x,y).subtractN(corner).dot(v)>0)
 					v.multiply(-1f);
+				v.multiplyN(100).draw(debugger,x,y);
 				x-=v.x;
 				y-=v.y;
 			}

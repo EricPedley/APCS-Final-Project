@@ -50,7 +50,8 @@ public class Level {
 	public void mouseClicked(float mouseX, float mouseY,int mouseButton) {
 		if(mouseButton==37) {//left mouse button
 			//p.melee(new Vector(mouseX-p.x,mouseY-p.y).getAngle());
-			p.vel=new Vector(mouseX-p.x,mouseY-p.x);
+			System.out.println("wtf");
+			p.vel=new Vector(mouseX-p.x,mouseY-p.y);
 			p.vel.scaleMagnitudeTo(5f);
 			p.angle=p.vel.getAngle()+PApplet.PI/2;
 		}
