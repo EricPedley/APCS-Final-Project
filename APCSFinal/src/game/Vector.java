@@ -79,6 +79,14 @@ public class Vector {
 		x-=other.x;
 		y-=other.y;
 	}
+	
+	/**
+	 * Subtracts other from this and stores the result in a new vector instead of changing this
+	 * @param other
+	 */
+	public Vector subtractN(Vector other) {
+		return new Vector(x-other.x, y-other.y);
+	}
 	/**
 	 * Rotates this vector counter-clockwise(clockwise for usual upside-down coord system) by angle, in radians
 	 * @param angle
@@ -133,5 +141,9 @@ public class Vector {
 	public void scaleMagnitudeTo(float magnitude) {
 		float l = length();
 		multiply(magnitude/l);
+	}
+	
+	public boolean asPointIntersectsCircle(Vector center, float radius) {
+		return (x-center.x)*(x-center.x)+(y-center.y)*(y-center.y)<radius*radius;
 	}
 }

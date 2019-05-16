@@ -9,6 +9,7 @@ public class Player extends Sprite {
 	private float meleeAttackDirectionAngle;
 	public Player(float x, float y, PImage img) {
 		super(x, y, img);
+		hitboxMode=1;
 		// TODO Auto-generated constructor stub
 	}
 

@@ -1,16 +1,21 @@
 package game;
 
+import java.awt.Rectangle;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
+
+import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import processing.core.PApplet;
 import processing.core.PImage;
+
 
 public class Sprite {
 	public float x, y, angle;
 	public Vector vel,acc;
 	protected float width, height;
 	private PImage img;
-
+	protected int hitboxMode;// 0 is rect and 1 is circle
 	public Sprite(float x, float y, PImage img) {
 		this.x = x;
 		this.y = y;
@@ -18,6 +23,16 @@ public class Sprite {
 		width = img.width;
 		height = img.height;
 		angle = 0;
+		vel=new Vector();
+		acc=new Vector();
+	}
+	
+	public Sprite(float x, float y, float width, float height) {
+		this.x=x;
+		this.y=y;
+		this.width=width;
+		this.height=height;
+		angle=0;
 		vel=new Vector();
 		acc=new Vector();
 	}
@@ -41,6 +56,8 @@ public class Sprite {
 		drawer.translate(v2.x, v2.y);
 		drawer.image(img, x, y, width, height);
 		drawer.noFill();
+		drawer.ellipseMode(PApplet.CENTER);
+		drawer.ellipse(x, y, Math.min(width,height), Math.min(width,height));
 		// drawer.rect(x,y,width,height);
 		drawer.popMatrix();
 	}
@@ -68,43 +85,22 @@ public class Sprite {
 				debugger.rect(i*Level.TILE_SIZE, j*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
 			}
 		}
+		x+=vel.x;
+		y+=vel.y;
 		debugger.fill(0);
 		ArrayList<Vector> scaledCoords = getCoordsScaledToTiles();
-//		for(Vector v: scaledCoords) {
-//			debugger.rect(v.x*Level.TILE_SIZE,v.y*Level.TILE_SIZE,Level.TILE_SIZE,Level.TILE_SIZE);
-//		}
 		Vector v = scaledCoords.get(4);
 		Vector[] transformations = {new Vector(-1,-1),new Vector(0,-1),new Vector(1,-1),new Vector(-1,0),new Vector(1,0),new Vector(-1,1),new Vector(0,1),new Vector(1,1)};
 		for(int i=0;i<8;i++) {
 			Vector v2 = v.addN(transformations[i]);
-			if(tiles[(int) v2.x][(int) v2.y]==0) {
-				debugger.rect(v2.x*Level.TILE_SIZE, v2.y*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+			if(v2.x>=0&&v2.y>=0&&v2.x<tiles.length&&v2.y<tiles[0].length&&tiles[(int) v2.x][(int) v2.y]==0) {
+				Sprite tile =new Sprite(v2.x*Level.TILE_SIZE+Level.TILE_SIZE/2, v2.y*Level.TILE_SIZE+Level.TILE_SIZE/2, Level.TILE_SIZE, Level.TILE_SIZE);
+				handleTileCollisions(tile,debugger);
 			}
 		}
+		
 		debugger.rect(v.x*Level.TILE_SIZE,v.y*Level.TILE_SIZE,Level.TILE_SIZE,Level.TILE_SIZE);
 
-//		Vector[] topTiles = new Vector[] {scaledCoords.get(0),null,null};
-//		for(Vector v: scaledCoords) {
-//			if(v.y<topTiles[0].y) {
-//				topTiles[0]=v;
-//				topTiles[1]=null;
-//				topTiles[2]=null;
-//			} else if(v.y==topTiles[0].y) {
-//				if(topTiles[1]==null)
-//					topTiles[1]=v;
-//				else {
-//					topTiles[2]=v;
-//				}
-//			}
-//		}
-//		debugger.fill(255,0,0);
-//		for(Vector v: topTiles) {
-//			if(v!=null)
-//				debugger.rect(v.x*Level.TILE_SIZE,v.y*Level.TILE_SIZE,Level.TILE_SIZE,Level.TILE_SIZE);
-//		}
-
-		x+=vel.x;
-		y+=vel.y;
 	}
 	
 	public ArrayList<Vector> getCoordsScaledToTiles() {
@@ -139,6 +135,15 @@ public class Sprite {
 	}
 
 	public boolean intersects(Sprite other) {
+		if(hitboxMode+other.hitboxMode==0)
+			return intersectsRectToRect(other);
+		else if(hitboxMode+other.hitboxMode==1)
+			return intersectsRectToCircle(other);
+		else
+			return false;
+	}
+	
+	private boolean intersectsRectToRect(Sprite other) {
 		Vector[] edges = new Vector[4];
 
 		edges[0] = new Vector(width * PApplet.cos(angle), width * PApplet.sin(angle));
@@ -186,23 +191,57 @@ public class Sprite {
 				if (l < minOther)
 					minOther = l;
 			}
-//			drawer.strokeWeight(20);
-//			drawer.stroke(255,0,0);
-//			drawer.point(maxThis, 200+count);
-//			drawer.stroke(255,255,0);
-//			drawer.point(minThis, 200+count);
-//			drawer.stroke(0,0,255);
-//			drawer.point(maxOther, 200+count);
-//			drawer.stroke(0,255,255);
-//			drawer.point(minOther, 200+count);
-//			count+=100;
+
 			if (!(Math.min(maxThis, maxOther) >= Math.max(minThis, minOther)))
 				return false;
 		}
 		return true;
 	}
 	
-
+	private boolean intersectsRectToCircle(Sprite other) {//this hitbox is a rect and other's is a circle
+		Vector[] edges = new Vector[2];
+		edges[0] = new Vector(width * PApplet.cos(angle), width * PApplet.sin(angle));
+		edges[1] = new Vector(-height * PApplet.sin(angle), height * PApplet.cos(angle));
+		Vector[] points = new Vector[4];
+		float l = (float) (Math.sqrt(width * width + height * height))
+				/ 2;// length of half the dagonal of ths rectangle
+		float a = -PApplet.atan(height / width);
+		points[0] = new Vector(x - l * PApplet.cos(a - angle),
+				y + l * PApplet.sin(a - angle));
+		points[1] = points[0].addN(edges[0]);
+		points[2] = points[0].addN(edges[1]);
+		points[3] = points[0].addN(edges[0]).addN(edges[1]);
+		return new Rectangle.Float(x,y,width,height).contains(new Point2D.Float(other.x,other.y))||
+					points[0].asPointIntersectsCircle(new Vector(other.x,other.y), other.width/2)||
+					points[1].asPointIntersectsCircle(new Vector(other.x,other.y), other.width/2)||
+					points[2].asPointIntersectsCircle(new Vector(other.x,other.y), other.width/2)||
+					points[3].asPointIntersectsCircle(new Vector(other.x,other.y), other.width/2);
+	}
+	
+	public void handleTileCollisions(Sprite tile,PApplet debugger) {//simpler collisions method because tiles are always axis-aligned(at 90deg angles) and square
+		float r = width/2;
+		float r2 = tile.width/2;
+		if(x+r>=tile.x-r2&&y>=tile.y-r2&&y<=tile.y+r2&&x-r<=tile.x+r2) {
+			x-=vel.x;
+		}
+		if(y+r>=tile.y-r2&&x>=tile.x-r2&&x<=tile.x+r2&&y-r<=tile.y+r2) {
+			y-=vel.y;
+		}
+		int[][] transformations = {{-1,-1},{1,-1},{-1,1},{1,1}};
+		for(int[] i: transformations) {
+			Vector corner = new Vector(tile.x+r2*i[0],tile.y+r2*i[1]);
+			if(corner.asPointIntersectsCircle(new Vector(x,y), r)) {
+//				System.out.println("eyyy gang gang gang");
+				debugger.strokeWeight(10);
+//				Vector test = vel.getOrthogonalComponentTo(new Vector(x,y).subtractN(corner));
+//				test.multiply(100f);
+//				test.draw(debugger,x,y);
+				Vector v = vel.getParallelComponentTo(new Vector(x,y).subtractN(corner));
+				x-=v.x;
+				y-=v.y;
+			}
+		}
 		
+	}
 	
 }
