@@ -56,9 +56,10 @@ public class Window extends PApplet{
 		keys[keyCode]=false;
 	}
 	
-	public void mouseClicked() {
-		
+	public void mousePressed() {//mousebutton 37 is left, 39 is right, 3 is middle
+		currentLevel.mouseClicked(mouseX,mouseY, mouseButton);
 	}
+	
 
 	
 }

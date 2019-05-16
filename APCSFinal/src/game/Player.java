@@ -7,6 +7,9 @@ public class Player extends Sprite {
 	private boolean inMeleeAttack;
 	private int meleeAnimationFrames;
 	private float meleeAttackDirectionAngle;
+	private final int maxMeleeFrames=10;
+	
+	
 	public Player(float x, float y, PImage img) {
 		super(x, y, img);
 		hitboxMode=1;
@@ -22,14 +25,17 @@ public class Player extends Sprite {
 	public void draw(PApplet drawer) {
 		super.draw(drawer);
 		if(inMeleeAttack) {
-			int maxFrames = 10;
 			float a = meleeAttackDirectionAngle;
 			float m = meleeAnimationFrames;
-			drawer.line(x, y, x+200*PApplet.cos(a), y+200*PApplet.sin(a));
-			drawer.line(x,y,x+200*PApplet.cos(PApplet.PI*m/maxFrames+a-PApplet.PI/2),y+200*PApplet.sin(PApplet.PI*m/maxFrames+a-PApplet.PI/2));
+			//drawer.line(x, y, x+200*PApplet.cos(a), y+200*PApplet.sin(a));
+			drawer.line(x,y,x+200*PApplet.cos(PApplet.PI*m/maxMeleeFrames+a-PApplet.PI/2),y+200*PApplet.sin(PApplet.PI*m/maxMeleeFrames+a-PApplet.PI/2));
 			meleeAnimationFrames++;
-			if(m>maxFrames)
+			if(m>maxMeleeFrames)
 				inMeleeAttack=false;
 		}
+	}
+	
+	public float getMeleeCurrentAngle() {
+		return PApplet.PI*meleeAnimationFrames/maxMeleeFrames+meleeAttackDirectionAngle-PApplet.PI/2;
 	}
 }

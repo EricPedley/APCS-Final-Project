@@ -2,9 +2,6 @@ package game;
 
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
-
-import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -78,16 +75,7 @@ public class Sprite {
 	public void updatePos(Level l,PApplet debugger) {
 		vel.add(acc);
 		int[][] tiles = l.getTileArray();
-		debugger.noFill();
-		debugger.strokeWeight(1);
-		for(int i=0;i<45;i++) {
-			for(int j=0;j<11;j++) {
-				debugger.fill(255);
-				if(tiles[i][j]==0)
-					debugger.fill(0,0,255);
-				debugger.rect(i*Level.TILE_SIZE, j*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
-			}
-		}
+	
 		x+=vel.x;
 		y+=vel.y;
 		debugger.fill(0);
@@ -231,6 +219,8 @@ public class Sprite {
 //				test.multiply(100f);
 //				test.draw(debugger,x,y);
 				Vector v = vel.getParallelComponentTo(new Vector(x,y).subtractN(corner));
+				if(new Vector(x,y).subtractN(corner).dot(v)>0)
+					v.multiply(-1f);
 				x-=v.x;
 				y-=v.y;
 			}

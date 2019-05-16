@@ -16,6 +16,7 @@ public class Level {
 	private ArrayList<Projectile> myProjectiles;
 	private ArrayList<Projectile> enemyProjectiles;
 	private ArrayList<Enemy> enemies;
+	private Enemy testBaddie;
 	public static final int TILE_SIZE = 64; 
 	private String fs = System.getProperty("file.separator");
 	private int numEnemies;
@@ -24,14 +25,14 @@ public class Level {
 	
 	//Constuctors
 	public Level(int levelNumber, int numEnemies,PApplet loader) {
-		p= new Player(200,200,loader.loadImage("resources"+fs+"images"+fs+"halo.png"));
-		p.scale(0.25f);
 		readData("Levels"+fs+"Test_Level.txt");
 		p= new Player(200,200,loader.loadImage("resources"+fs+"images"+fs+"knight.png"));
 		p.scale(0.1f);
 		myProjectiles = new ArrayList<Projectile>();
 		enemyProjectiles = new ArrayList<Projectile>();
 		enemies = new ArrayList<Enemy>();
+		testBaddie = new Enemy(500,200,loader.loadImage("resources"+fs+"images"+fs+"halo.png"));
+		testBaddie.scale(0.25f);
 		PImage[] enemyImages = {};
 	}
 	
@@ -44,6 +45,15 @@ public class Level {
 	 */
 	public void passKeysReference(boolean[] keys) {
 		this.keys=keys;
+	}
+	
+	public void mouseClicked(float mouseX, float mouseY,int mouseButton) {
+		if(mouseButton==37) {//left mouse button
+			//p.melee(new Vector(mouseX-p.x,mouseY-p.y).getAngle());
+			p.vel=new Vector(mouseX-p.x,mouseY-p.x);
+			p.vel.scaleMagnitudeTo(5f);
+			p.angle=p.vel.getAngle()+PApplet.PI/2;
+		}
 	}
 	
 	public int[][] getTileArray() {
@@ -111,30 +121,45 @@ public class Level {
 	 * @param drawer
 	 */
 	public void draw(PApplet drawer) {
+		Level l = this;
+		int[][] tiles = l.getTileArray();
+		drawer.noFill();
+		drawer.strokeWeight(1);
+		for(int i=0;i<45;i++) {
+			for(int j=0;j<11;j++) {
+				drawer.fill(255);
+				if(tiles[i][j]==0)
+					drawer.fill(0,0,255);
+				drawer.rect(i*Level.TILE_SIZE, j*Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+			}
+		}//draws grid overlay to debug stuff cuz tiles arent actually finished yet
 		handleKeys();
 		p.updatePos(this,drawer);
+		testBaddie.act();
+		testBaddie.updatePos(this, drawer);
+		testBaddie.draw(drawer);
 		p.draw(drawer);
 	}
 	
 	public void handleKeys() {
-		Vector v=new Vector();
-		if(keys[65]) {
-			v.x--;
-		}
-		if(keys[87]) {
-			v.y--;
-		}
-		if(keys[68]) {
-			v.x++;
-		}
-		if(keys[83]) {
-			v.y++;
-		}
-		if(v.length()>0) {
-			v.scaleMagnitudeTo(1f);
-			p.angle=v.getAngle()+PApplet.PI/2;
-		}
-		p.vel=v.multiplyN(5f);
+//		Vector v=new Vector();
+//		if(keys[65]) {
+//			v.x--;
+//		}
+//		if(keys[87]) {
+//			v.y--;
+//		}
+//		if(keys[68]) {
+//			v.x++;
+//		}
+//		if(keys[83]) {
+//			v.y++;
+//		}
+//		if(v.length()>0) {
+//			v.scaleMagnitudeTo(1f);
+//			p.angle=v.getAngle()+PApplet.PI/2;
+//		}
+//		p.vel=v.multiplyN(5f);
 	}
 	
 	

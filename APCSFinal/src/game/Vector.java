@@ -144,6 +144,6 @@ public class Vector {
 	}
 	
 	public boolean asPointIntersectsCircle(Vector center, float radius) {
-		return (x-center.x)*(x-center.x)+(y-center.y)*(y-center.y)<radius*radius;
+		return (x-center.x)*(x-center.x)+(y-center.y)*(y-center.y)<=radius*radius;
 	}
 }

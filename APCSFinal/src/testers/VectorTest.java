@@ -25,8 +25,8 @@ public class VectorTest extends PApplet {
 		Vector v3 = v1.getParallelComponentTo(v2);
 		v3.draw(this, width/2, height/2);
 		v1.getOrthogonalComponentTo(v2).draw(this,width/2+v3.x,height/2+v3.y);
+		System.out.println(v1.dot(v2));
 		stroke(0);
-		line(mouseX,mouseY,0,mouseY);
 	}
 	
 	
