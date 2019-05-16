@@ -15,7 +15,8 @@ public class Sprite {
 	public Vector vel,acc;
 	protected float width, height;
 	private PImage img;
-	protected int hitboxMode;// 0 is rect and 1 is circle
+	protected int hitboxMode;// 0 is rectangle and 1 is circle
+	
 	public Sprite(float x, float y, PImage img) {
 		this.x = x;
 		this.y = y;
@@ -61,17 +62,19 @@ public class Sprite {
 		// drawer.rect(x,y,width,height);
 		drawer.popMatrix();
 	}
-
+	/**
+	 * Makes the width and height of this sprite smaller/larger by multiplying both of them by scaleFactor
+	 * @param scaleFactor
+	 */
 	public void scale(float scaleFactor) {
 		width *= scaleFactor;
 		height *= scaleFactor;
 	}
-
-	public void moveBy(float dX, float dY) {
-		x += dX;
-		y += dY;
-	}
-	
+	/**
+	 * Makes the sprite move based on its velocity
+	 * @param l
+	 * @param debugger
+	 */
 	public void updatePos(Level l,PApplet debugger) {
 		vel.add(acc);
 		int[][] tiles = l.getTileArray();
@@ -88,8 +91,7 @@ public class Sprite {
 		x+=vel.x;
 		y+=vel.y;
 		debugger.fill(0);
-		ArrayList<Vector> scaledCoords = getCoordsScaledToTiles();
-		Vector v = scaledCoords.get(4);
+		Vector v = new Vector((int)(x/Level.TILE_SIZE),(int)(y/Level.TILE_SIZE));
 		Vector[] transformations = {new Vector(-1,-1),new Vector(0,-1),new Vector(1,-1),new Vector(-1,0),new Vector(1,0),new Vector(-1,1),new Vector(0,1),new Vector(1,1)};
 		for(int i=0;i<8;i++) {
 			Vector v2 = v.addN(transformations[i]);
@@ -102,29 +104,6 @@ public class Sprite {
 		debugger.rect(v.x*Level.TILE_SIZE,v.y*Level.TILE_SIZE,Level.TILE_SIZE,Level.TILE_SIZE);
 
 	}
-	
-	public ArrayList<Vector> getCoordsScaledToTiles() {
-		Vector[] edges = new Vector[2];
-		edges[0] = new Vector(width * PApplet.cos(angle), width * PApplet.sin(angle));
-		edges[1] = new Vector(-height * PApplet.sin(angle), height * PApplet.cos(angle));
-		Vector[] points = new Vector[5];
-		float l = (float) (Math.sqrt(width * width + height * height))
-				/ 2;// length of half the diagonal of this rectangle
-		float a = -PApplet.atan(height / width);
-		points[0] = new Vector(x - l * PApplet.cos(a - angle),
-				y + l * PApplet.sin(a - angle));
-		points[1] = points[0].addN(edges[0]);
-		points[2] = points[0].addN(edges[1]);
-		points[3] = points[0].addN(edges[0]).addN(edges[1]);
-		points[4] = new Vector(x,y);
-		ArrayList<Vector> result = new ArrayList<Vector>();
-		for(Vector v: points) {
-			v.x=(int)(v.x/Level.TILE_SIZE);
-			v.y=(int)(v.y/Level.TILE_SIZE);
-			result.add(v);
-		}
-		return result;
-	}
 
 	public float getWidth() {
 		return width;
@@ -134,6 +113,12 @@ public class Sprite {
 		return height;
 	}
 
+	/**
+	 * Checks to see if this sprite is intersecting another sprite
+	 * 
+	 * @param other
+	 * @return
+	 */
 	public boolean intersects(Sprite other) {
 		if(hitboxMode+other.hitboxMode==0)
 			return intersectsRectToRect(other);
@@ -218,6 +203,15 @@ public class Sprite {
 					points[3].asPointIntersectsCircle(new Vector(other.x,other.y), other.width/2);
 	}
 	
+	/**
+	 * Makes this sprite not move inside another sprite, 
+	 * as long as tile's hitbox is a rectangle and is axis-aligned(edges are parallel to x or y axes) and this
+	 * sprite's hitbox is a circle
+	 * 	
+	 * @pre hitboxMode must be 1
+	 * @param tile hitboxMode has to be 0 and angle must be an integer multiple of PI/2
+	 * @param debugger
+	 */
 	public void handleTileCollisions(Sprite tile,PApplet debugger) {//simpler collisions method because tiles are always axis-aligned(at 90deg angles) and square
 		float r = width/2;
 		float r2 = tile.width/2;
