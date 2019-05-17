@@ -116,6 +116,8 @@ public class Level {
 	 * @param drawer
 	 */
 	public void draw(PApplet drawer) {
+		this.mouseX = drawer.mouseX;
+		this.mouseY = drawer.mouseY;
 		Level l = this;
 		int[][] tiles = l.getTileArray();
 		drawer.noFill();

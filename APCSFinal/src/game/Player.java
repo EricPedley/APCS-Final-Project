@@ -9,6 +9,7 @@ public class Player extends Character {
 	private float meleeAttackDirectionAngle;
 	private final int maxMeleeFrames=10;
 	private Sprite meleeSword;
+	public static boolean isDeflecting;
 	
 	public Player(float x, float y, PImage img, int hp) {
 		super(x, y, img,hp);
