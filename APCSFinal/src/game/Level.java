@@ -32,7 +32,7 @@ public class Level {
 		friendlyProjectiles = new ArrayList<Projectile>();
 		enemyProjectiles = new ArrayList<Projectile>();
 		enemies = new ArrayList<Enemy>();
-		Enemy baddie = new Enemy(500, 200, loader.loadImage("resources" + fs + "images" + fs + "halo.png"), 10);
+		Enemy baddie = new Enemy(500, 200, loader.loadImage("resources" + fs + "images" + fs + "halo.png"), 100);
 		baddie.scale(0.25f);
 		enemies.add(baddie);
 	}
