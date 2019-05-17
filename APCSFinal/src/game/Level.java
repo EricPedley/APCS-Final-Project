@@ -19,6 +19,7 @@ public class Level {
 	// private Enemy testBaddie;
 	public static final int TILE_SIZE = 64;
 	private String fs = System.getProperty("file.separator");
+	private float mouseX,mouseY;
 	private int numEnemies;
 	private Player p;
 	private boolean[] keys;
@@ -57,7 +58,18 @@ public class Level {
 //			p.angle=p.vel.getAngle()+PApplet.PI/2;
 		}
 	}
+	
+	public void handlePlayerDeflection() {
+		if(Player.isDeflecting) {
+			for(int i = 0; i<enemyProjectiles.size();i++) {
+				if(p.intersects(enemyProjectiles.get(i))) {
+					enemyProjectiles.get(i).vel = new Vector(mouseX-enemyProjectiles.get(i).x,mouseY-enemyProjectiles.get(i).y);
+					enemyProjectiles.get(i).vel.scaleMagnitudeTo(3);
+				}
+			}
+		}
 
+	}
 	public int[][] getTileArray() {
 		return tileType;
 	}
@@ -151,10 +163,17 @@ public class Level {
 			enemyProjectiles.remove(p);
 		}
 		handleMelee();
+		handlePlayerDeflection();
 	}
 
 	public void handleKeys() {
 		Vector v = new Vector();
+		if(keys[81]) {
+			Player.isDeflecting = true;
+		}
+		if(keys[69]) {
+			Player.isDeflecting = false;
+		}
 		if (keys[65]) {
 			v.x--;
 		}
