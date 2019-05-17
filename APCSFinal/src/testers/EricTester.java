@@ -2,20 +2,22 @@ package testers;
 
 import game.Enemy;
 import game.Player;
+import game.Projectile;
 import game.Sprite;
+import game.Vector;
 import processing.core.PApplet;
 
 public class EricTester extends PApplet {
 	private Player p;
-	private Enemy e;
+	private Projectile e;
 	
 	public void settings() {
 		size(700,700);
 	}
 	
 	public void setup() {
-		p=new Player(200,200,loadImage("resources\\images\\pacman.jpg"),0);
-		e=new Enemy(200,200,loadImage("resources\\images\\god.png"),0);
+		p=new Player(200,200,loadImage("resources\\images\\knight.png"),0);
+		e=new Projectile(200,200,loadImage("resources\\images\\bullet.gif"),new Vector(0,0));
 		p.scale(0.25f);
 		e.scale(0.5f);
 	}
@@ -24,7 +26,8 @@ public class EricTester extends PApplet {
 		background(255);
 		p.draw(this);
 		e.draw(this);
-		if(e.intersects(p))
+		strokeWeight(10);
+		if(p.intersects(e))
 			System.out.println("yayy");
 	}
 	

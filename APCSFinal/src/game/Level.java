@@ -63,6 +63,7 @@ public class Level {
 		if(Player.isDeflecting) {
 			for(int i = 0; i<enemyProjectiles.size();i++) {
 				if(p.intersects(enemyProjectiles.get(i))) {
+					System.out.println("projectile intersection");
 					enemyProjectiles.get(i).vel = new Vector(mouseX-enemyProjectiles.get(i).x,mouseY-enemyProjectiles.get(i).y);
 					enemyProjectiles.get(i).vel.scaleMagnitudeTo(3);
 				}

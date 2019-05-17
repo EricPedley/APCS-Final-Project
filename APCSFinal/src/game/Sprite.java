@@ -111,9 +111,11 @@ public class Sprite {
 	public boolean intersects(Sprite other) {
 		if(hitboxMode+other.hitboxMode==0)
 			return intersectsRectToRect(other);
-		else if(hitboxMode+other.hitboxMode==1)
+		else if(hitboxMode==0&&other.hitboxMode==1)
 			return intersectsRectToCircle(other);
-		else
+		else if(hitboxMode==1&&other.hitboxMode==0) 
+			return other.intersectsRectToCircle(this);
+		else 
 			return false;
 	}
 	
@@ -173,9 +175,10 @@ public class Sprite {
 	}
 	
 	private boolean intersectsRectToCircle(Sprite other) {//this hitbox is a rect and other's is a circle
-		Vector[] edges = new Vector[2];
+		Vector[] edges = new Vector[6];
 		edges[0] = new Vector(width * PApplet.cos(angle), width * PApplet.sin(angle));
 		edges[1] = new Vector(-height * PApplet.sin(angle), height * PApplet.cos(angle));
+		
 		Vector[] points = new Vector[4];
 		float l = (float) (Math.sqrt(width * width + height * height))
 				/ 2;// length of half the dagonal of ths rectangle
@@ -185,11 +188,34 @@ public class Sprite {
 		points[1] = points[0].addN(edges[0]);
 		points[2] = points[0].addN(edges[1]);
 		points[3] = points[0].addN(edges[0]).addN(edges[1]);
-		return new Rectangle.Float(x,y,width,height).contains(new Point2D.Float(other.x,other.y))||
-					points[0].asPointIntersectsCircle(new Vector(other.x,other.y), other.width/2)||
-					points[1].asPointIntersectsCircle(new Vector(other.x,other.y), other.width/2)||
-					points[2].asPointIntersectsCircle(new Vector(other.x,other.y), other.width/2)||
-					points[3].asPointIntersectsCircle(new Vector(other.x,other.y), other.width/2);
+		Vector center = new Vector(other.x,other.y);
+		float radius = other.width/2;
+		edges[2] = center.subtractN(points[0]);
+		edges[3] = center.subtractN(points[1]);
+		edges[4] = center.subtractN(points[2]);
+		edges[5] = center.subtractN(points[3]);
+		float maxThis = 0, minThis = 1000000;
+		for(Vector v: edges) {
+			for (Vector b : points) {// for each point of this rectangle
+				Vector parallel = b.getOrthogonalComponentTo(v);
+				float l2 = parallel.length();// l is the projection of the point onto v
+				
+				if (l2 > maxThis)
+					maxThis = l2;
+				if (l2 < minThis)
+					minThis = l2;
+				
+		}
+			float l3 = center.getOrthogonalComponentTo(v).length();
+			if (!(Math.min(maxThis, l3+radius) >= Math.max(minThis, l3-radius)))
+				return false;
+		}
+		return true;
+//		return intersectsCenter||	points[0].asPointIntersectsCircle(new Vector(other.x,other.y), other.width/2)||
+//					points[1].asPointIntersectsCircle(new Vector(other.x,other.y), other.width/2)||
+//					points[2].asPointIntersectsCircle(new Vector(other.x,other.y), other.width/2)||
+//					points[3].asPointIntersectsCircle(new Vector(other.x,other.y), other.width/2);
+
 	}
 	
 	/**
