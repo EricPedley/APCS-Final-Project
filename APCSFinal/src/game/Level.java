@@ -69,6 +69,15 @@ public class Level {
 				}
 			}
 		}
+		else
+		{
+			for(int i = 0; i<enemyProjectiles.size();i++) {
+				if(p.intersects(enemyProjectiles.get(i))) {
+					enemyProjectiles.remove(i);
+					p.loseHP();
+				}
+			}
+		}
 	}
 	public int[][] getTileArray() {
 		return tileType;
@@ -144,6 +153,12 @@ public class Level {
 		} // draws grid overlay to debug stuff cuz tiles arent actually finished yet
 		handleKeys();
 		p.updatePos(this, drawer);
+		for(int i=0;i<enemies.size();i++) {
+			if(enemies.get(i).isDead())
+			{
+				enemies.remove(i);
+			}
+		}
 		for (Enemy baddie : enemies) {
 			baddie.act(this, drawer);
 			baddie.updatePos(this, drawer);
@@ -205,6 +220,7 @@ public class Level {
 		if (p.meleeing()) {
 			for (Enemy e : enemies) {
 				if (e.intersects(p.getMeleeHitbox())) {
+					e.loseHP();
 					System.out.println("yipee!");
 				}
 			}

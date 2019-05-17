@@ -4,6 +4,7 @@ import processing.core.PImage;
 
 public class Player extends Character {
 
+
 	private boolean inMeleeAttack;
 	private int meleeAnimationFrames;
 	private float meleeAttackDirectionAngle;
@@ -16,6 +17,7 @@ public class Player extends Character {
 		hitboxMode=1;
 		meleeSword = new Sprite(x,y,img);
 		meleeSword.scale(0.1f);
+		hp=10;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -55,4 +57,6 @@ public class Player extends Character {
 	public boolean meleeing() {
 		return inMeleeAttack;
 	}
+	
+
 }
