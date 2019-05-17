@@ -32,7 +32,7 @@ public class Level {
 		friendlyProjectiles = new ArrayList<Projectile>();
 		enemyProjectiles = new ArrayList<Projectile>();
 		enemies = new ArrayList<Enemy>();
-		Enemy baddie = new Enemy(500, 200, loader.loadImage("resources" + fs + "images" + fs + "halo.png"), 100);
+		Enemy baddie = new Enemy(500, 200, loader.loadImage("resources" + fs + "images" + fs + "halo.png"), 10);
 		baddie.scale(0.25f);
 		enemies.add(baddie);
 	}
@@ -152,6 +152,12 @@ public class Level {
 		} // draws grid overlay to debug stuff cuz tiles arent actually finished yet
 		handleKeys();
 		p.updatePos(this, drawer);
+		for(int i=0;i<enemies.size();i++) {
+			if(enemies.get(i).isDead())
+			{
+				enemies.remove(i);
+			}
+		}
 		for (Enemy baddie : enemies) {
 			baddie.act(this, drawer);
 			baddie.updatePos(this, drawer);
@@ -213,6 +219,7 @@ public class Level {
 		if (p.meleeing()) {
 			for (Enemy e : enemies) {
 				if (e.intersects(p.getMeleeHitbox())) {
+					e.loseHP();
 					System.out.println("yipee!");
 				}
 			}
