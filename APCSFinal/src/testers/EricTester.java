@@ -14,8 +14,8 @@ public class EricTester extends PApplet {
 	}
 	
 	public void setup() {
-		p=new Player(200,200,loadImage("resources\\images\\pacman.jpg"));
-		e=new Enemy(200,200,loadImage("resources\\images\\god.png"));
+		p=new Player(200,200,loadImage("resources\\images\\pacman.jpg"),0);
+		e=new Enemy(200,200,loadImage("resources\\images\\god.png"),0);
 		p.scale(0.25f);
 		e.scale(0.5f);
 	}
