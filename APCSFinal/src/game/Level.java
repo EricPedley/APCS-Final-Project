@@ -68,6 +68,15 @@ public class Level {
 				}
 			}
 		}
+		else
+		{
+			for(int i = 0; i<enemyProjectiles.size();i++) {
+				if(p.intersects(enemyProjectiles.get(i))) {
+					enemyProjectiles.remove(i);
+					p.damage();
+				}
+			}
+		}
 	}
 	public int[][] getTileArray() {
 		return tileType;
