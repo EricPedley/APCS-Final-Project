@@ -135,7 +135,7 @@ public class Level {
 		p.updatePos(this, drawer);
 		for (Enemy baddie : enemies) {
 			baddie.act(this, drawer);
-			//baddie.updatePos(this, drawer);
+			baddie.updatePos(this, drawer);
 			baddie.draw(drawer);
 		}
 		p.draw(drawer);
