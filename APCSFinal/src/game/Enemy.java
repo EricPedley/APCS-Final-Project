@@ -11,7 +11,7 @@ public class Enemy extends  Character {
 	private int framesWandered;
 	
 	public Enemy(float x, float y, PImage img, int hp) {
-		super(hp,x, y, img);
+		super(x, y, img,hp);
 		// TODO Auto- generated constructor stub
 	}
 	
@@ -22,10 +22,11 @@ public class Enemy extends  Character {
 	}
 
 	public void attack(Level l, PApplet drawer) {
-		Projectile p = new Projectile(0, 0, drawer.loadImage("resources\\images\\bullet.png"), new Vector(5,0));
+		Projectile p = new Projectile(0, 0, drawer.loadImage("resources\\images\\bullet.gif"), new Vector(l.getPlayer().x-x,l.getPlayer().y-y));
 		p.scale(0.05f);
 		p.x=x;
 		p.y=y;
+		p.vel.scaleMagnitudeTo(5f);
 		l.getEnemyProjectiles().add(p);
 	}
 

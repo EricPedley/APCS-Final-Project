@@ -11,7 +11,7 @@ public class Player extends Character {
 	
 	
 	public Player(float x, float y, PImage img, int hp) {
-		super(hp,x, y, img);
+		super(x, y, img,hp);
 		hitboxMode=1;
 		// TODO Auto-generated constructor stub
 	}

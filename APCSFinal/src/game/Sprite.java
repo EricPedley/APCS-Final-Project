@@ -75,7 +75,8 @@ public class Sprite {
 	public void updatePos(Level l,PApplet debugger) {
 		vel.add(acc);
 		int[][] tiles = l.getTileArray();
-	
+		if(vel.length()>0)
+			this.angle=vel.getAngle();
 		x+=vel.x;
 		y+=vel.y;
 		debugger.fill(0);
@@ -90,7 +91,7 @@ public class Sprite {
 		}
 		
 		debugger.rect(v.x*Level.TILE_SIZE,v.y*Level.TILE_SIZE,Level.TILE_SIZE,Level.TILE_SIZE);
-
+		
 	}
 
 	public float getWidth() {

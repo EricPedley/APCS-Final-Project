@@ -6,7 +6,7 @@ import processing.core.PImage;
 public class Character extends Sprite{
 	private int hp;
 
-	public Character(int hp, int x, int y, PImage img) {
+	public Character(float x, float y, PImage img,int hp) {
 		super(x,y,img);
 		this.hp = hp;
 	}
