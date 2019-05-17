@@ -22,6 +22,7 @@ public class Level {
 	private int numEnemies;
 	private Player p;
 	private boolean[] keys;
+	private float mouseX,mouseY;
 
 	// Constuctors
 	public Level(int levelNumber, int numEnemies, PApplet loader) {
@@ -134,7 +135,7 @@ public class Level {
 		p.updatePos(this, drawer);
 		for (Enemy baddie : enemies) {
 			baddie.act(this, drawer);
-			baddie.updatePos(this, drawer);
+			//baddie.updatePos(this, drawer);
 			baddie.draw(drawer);
 		}
 		p.draw(drawer);
@@ -151,10 +152,18 @@ public class Level {
 			enemyProjectiles.remove(p);
 		}
 		handleMelee();
+
+		handlePlayerDeflection();
 	}
 
 	public void handleKeys() {
 		Vector v = new Vector();
+		if(keys[81]) {
+			Player.isDeflecting = true;
+		}
+		if(keys[69]) {
+			Player.isDeflecting = false;
+		}
 		if (keys[65]) {
 			v.x--;
 		}
@@ -176,6 +185,18 @@ public class Level {
 
 	public ArrayList<Projectile> getEnemyProjectiles() {
 		return enemyProjectiles;
+	}
+	
+	public void handlePlayerDeflection() {
+		if(Player.isDeflecting) {
+			for(int i = 0; i<enemyProjectiles.size();i++) {
+				if(p.intersects(enemyProjectiles.get(i))) {
+					enemyProjectiles.get(i).vel = new Vector(mouseX-enemyProjectiles.get(i).x,mouseY-enemyProjectiles.get(i).y);
+					enemyProjectiles.get(i).vel.scaleMagnitudeTo(3);
+				}
+			}
+		}
+
 	}
 
 	public Player getPlayer() {

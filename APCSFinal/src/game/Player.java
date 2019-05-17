@@ -14,7 +14,8 @@ public class Player extends Character {
 	public Player(float x, float y, PImage img, int hp) {
 		super(x, y, img,hp);
 		hitboxMode=1;
-		meleeSword = new Sprite(x,y,100,1);
+		meleeSword = new Sprite(x,y,img);
+		meleeSword.scale(0.1f);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -25,6 +26,7 @@ public class Player extends Character {
 	}
 	
 	public void draw(PApplet drawer) {
+		
 		super.draw(drawer);
 		if(inMeleeAttack) {
 			float a = meleeAttackDirectionAngle;
@@ -34,9 +36,11 @@ public class Player extends Character {
 			meleeAnimationFrames++;
 			if(m>maxMeleeFrames)
 				inMeleeAttack=false;
-			meleeSword.x=x+50*PApplet.cos(a);
-			meleeSword.y=y+50*PApplet.sin(a);
-			meleeSword.angle=a;
+			meleeSword = new Sprite(0,0,drawer.loadImage("resources\\images\\sword.png"));
+			meleeSword.x=x+50*PApplet.cos(PApplet.PI*m/maxMeleeFrames+a-PApplet.PI/2);
+			meleeSword.y=y+50*PApplet.sin(PApplet.PI*m/maxMeleeFrames+a-PApplet.PI/2);
+			meleeSword.angle=PApplet.PI*m/maxMeleeFrames+a-PApplet.PI/2;
+			meleeSword.draw(drawer);
 		}
 	}
 	

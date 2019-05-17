@@ -48,7 +48,6 @@ public class Window extends PApplet{
 	}
 	
 	public void keyPressed() {
-		//System.out.println(keyCode);
 		keys[keyCode]=true;
 	}
 	
