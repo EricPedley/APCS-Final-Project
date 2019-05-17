@@ -83,7 +83,7 @@ public class Sprite {
 			this.angle = vel.getAngle();
 		x += vel.x;
 		y += vel.y;
-		debugger.fill(0);
+		//debugger.fill(0);
 		Vector v = new Vector((int) (x / Level.TILE_SIZE), (int) (y / Level.TILE_SIZE));
 		Vector[] transformations = { new Vector(-1, -1), new Vector(0, -1), new Vector(1, -1), new Vector(-1, 0),
 				new Vector(1, 0), new Vector(-1, 1), new Vector(0, 1), new Vector(1, 1) };
