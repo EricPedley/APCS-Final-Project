@@ -29,7 +29,7 @@ public class EricTester extends PApplet {
 	}
 	
 	public void mouseClicked() {
-		p.melee(atan((mouseY-p.y)/(mouseX-p.x))+((mouseX<p.x)? PI:0));
+		p.startMeleeAnimation(atan((mouseY-p.y)/(mouseX-p.x))+((mouseX<p.x)? PI:0));
 	}
 	
 	public void mouseWheel() {
