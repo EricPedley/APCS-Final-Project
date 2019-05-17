@@ -8,6 +8,7 @@ public class Player extends Character {
 	private int meleeAnimationFrames;
 	private float meleeAttackDirectionAngle;
 	private final int maxMeleeFrames=10;
+	public static boolean isDeflecting;
 	
 	
 	public Player(float x, float y, PImage img, int hp) {

@@ -16,6 +16,7 @@ public class Level {
 	private ArrayList<Projectile> friendlyProjectiles;
 	private ArrayList<Projectile> enemyProjectiles;
 	private ArrayList<Enemy> enemies;
+	private float mouseX , mouseY;
 	private Enemy testBaddie;
 	public static final int TILE_SIZE = 64;
 	private String fs = System.getProperty("file.separator");
@@ -58,9 +59,23 @@ public class Level {
 		}
 	}
 
+	public void handlePlayerDeflection() {
+		if(Player.isDeflecting) {
+			for(int i = 0; i<enemyProjectiles.size();i++) {
+				if(p.intersects(enemyProjectiles.get(i))) {
+					enemyProjectiles.get(i).vel = new Vector(mouseX-enemyProjectiles.get(i).x,mouseY-enemyProjectiles.get(i).y);
+					enemyProjectiles.get(i).vel.scaleMagnitudeTo(3);
+				}
+			}
+		}
+		
+	}
+	
 	public int[][] getTileArray() {
 		return tileType;
 	}
+	
+	
 
 	// Methods
 	public void assignIndices(PApplet p) {
@@ -116,6 +131,8 @@ public class Level {
 	 * @param drawer
 	 */
 	public void draw(PApplet drawer) {
+		this.mouseX = drawer.mouseX;
+		this.mouseY = drawer.mouseY;
 		Level l = this;
 		int[][] tiles = l.getTileArray();
 		drawer.noFill();
@@ -146,10 +163,19 @@ public class Level {
 		for(Projectile p: toDelete) {
 			enemyProjectiles.remove(p);
 		}
+		
+		handlePlayerDeflection();
+		
 	}
 
 	public void handleKeys() {
 		Vector v = new Vector();
+		if(keys[81]) {
+			Player.isDeflecting = true;
+		}
+		if(keys[69]) {
+			Player.isDeflecting = false;
+		}
 		if (keys[65]) {
 			v.x--;
 		}
