@@ -58,7 +58,7 @@ public class Level {
 //			p.angle=p.vel.getAngle()+PApplet.PI/2;
 		}
 	}
-	
+	//
 	public void handlePlayerDeflection() {
 		if(Player.isDeflecting) {
 			for(int i = 0; i<enemyProjectiles.size();i++) {
