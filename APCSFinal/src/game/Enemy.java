@@ -22,10 +22,11 @@ public class Enemy extends Sprite {
 	
 	public void attack(Level l) {
 		Projectile p = new Projectile(0,0,null,null);
-		//TODO need to code this
+		
+		l.getEnemyProjectiles().add(p);
 	}
 	
-	public void act() {
+	public void act(Level l) {
 		framesWandered++;
 		if(framesWandered>60) {
 			vel=new Vector(0,5);
