@@ -4,7 +4,7 @@ import processing.core.PImage;
 
 public class Player extends Character {
 
-	private int hp;
+
 	private boolean inMeleeAttack;
 	private int meleeAnimationFrames;
 	private float meleeAttackDirectionAngle;
@@ -58,12 +58,5 @@ public class Player extends Character {
 		return inMeleeAttack;
 	}
 	
-	public void damage() {
-		if(hp<0)
-		hp--;
-	}
-	
-	public int getHP() {
-		return hp;
-	}
+
 }

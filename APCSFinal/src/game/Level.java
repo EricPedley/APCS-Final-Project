@@ -73,7 +73,7 @@ public class Level {
 			for(int i = 0; i<enemyProjectiles.size();i++) {
 				if(p.intersects(enemyProjectiles.get(i))) {
 					enemyProjectiles.remove(i);
-					p.damage();
+					p.loseHP();
 				}
 			}
 		}
