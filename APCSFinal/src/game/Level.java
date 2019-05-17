@@ -16,7 +16,7 @@ public class Level {
 	private ArrayList<Projectile> friendlyProjectiles;
 	private ArrayList<Projectile> enemyProjectiles;
 	private ArrayList<Enemy> enemies;
-	private Enemy testBaddie;
+	// private Enemy testBaddie;
 	public static final int TILE_SIZE = 64;
 	private String fs = System.getProperty("file.separator");
 	private int numEnemies;
@@ -31,9 +31,9 @@ public class Level {
 		friendlyProjectiles = new ArrayList<Projectile>();
 		enemyProjectiles = new ArrayList<Projectile>();
 		enemies = new ArrayList<Enemy>();
-		testBaddie = new Enemy(500, 200, loader.loadImage("resources" + fs + "images" + fs + "halo.png"), 100);
-		testBaddie.scale(0.25f);
-		PImage[] enemyImages = {};
+		Enemy baddie = new Enemy(500, 200, loader.loadImage("resources" + fs + "images" + fs + "halo.png"), 100);
+		baddie.scale(0.25f);
+		enemies.add(baddie);
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class Level {
 
 	public void mouseClicked(float mouseX, float mouseY, int mouseButton) {
 		if (mouseButton == 37) {// left mouse button
-			p.melee(new Vector(mouseX - p.x, mouseY - p.y).getAngle());
+			p.startMeleeAnimation(new Vector(mouseX - p.x, mouseY - p.y).getAngle());
 //			System.out.println("wtf");
 //			p.vel=new Vector(mouseX-p.x,mouseY-p.y);
 //			p.vel.scaleMagnitudeTo(5f);
@@ -130,9 +130,11 @@ public class Level {
 		} // draws grid overlay to debug stuff cuz tiles arent actually finished yet
 		handleKeys();
 		p.updatePos(this, drawer);
-		testBaddie.act(this, drawer);
-		testBaddie.updatePos(this, drawer);
-		testBaddie.draw(drawer);
+		for (Enemy baddie : enemies) {
+			baddie.act(this, drawer);
+			baddie.updatePos(this, drawer);
+			baddie.draw(drawer);
+		}
 		p.draw(drawer);
 		ArrayList<Projectile> toDelete = new ArrayList<Projectile>();
 		for (Projectile p : enemyProjectiles) {
@@ -143,9 +145,10 @@ public class Level {
 				p.draw(drawer);
 			}
 		}
-		for(Projectile p: toDelete) {
+		for (Projectile p : toDelete) {
 			enemyProjectiles.remove(p);
 		}
+		handleMelee();
 	}
 
 	public void handleKeys() {
@@ -177,6 +180,15 @@ public class Level {
 		return p;
 	}
 
+	public void handleMelee() {
+		if (p.meleeing()) {
+			for (Enemy e : enemies) {
+				if (e.intersects(p.getMeleeHitbox())) {
+					System.out.println("yipee!");
+				}
+			}
+		}
+	}
 	/*
 	 * public ArrayList<Projectile> getMyProjectiles() { // TODO Auto-generated
 	 * method stub return myProjectiles; }

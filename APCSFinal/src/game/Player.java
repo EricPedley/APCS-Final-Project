@@ -8,15 +8,16 @@ public class Player extends Character {
 	private int meleeAnimationFrames;
 	private float meleeAttackDirectionAngle;
 	private final int maxMeleeFrames=10;
-	
+	private Sprite meleeSword;
 	
 	public Player(float x, float y, PImage img, int hp) {
 		super(x, y, img,hp);
 		hitboxMode=1;
+		meleeSword = new Sprite(x,y,100,1);
 		// TODO Auto-generated constructor stub
 	}
 
-	public void melee(float angle) {
+	public void startMeleeAnimation(float angle) {
 		meleeAttackDirectionAngle = angle;
 		meleeAnimationFrames=0;
 		inMeleeAttack=true;
@@ -32,10 +33,21 @@ public class Player extends Character {
 			meleeAnimationFrames++;
 			if(m>maxMeleeFrames)
 				inMeleeAttack=false;
+			meleeSword.x=x+50*PApplet.cos(a);
+			meleeSword.y=y+50*PApplet.sin(a);
+			meleeSword.angle=a;
 		}
 	}
 	
 	public float getMeleeCurrentAngle() {
 		return PApplet.PI*meleeAnimationFrames/maxMeleeFrames+meleeAttackDirectionAngle-PApplet.PI/2;
+	}
+	
+	public Sprite getMeleeHitbox() {
+		return meleeSword;
+	}
+	
+	public boolean meleeing() {
+		return inMeleeAttack;
 	}
 }
