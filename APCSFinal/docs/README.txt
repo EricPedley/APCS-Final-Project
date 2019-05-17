@@ -16,8 +16,8 @@ Deflected shots move to the mouse
 Features
 Must-Have:
 2d top view map with obstacles that do not allow projectiles, the player, or enemies to move through
-Player can move around on the map using wasd keys. 
-Enemies exist in the game that move around aimlessly and shoot at the player using hard coded AI.
+Player can move around on the map using WASD keys. 
+Enemies exist in the game that moves around aimlessly and shoot at the player using hard coded AI.
 Player can activate an ability which causes all projectiles to “bounce” off, reversing movement to the opposite direction and dealing no damage to the player
 Player can use a melee attack that will damage enemies in a semicircle in front of themselves.
 
@@ -32,22 +32,24 @@ Creating Multi leveled game with levels increasing in difficulty as you go.
 
 Stretch:
 Add a feature where the player cannot see past obstacles 
-multiplayer BR 
-mini map
-Add animations to characters
-Throwable items
+multiplayer BR using networking
+mini map which lets you see the enemies a small circle around you
+Add animations to characters such as walking and melee
+Items and/or terrain features that can be moved or thrown at an enemy
 
 
 Class List:
-Sprite, Player, Enemy, Obstacle, Projectile, Main, Window, Environment, Item, Level, Menu
+Sprite, Player, Enemy, Projectile, Main, Window, Level, Menu, Vector, Character
 
 
 Credits List:
-Eric: Sprite, Player, Enemy, Projectile, 
-Rishab : Level, Environment, Window 
-Osman: Item, Obstacle, Menu, Main
+Eric: Sprite, Player, Enemy, Projectile, Vector
+Rishab: Level, Environment, Window, Main,Character
+Osman: Menu
 
 
+Sources:
+Collision detection tutorial: https://www.metanetsoftware.com/technique/tutorialA.html
 
 
 
