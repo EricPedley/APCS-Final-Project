@@ -32,7 +32,7 @@ public class Player extends Character {
 			float a = meleeAttackDirectionAngle;
 			float m = meleeAnimationFrames;
 			//drawer.line(x, y, x+200*PApplet.cos(a), y+200*PApplet.sin(a));
-			drawer.line(x,y,x+200*PApplet.cos(PApplet.PI*m/maxMeleeFrames+a-PApplet.PI/2),y+200*PApplet.sin(PApplet.PI*m/maxMeleeFrames+a-PApplet.PI/2));
+			//drawer.line(x,y,x+200*PApplet.cos(PApplet.PI*m/maxMeleeFrames+a-PApplet.PI/2),y+200*PApplet.sin(PApplet.PI*m/maxMeleeFrames+a-PApplet.PI/2));
 			meleeAnimationFrames++;
 			if(m>maxMeleeFrames)
 				inMeleeAttack=false;
