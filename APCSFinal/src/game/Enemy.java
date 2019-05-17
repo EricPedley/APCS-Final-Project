@@ -1,24 +1,22 @@
 package game;
-
-import processing.core.PApplet;
 import processing.core.PImage;
 
-enum State {
-	WANDERING, ATTACKING, IDLING;
-}
 
-public class Enemy extends Sprite {
+enum State {
+	WANDERING,ATTACKING,IDLING;
+}
+public class Enemy extends  Character {
 	private State state;
 	private int framesWandered;
-
+	
 	public Enemy(float x, float y, PImage img) {
 		super(x, y, img);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public void updateState() {
-		if (state == State.WANDERING || state == State.IDLING) {
-
+		if(state==State.WANDERING||state==State.IDLING) {
+			
 		}
 	}
 
