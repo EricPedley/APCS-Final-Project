@@ -143,8 +143,8 @@ public class Level {
 		int[][] tiles = l.getTileArray();
 		drawer.noFill();
 		drawer.strokeWeight(1);
-		for (int i = 0; i < 45; i++) {
-			for (int j = 0; j < 11; j++) {
+		for (int i = 0; i < tiles.length; i++) {
+			for (int j = 0; j < tiles[0].length; j++) {
 				drawer.fill(255);
 				if (tiles[i][j] == 0)
 					drawer.fill(0, 0, 255);

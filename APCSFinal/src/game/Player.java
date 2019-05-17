@@ -29,21 +29,24 @@ public class Player extends Character {
 	
 	public void draw(PApplet drawer) {
 		
-		super.draw(drawer);
 		if(inMeleeAttack) {
 			float a = meleeAttackDirectionAngle;
 			float m = meleeAnimationFrames;
+			float startPos = PApplet.PI/2;
+			float endPos = -PApplet.PI/2;
 			//drawer.line(x, y, x+200*PApplet.cos(a), y+200*PApplet.sin(a));
 			//drawer.line(x,y,x+200*PApplet.cos(PApplet.PI*m/maxMeleeFrames+a-PApplet.PI/2),y+200*PApplet.sin(PApplet.PI*m/maxMeleeFrames+a-PApplet.PI/2));
 			meleeAnimationFrames++;
 			if(m>maxMeleeFrames)
 				inMeleeAttack=false;
 			meleeSword = new Sprite(0,0,drawer.loadImage("resources\\images\\sword.png"));
-			meleeSword.x=x+50*PApplet.cos(PApplet.PI*m/maxMeleeFrames+a-PApplet.PI/2);
-			meleeSword.y=y+50*PApplet.sin(PApplet.PI*m/maxMeleeFrames+a-PApplet.PI/2);
-			meleeSword.angle=PApplet.PI*m/maxMeleeFrames+a-PApplet.PI/2;
+			float angle = PApplet.PI*-m/maxMeleeFrames+a+PApplet.PI/2;
+			meleeSword.x=x+meleeSword.getWidth()/2*PApplet.cos(angle);
+			meleeSword.y=y+meleeSword.getWidth()/2*PApplet.sin(angle);
+			meleeSword.angle=angle;
 			meleeSword.draw(drawer);
 		}
+		super.draw(drawer);
 	}
 	
 	public float getMeleeCurrentAngle() {
