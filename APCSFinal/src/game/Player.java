@@ -2,7 +2,7 @@ package game;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Player extends Sprite {
+public class Player extends Character {
 
 	private boolean inMeleeAttack;
 	private int meleeAnimationFrames;

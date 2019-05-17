@@ -5,7 +5,7 @@ import processing.core.PImage;
 enum State {
 	WANDERING,ATTACKING,IDLING;
 }
-public class Enemy extends Sprite {
+public class Enemy extends  Character {
 	private State state;
 	private int framesWandered;
 	
