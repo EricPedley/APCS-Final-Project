@@ -10,8 +10,8 @@ public class Player extends Character {
 	private final int maxMeleeFrames=10;
 	
 	
-	public Player(float x, float y, PImage img) {
-		super(x, y, img);
+	public Player(float x, float y, PImage img, int hp) {
+		super(hp,x, y, img);
 		hitboxMode=1;
 		// TODO Auto-generated constructor stub
 	}

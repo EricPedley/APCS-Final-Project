@@ -9,8 +9,8 @@ public class Enemy extends  Character {
 	private State state;
 	private int framesWandered;
 	
-	public Enemy(float x, float y, PImage img) {
-		super(x, y, img);
+	public Enemy(float x, float y, PImage img, int hp) {
+		super(hp,x, y, img);
 		// TODO Auto-generated constructor stub
 	}
 	
