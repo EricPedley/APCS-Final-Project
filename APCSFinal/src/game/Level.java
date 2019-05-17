@@ -132,10 +132,14 @@ public class Level {
 		}//draws grid overlay to debug stuff cuz tiles arent actually finished yet
 		handleKeys();
 		p.updatePos(this,drawer);
-		testBaddie.act(this);
+		testBaddie.act(this,drawer);
 		testBaddie.updatePos(this, drawer);
 		testBaddie.draw(drawer);
 		p.draw(drawer);
+		for(Projectile p: enemyProjectiles) {
+			p.updatePos(this, drawer);
+			p.draw(drawer);
+		}
 	}
 	
 	public void handleKeys() {
@@ -163,6 +167,9 @@ public class Level {
 		return enemyProjectiles;
 	}
 	
+	public Player getPlayer() {
+		return p;
+	}
 
 /*	public ArrayList<Projectile> getMyProjectiles() {
 		// TODO Auto-generated method stub
