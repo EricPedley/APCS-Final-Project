@@ -12,7 +12,7 @@ public class Enemy extends  Character {
 	
 	public Enemy(float x, float y, PImage img, int hp) {
 		super(hp,x, y, img);
-		// TODO Auto-generated constructor stub
+		// TODO Auto- generated constructor stub
 	}
 	
 	public void updateState() {
