@@ -58,6 +58,16 @@ public class Level {
 //			p.angle=p.vel.getAngle()+PApplet.PI/2;
 		}
 	}
+	//
+	public void handlePlayerDeflection() {
+		if(Player.isDeflecting) {
+			for(int i = 0; i<enemyProjectiles.size();i++) {
+				if(p.intersects(enemyProjectiles.get(i))) {
+					enemyProjectiles.get(i).vel = new Vector(mouseX-enemyProjectiles.get(i).x,mouseY-enemyProjectiles.get(i).y);
+					enemyProjectiles.get(i).vel.scaleMagnitudeTo(3);
+				}
+			}
+		}
 
 	public int[][] getTileArray() {
 		return tileType;
@@ -152,7 +162,6 @@ public class Level {
 			enemyProjectiles.remove(p);
 		}
 		handleMelee();
-
 		handlePlayerDeflection();
 	}
 
@@ -185,18 +194,6 @@ public class Level {
 
 	public ArrayList<Projectile> getEnemyProjectiles() {
 		return enemyProjectiles;
-	}
-	
-	public void handlePlayerDeflection() {
-		if(Player.isDeflecting) {
-			for(int i = 0; i<enemyProjectiles.size();i++) {
-				if(p.intersects(enemyProjectiles.get(i))) {
-					enemyProjectiles.get(i).vel = new Vector(mouseX-enemyProjectiles.get(i).x,mouseY-enemyProjectiles.get(i).y);
-					enemyProjectiles.get(i).vel.scaleMagnitudeTo(3);
-				}
-			}
-		}
-
 	}
 
 	public Player getPlayer() {
