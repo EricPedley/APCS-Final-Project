@@ -40,6 +40,7 @@ public class Player extends Character {
 			if(m>maxMeleeFrames)
 				inMeleeAttack=false;
 			meleeSword = new Sprite(0,0,drawer.loadImage("resources\\images\\Hero_Sword.png"));
+			meleeSword.scale(2f);
 			float angle = PApplet.PI*-m/maxMeleeFrames+a+PApplet.PI/2;
 			meleeSword.x=x+meleeSword.getWidth()/2*PApplet.cos(angle);
 			meleeSword.y=y+meleeSword.getWidth()/2*PApplet.sin(angle);
