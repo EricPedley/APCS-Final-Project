@@ -63,9 +63,10 @@ public class Level {
 		if(Player.isDeflecting) {
 			for(int i = 0; i<enemyProjectiles.size();i++) {
 				if(p.intersects(enemyProjectiles.get(i))) {
-					System.out.println("projectile intersection");
+				System.out.println("colliding and deflecting");
 					enemyProjectiles.get(i).vel = new Vector(mouseX-enemyProjectiles.get(i).x,mouseY-enemyProjectiles.get(i).y);
 					enemyProjectiles.get(i).vel.scaleMagnitudeTo(3);
+					friendlyProjectiles.add(enemyProjectiles.remove(i));
 				}
 			}
 		}
@@ -75,6 +76,15 @@ public class Level {
 				if(p.intersects(enemyProjectiles.get(i))) {
 					enemyProjectiles.remove(i);
 					p.loseHP();
+				}
+			}
+		}
+		for(Enemy e: enemies) {
+			for(int i = 0; i<friendlyProjectiles.size();i++) {
+				if(e.intersects(friendlyProjectiles.get(i))) {
+					friendlyProjectiles.remove(i);
+					e.loseHP();
+					
 				}
 			}
 		}
@@ -153,6 +163,14 @@ public class Level {
 		} // draws grid overlay to debug stuff cuz tiles arent actually finished yet
 		handleKeys();
 		p.updatePos(this, drawer);
+		handleEnemies(drawer);
+		p.draw(drawer);
+		drawProjectiles(drawer);
+		handleMelee();
+		handlePlayerDeflection();
+	}
+	
+	public void handleEnemies(PApplet drawer) {
 		for(int i=0;i<enemies.size();i++) {
 			if(enemies.get(i).isDead())
 			{
@@ -164,9 +182,19 @@ public class Level {
 			baddie.updatePos(this, drawer);
 			baddie.draw(drawer);
 		}
-		p.draw(drawer);
+	}
+	
+	public void drawProjectiles(PApplet drawer) {
 		ArrayList<Projectile> toDelete = new ArrayList<Projectile>();
 		for (Projectile p : enemyProjectiles) {
+			if (p.deleteMe)
+				toDelete.add(p);
+			else {
+				p.updatePos(this, drawer);
+				p.draw(drawer);
+			}
+		}
+		for (Projectile p : friendlyProjectiles) {
 			if (p.deleteMe)
 				toDelete.add(p);
 			else {
@@ -177,8 +205,6 @@ public class Level {
 		for (Projectile p : toDelete) {
 			enemyProjectiles.remove(p);
 		}
-		handleMelee();
-		handlePlayerDeflection();
 	}
 
 	public void handleKeys() {
