@@ -26,7 +26,7 @@ public class Enemy extends  Character {
 		p.scale(0.05f);
 		p.x=x;
 		p.y=y;
-		p.vel.scaleMagnitudeTo(5f);
+		p.vel.scaleMagnitudeTo(10f);
 		l.getEnemyProjectiles().add(p);
 	}
 

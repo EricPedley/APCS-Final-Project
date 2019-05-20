@@ -16,10 +16,9 @@ public class EricTester extends PApplet {
 	}
 	
 	public void setup() {
-		p=new Player(200,200,loadImage("resources\\images\\knight.png"),0);
+		p=new Player(200,200,loadImage("resources\\images\\hero.gif"),10);
 		e=new Projectile(200,200,loadImage("resources\\images\\bullet.gif"),new Vector(0,0));
-		p.scale(0.25f);
-		e.scale(0.5f);
+		e.scale(0.1f);
 	}
 	
 	public void draw() {
@@ -42,8 +41,8 @@ public class EricTester extends PApplet {
 	}
 	
 	public void keyPressed() {
-		p.x=mouseX;
-		p.y=mouseY;
+		e.x=mouseX;
+		e.y=mouseY;
 	}
 	
 	public static void main(String[] args) {
