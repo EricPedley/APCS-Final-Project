@@ -14,7 +14,7 @@ public class Projectile extends Sprite {
 	}
 	
 	@Override
-	public void handleTileCollisions(Sprite tile,PApplet debugger) {
+	public void handleTileCollisions(Sprite tile) {
 		if(tile.intersects(this))
 			deleteMe=true;
 	}

@@ -76,7 +76,7 @@ public class Sprite {
 	 * @param l
 	 * @param debugger
 	 */
-	public void updatePos(Level l, PApplet debugger) {
+	public void updatePos(Level l) {
 		vel.add(acc);
 		int[][] tiles = l.getTileArray();
 		if (vel.length() > 0)
@@ -93,11 +93,11 @@ public class Sprite {
 					&& tiles[(int) v2.x][(int) v2.y] == 0) {
 				Sprite tile = new Sprite(v2.x * Level.TILE_SIZE + Level.TILE_SIZE / 2,
 						v2.y * Level.TILE_SIZE + Level.TILE_SIZE / 2, Level.TILE_SIZE, Level.TILE_SIZE);
-				handleTileCollisions(tile, debugger);
+				handleTileCollisions(tile);
 			}
 		}
 
-		debugger.rect(v.x * Level.TILE_SIZE, v.y * Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+		//debugger.rect(v.x * Level.TILE_SIZE, v.y * Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
 
 	}
 
@@ -229,7 +229,7 @@ public class Sprite {
 	 *                 of PI/2
 	 * @param debugger
 	 */
-	public void handleTileCollisions(Sprite tile, PApplet debugger) {// simpler collisions method because tiles are
+	public void handleTileCollisions(Sprite tile) {// simpler collisions method because tiles are
 																		// always axis-aligned(at 90deg angles) and
 																		// square
 		float r = width / 2;
@@ -245,14 +245,14 @@ public class Sprite {
 			Vector corner = new Vector(tile.x + r2 * i[0], tile.y + r2 * i[1]);
 			if (corner.asPointIntersectsCircle(new Vector(x, y), r)) {
 //				System.out.println("eyyy gang gang gang");
-				debugger.strokeWeight(10);
+				//debugger.strokeWeight(10);
 //				Vector test = vel.getOrthogonalComponentTo(new Vector(x,y).subtractN(corner));
 //				test.multiply(100f);
 //				test.draw(debugger,x,y);
 				Vector v = vel.getParallelComponentTo(new Vector(x, y).subtractN(corner));
 				if (new Vector(x, y).subtractN(corner).dot(v) > 0)
 					v.multiply(-1f);
-				v.multiplyN(100).draw(debugger, x, y);
+				//v.multiplyN(100).draw(debugger, x, y);
 				x -= v.x;
 				y -= v.y;
 			}

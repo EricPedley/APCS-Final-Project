@@ -11,6 +11,8 @@ public class Player extends Character {
 	private final int maxMeleeFrames=10;
 	private Sprite meleeSword;
 	public static boolean isDeflecting;
+	private PImage otherImage;
+	
 	
 	public Player(float x, float y, PImage img, int hp) {
 		super(x, y, img,hp);
@@ -39,7 +41,7 @@ public class Player extends Character {
 			meleeAnimationFrames++;
 			if(m>maxMeleeFrames)
 				inMeleeAttack=false;
-			meleeSword = new Sprite(0,0,drawer.loadImage("resources\\images\\Hero_Sword.png"));
+			meleeSword = new Sprite(0,0,drawer.loadImage("resources\\images\\Hero_Sword.gif"));
 			meleeSword.scale(2f);
 			float angle = PApplet.PI*-m/maxMeleeFrames+a+PApplet.PI/2;
 			meleeSword.x=x+meleeSword.getWidth()/2*PApplet.cos(angle);

@@ -27,7 +27,7 @@ public class Level {
 	// Constuctors
 	public Level(int levelNumber, int numEnemies, PApplet loader) {
 		readData("Levels" + fs + "Test_Level.txt");
-		p = new Player(200, 200, loader.loadImage("resources" + fs + "images" + fs + "Hero.png"), 100);
+		p = new Player(200, 200, loader.loadImage("resources" + fs + "images" + fs + "Hero.gif"), 100);
 		p.scale(2f);
 		friendlyProjectiles = new ArrayList<Projectile>();
 		enemyProjectiles = new ArrayList<Projectile>();
@@ -59,7 +59,7 @@ public class Level {
 		}
 	}
 	//
-	public void handlePlayerDeflection() {
+	public void handleProjectileCollisions() {
 		if(Player.isDeflecting) {
 			for(int i = 0; i<enemyProjectiles.size();i++) {
 				if(p.intersects(enemyProjectiles.get(i))) {
@@ -162,12 +162,12 @@ public class Level {
 			}
 		} // draws grid overlay to debug stuff cuz tiles arent actually finished yet
 		handleKeys();
-		p.updatePos(this, drawer);
+		p.updatePos(this);
 		handleEnemies(drawer);
 		p.draw(drawer);
 		drawProjectiles(drawer);
 		handleMelee();
-		handlePlayerDeflection();
+		handleProjectileCollisions();
 	}
 	
 	public void handleEnemies(PApplet drawer) {
@@ -179,7 +179,7 @@ public class Level {
 		}
 		for (Enemy baddie : enemies) {
 			baddie.act(this, drawer);
-			baddie.updatePos(this, drawer);
+			baddie.updatePos(this);
 			baddie.draw(drawer);
 		}
 	}
@@ -190,7 +190,7 @@ public class Level {
 			if (p.deleteMe)
 				toDelete.add(p);
 			else {
-				p.updatePos(this, drawer);
+				p.updatePos(this);
 				p.draw(drawer);
 			}
 		}
@@ -198,7 +198,7 @@ public class Level {
 			if (p.deleteMe)
 				toDelete.add(p);
 			else {
-				p.updatePos(this, drawer);
+				p.updatePos(this);
 				p.draw(drawer);
 			}
 		}
