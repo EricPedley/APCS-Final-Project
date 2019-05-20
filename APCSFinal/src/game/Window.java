@@ -26,6 +26,9 @@ public class Window extends PApplet{
 		state = GameState.INGAME;
 		currentLevel = new Level(1, 2,this);
 		currentLevel.passKeysReference(keys);
+		//
+		//INSERT MENU CONSTRUCTORS HERE
+		//
 	}
 	
 	public void draw() {
@@ -49,6 +52,14 @@ public class Window extends PApplet{
 	
 	public void keyPressed() {
 		keys[keyCode]=true;
+		if(keys[83])
+		{
+			if(state==GameState.START)
+			{
+				state=GameState.INGAME;
+			}
+		}
+		//program spec key codes for pausing, resuming, restarting, instructions, credits, etc.
 	}
 	
 	public void keyReleased() {
