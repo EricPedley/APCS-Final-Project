@@ -122,6 +122,17 @@ public class Sprite {
 		else
 			return false;
 	}
+	
+	public boolean intersects(Sprite other) {
+		if (hitboxMode + other.hitboxMode == 0)
+			return intersectsRectToRect(other);
+		else if (hitboxMode == 0 && other.hitboxMode == 1)
+			return intersectsRectToCircle(other);
+		else if (hitboxMode == 1 && other.hitboxMode == 0)
+			return other.intersectsRectToCircle(this);
+		else
+			return false;
+	}
 
 	private boolean intersectsRectToRect(Sprite other) {
 		Vector[] edges = new Vector[4];
@@ -218,6 +229,46 @@ public class Sprite {
 			debugger.stroke(0,0,255);
 			debugger.point(l3+radius, 200+offset);
 			debugger.point(l3-radius, 200+offset);
+			offset+=50;
+			if (!(Math.min(maxThis, l3 + radius) >= Math.max(minThis, l3 - radius)))
+				return false;
+		//}
+		return true;
+
+	}
+	
+	private boolean intersectsRectToCircle(Sprite other) {// this hitbox is a rect and other's is a circle
+		Vector[] edges = new Vector[6];
+		edges[0] = new Vector(width * PApplet.cos(angle), width * PApplet.sin(angle));
+		edges[1] = new Vector(-height * PApplet.sin(angle), height * PApplet.cos(angle));
+		Vector[] points = new Vector[4];
+		float l = (float) (Math.sqrt(width * width + height * height)) / 2;// length of half the diagonal of this
+																			// rectangle
+		float a = -PApplet.atan(height / width);
+		points[0] = new Vector(x - l * PApplet.cos(a - angle), y + l * PApplet.sin(a - angle));
+		points[1] = points[0].addN(edges[0]);
+		points[2] = points[0].addN(edges[1]);
+		points[3] = points[0].addN(edges[0]).addN(edges[1]);
+		Vector center = new Vector(other.x, other.y);
+		float radius = other.width / 2;
+		edges[2] = center.subtractN(points[0]);
+		edges[3] = center.subtractN(points[1]);
+		edges[4] = center.subtractN(points[2]);
+		edges[5] = center.subtractN(points[3]);
+		int offset=0;
+		//for (Vector v : edges) {
+		Vector v = edges[1];
+			float maxThis = 0, minThis = 1000000;
+			for (Vector b : points) {// for each point of this rectangle
+				Vector parallel = b.getOrthogonalComponentTo(v);
+				float l2 = parallel.length();// l is the projection of the point onto v
+				if (l2 > maxThis)
+					maxThis = l2;
+				if (l2 < minThis)
+					minThis = l2;
+			}
+			float l3 = center.getOrthogonalComponentTo(v).length();
+	
 			offset+=50;
 			if (!(Math.min(maxThis, l3 + radius) >= Math.max(minThis, l3 - radius)))
 				return false;
