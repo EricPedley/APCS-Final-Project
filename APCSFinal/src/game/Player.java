@@ -60,7 +60,7 @@ public class Player extends Character {
 		return meleeSword;
 	}
 	
-	public boolean meleeing() {
+	public boolean isMeleeing() {
 		return inMeleeAttack;
 	}
 	
