@@ -27,14 +27,17 @@ public class Level {
 	// Constuctors
 	public Level(int levelNumber, int numEnemies, PApplet loader) {
 		readData("Levels" + fs + "Test_Level.txt");
-		p = new Player(200, 200, loader.loadImage("resources" + fs + "images" + fs + "Hero.gif"), 100);
+		p = new Player(200, 200, ImageLoader.Player, 100);
 		p.scale(2f);
 		friendlyProjectiles = new ArrayList<Projectile>();
 		enemyProjectiles = new ArrayList<Projectile>();
 		enemies = new ArrayList<Enemy>();
-		Enemy baddie = new Enemy(500, 200, loader.loadImage("resources" + fs + "images" + fs + "halo.png"), 100);
-		baddie.scale(0.25f);
-		enemies.add(baddie);
+		for(int i=0;i<numEnemies;i++)
+		{
+			Enemy baddie = new Enemy(500, 200,ImageLoader.Enemy , 100);
+			baddie.scale(2f);
+			enemies.add(baddie);
+		}
 	}
 
 	/**

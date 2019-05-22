@@ -23,13 +23,14 @@ public class Window extends PApplet{
 	private GameState state;
 	//set up
 	public void setup() {
+		ImageLoader.setup(this);
 		state = GameState.START;
 		currentLevel = new Level(1,2,this);
 		currentLevel.passKeysReference(keys);
 		startScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "startSample.png"));
 		pauseScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "pauseSample.png"));
 		gameOverScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "gameoverSample.png"));
-		instructionScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "instructionSample.png"));
+		instructionScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "instructions1.png"));
 		winScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "winSample.png"));
 		levelSelect= new Menu(this.loadImage("resources" + fs + "images" + fs + "levelSample.png"));
 	}
@@ -111,13 +112,13 @@ public class Window extends PApplet{
 			}
 			if(keys[50])
 			{
-				currentLevel=new Level(2,2,this);
+				currentLevel=new Level(2,3,this);
 				currentLevel.passKeysReference(keys);
 				state=GameState.INGAME;
 			}
 			if(keys[51])
 			{
-				currentLevel=new Level(3,2,this);
+				currentLevel=new Level(3,5,this);
 				currentLevel.passKeysReference(keys);
 				state=GameState.INGAME;
 			}
