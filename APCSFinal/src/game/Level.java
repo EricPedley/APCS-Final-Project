@@ -31,7 +31,7 @@ public class Level {
 		readData("Levels" + fs + "Test_Level.txt");
 		p = new Player(200, 200, 100);
 		p.scale(2f);
-		Player.isDeflecting=false;
+		p.isDeflecting=false;
 		friendlyProjectiles = new ArrayList<Projectile>();
 		enemyProjectiles = new ArrayList<Projectile>();
 		enemies = new ArrayList<Enemy>();
