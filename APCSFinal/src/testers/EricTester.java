@@ -16,7 +16,7 @@ public class EricTester extends PApplet {
 	}
 	
 	public void setup() {
-		p=new Player(300,200,loadImage("resources\\images\\Hero.gif"),10);
+		p=new Player(300,200,10);
 		e=new Projectile(200,200,loadImage("resources\\images\\bullet.gif"),new Vector(0,0));
 		e.scale(0.05f);
 		p.scale(2f);

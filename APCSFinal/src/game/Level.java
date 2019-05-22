@@ -28,7 +28,7 @@ public class Level {
 	// Constuctors
 	public Level(int levelNumber, int numEnemies, PApplet loader) {
 		readData("Levels" + fs + "Test_Level.txt");
-		p = new Player(200, 200, ImageLoader.Player, 100);
+		p = new Player(200, 200, 100);
 		p.scale(2f);
 		friendlyProjectiles = new ArrayList<Projectile>();
 		enemyProjectiles = new ArrayList<Projectile>();
@@ -67,12 +67,12 @@ public class Level {
 	}
 	//
 	public void handleProjectileCollisions() {
-		if(Player.isDeflecting) {
+		if(p.isDeflecting) {
 			for(int i = 0; i<enemyProjectiles.size();i++) {
 				if(p.intersects(enemyProjectiles.get(i))) {
 					System.out.println("wtf");
 					enemyProjectiles.get(i).vel = new Vector(mouseX-enemyProjectiles.get(i).x,mouseY-enemyProjectiles.get(i).y);
-					enemyProjectiles.get(i).vel.scaleMagnitudeTo(10f);
+					enemyProjectiles.get(i).vel.scaleMagnitudeTo(20f);
 					friendlyProjectiles.add(enemyProjectiles.remove(i));
 				}
 			}
@@ -182,7 +182,7 @@ public class Level {
 		{
 			deflectCount--;
 			deflectRchrg=400;
-			Player.isDeflecting=false;
+			p.isDeflecting=false;
 		}
 		if(deflectRchrg<0) {
 			deflectRchrg--;
@@ -197,7 +197,7 @@ public class Level {
 			}
 		}
 		for (Enemy baddie : enemies) {
-			baddie.act(this, drawer);
+			baddie.act(this);
 			baddie.updatePos(this);
 			baddie.draw(drawer);
 		}
@@ -231,12 +231,12 @@ public class Level {
 		if(keys[81]) {
 			if(deflectRchrg==0)
 			{
-				Player.isDeflecting = true;
+				p.isDeflecting = true;
 				deflectCount=200;
 			}
 		}
 		if(keys[69]) {
-			Player.isDeflecting = false;
+			p.isDeflecting = false;
 			deflectRchrg=2*deflectCount;
 			deflectCount=-1;
 			

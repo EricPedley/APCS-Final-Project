@@ -7,7 +7,7 @@ public class Sprite {
 	public float x, y, angle;
 	public Vector vel, acc;
 	protected float width, height;
-	private PImage img;
+	protected PImage img;
 	protected int hitboxMode;// 0 is rectangle and 1 is circle
 
 	public Sprite(float x, float y, PImage img) {
@@ -50,8 +50,8 @@ public class Sprite {
 		drawer.translate(v2.x, v2.y);
 		drawer.image(img, x, y, width, height);
 		drawer.noFill();
-		drawer.ellipseMode(PApplet.CENTER);
-		drawer.ellipse(x, y, Math.min(width, height), Math.min(width, height));
+		//drawer.ellipseMode(PApplet.CENTER);
+		//drawer.ellipse(x, y, Math.min(width, height), Math.min(width, height));
 		// drawer.rect(x,y,width,height);
 		drawer.popMatrix();
 	}
@@ -277,4 +277,11 @@ public class Sprite {
 
 	}
 
+	protected void changeImage(PImage i) {
+		float scale = width/img.width;
+		img=i;
+		width=i.width*scale;
+		height=i.height*scale;
+	}
+	
 }

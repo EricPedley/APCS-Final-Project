@@ -14,7 +14,7 @@ public class ImageLoader {
 		Player = p.loadImage("resources" + fs + "images" + fs + "Hero.gif");
 		Player_Sword = p.loadImage("resources" + fs + "images" + fs + "Hero_Sword.gif");
 		Player_Deflecting = p.loadImage("resources" + fs + "images" + fs + "Hero_Deflecting.gif");
-	
+		Projectile = p.loadImage("resources" + fs + "images" + fs + "Projectile.gif");
 	
 	}
 }
