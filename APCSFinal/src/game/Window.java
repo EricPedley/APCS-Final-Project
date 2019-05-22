@@ -23,6 +23,7 @@ public class Window extends PApplet{
 	private GameState state;
 	//set up
 	public void setup() {
+		ImageLoader.setup(this);
 		state = GameState.START;
 		currentLevel = new Level(1,2,this);
 		currentLevel.passKeysReference(keys);
