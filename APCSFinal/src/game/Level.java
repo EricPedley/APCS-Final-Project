@@ -252,6 +252,22 @@ public class Level {
 			}
 		}
 	}
+	/**
+	 * Returns -1 for game lost, 0 for game in progress, and 1 for game won
+	 * @return the state of the game
+	 */
+	public int getGameStatus() {
+		if(enemies.size()==0)
+		{
+			return 1;
+		}
+		else if(p.getHP()<=0)
+		{
+			return -1;
+		}
+			
+		return 0;
+	} 
 	/*
 	 * public ArrayList<Projectile> getMyProjectiles() { // TODO Auto-generated
 	 * method stub return myProjectiles; }
