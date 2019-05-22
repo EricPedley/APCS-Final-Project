@@ -30,10 +30,6 @@ public class Vector {
 		return v;
 	}
 	
-	public float getOrthogonalLengthTo(Vector other) {
-		Vector v = getOrthogonalComponentTo(other);
-	}
-	
 	
 	/**
 	 * 

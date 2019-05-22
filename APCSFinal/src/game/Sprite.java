@@ -202,6 +202,7 @@ public class Sprite {
 			float maxThis = 0, minThis = 1000000;
 			for (Vector b : points) {// for each point of this rectangle
 				Vector parallel = b.getOrthogonalComponentTo(v);
+				System.out.println(parallel.x+"|"+parallel.y);
 				float l2 = parallel.length();// l is the projection of the point onto v
 				if (l2 > maxThis)
 					maxThis = l2;
