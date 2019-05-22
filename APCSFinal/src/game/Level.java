@@ -72,7 +72,7 @@ public class Level {
 		if(Player.isDeflecting) {
 			for(int i = 0; i<enemyProjectiles.size();i++) {
 				if(p.intersects(enemyProjectiles.get(i))) {
-					System.out.println("wtf");
+					//System.out.println("wtf");
 					enemyProjectiles.get(i).vel = new Vector(mouseX-enemyProjectiles.get(i).x,mouseY-enemyProjectiles.get(i).y);
 					enemyProjectiles.get(i).vel.scaleMagnitudeTo(10f);
 					friendlyProjectiles.add(enemyProjectiles.remove(i));
@@ -275,7 +275,7 @@ public class Level {
 			for (Enemy e : enemies) {
 				if (e.intersects(p.getMeleeHitbox())) {
 					e.loseHP(10);
-					System.out.println("yipee!");
+					//System.out.println("yipee!");
 				}
 			}
 		}
