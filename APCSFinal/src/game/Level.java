@@ -27,9 +27,11 @@ public class Level {
 	private int deflectRchrg;
 	// Constuctors
 	public Level(int levelNumber, int numEnemies, PApplet loader) {
+
 		readData("Levels" + fs + "Test_Level.txt");
 		p = new Player(200, 200, 100);
 		p.scale(2f);
+		Player.isDeflecting=false;
 		friendlyProjectiles = new ArrayList<Projectile>();
 		enemyProjectiles = new ArrayList<Projectile>();
 		enemies = new ArrayList<Enemy>();
@@ -70,7 +72,7 @@ public class Level {
 		if(p.isDeflecting) {
 			for(int i = 0; i<enemyProjectiles.size();i++) {
 				if(p.intersects(enemyProjectiles.get(i))) {
-					System.out.println("wtf");
+					//System.out.println("wtf");
 					enemyProjectiles.get(i).vel = new Vector(mouseX-enemyProjectiles.get(i).x,mouseY-enemyProjectiles.get(i).y);
 					enemyProjectiles.get(i).vel.scaleMagnitudeTo(20f);
 					friendlyProjectiles.add(enemyProjectiles.remove(i));
@@ -273,7 +275,7 @@ public class Level {
 			for (Enemy e : enemies) {
 				if (e.intersects(p.getMeleeHitbox())) {
 					e.loseHP(10);
-					System.out.println("yipee!");
+					//System.out.println("yipee!");
 				}
 			}
 		}

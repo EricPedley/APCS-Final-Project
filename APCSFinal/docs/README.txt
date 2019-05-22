@@ -7,9 +7,8 @@ Primarily, this program acts as a game, intended to provide quick, easy entertai
 
 Instructions:
 WASD for movement
-Right click to pick up/throw objects
-Shift dash/sprint
-Space to teleport(short range)
+Click to attack
+Q to toggle deflect
 Deflected shots move to the mouse
 
 
@@ -39,13 +38,13 @@ Items and/or terrain features that can be moved or thrown at an enemy
 
 
 Class List:
-Sprite, Player, Enemy, Projectile, Main, Window, Level, Menu, Vector, Character
+Sprite, Player, Enemy, Projectile, Main, Window, Level, Menu, Vector, Character, ImageLoader, Tile
 
 
 Credits List:
 Eric: Sprite, Player, Enemy, Projectile, Vector
-Rishab: Level, Environment, Window, Main,Character
-Osman: Menu
+Rishab: Level, Main,Character
+Osman: Menu, Window, Level
 
 
 Sources:
