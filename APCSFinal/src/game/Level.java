@@ -86,7 +86,7 @@ public class Level {
 			for(int i = 0; i<friendlyProjectiles.size();i++) {
 				if(e.intersects(friendlyProjectiles.get(i))) {
 					friendlyProjectiles.remove(i);
-					e.loseHP(50);
+					e.loseHP(35);
 					
 				}
 			}
