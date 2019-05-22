@@ -106,19 +106,19 @@ public class Window extends PApplet{
 		{
 			if(keys[49])
 			{
-				currentLevel=new Level(1,2,this);
+				currentLevel=new Level(1,1,this);
 				currentLevel.passKeysReference(keys);
 				state=GameState.INGAME;
 			}
 			if(keys[50])
 			{
-				currentLevel=new Level(2,3,this);
+				currentLevel=new Level(2,2,this);
 				currentLevel.passKeysReference(keys);
 				state=GameState.INGAME;
 			}
 			if(keys[51])
 			{
-				currentLevel=new Level(3,5,this);
+				currentLevel=new Level(3,3,this);
 				currentLevel.passKeysReference(keys);
 				state=GameState.INGAME;
 			}
