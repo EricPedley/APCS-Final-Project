@@ -44,7 +44,7 @@ Sprite, Player, Enemy, Projectile, Main, Window, Level, Menu, Vector, Character,
 Credits List:
 Eric: Sprite, Player, Enemy, Projectile, Vector
 Rishab: Level, Main,Character
-Osman: Menu, Window
+Osman: Menu, Window, Level
 
 
 Sources:
