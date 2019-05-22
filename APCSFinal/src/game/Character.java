@@ -14,8 +14,8 @@ public class Character extends Sprite{
 		maxHp=hp;
 	}
 	
-	public void loseHP() {
-		hp--;
+	public void loseHP(int dmg) {
+		hp-=dmg;
 	}
 	
 	public boolean isDead() {

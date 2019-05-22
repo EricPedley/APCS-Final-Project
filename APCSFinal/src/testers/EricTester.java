@@ -16,7 +16,7 @@ public class EricTester extends PApplet {
 	}
 	
 	public void setup() {
-		p=new Player(200,200,loadImage("resources\\images\\Hero.gif"),10);
+		p=new Player(300,200,loadImage("resources\\images\\Hero.gif"),10);
 		e=new Projectile(200,200,loadImage("resources\\images\\bullet.gif"),new Vector(0,0));
 		e.scale(0.05f);
 		p.scale(2f);
@@ -26,7 +26,7 @@ public class EricTester extends PApplet {
 		background(255);
 		p.draw(this);
 		e.draw(this);
-		if(p.intersects(e))
+		if(p.intersects(e,this))
 			rect(500,0,100,100);
 	}
 	
