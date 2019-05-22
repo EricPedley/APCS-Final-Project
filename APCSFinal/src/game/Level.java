@@ -65,7 +65,7 @@ public class Level {
 				if(p.intersects(enemyProjectiles.get(i))) {
 				System.out.println("colliding and deflecting");
 					enemyProjectiles.get(i).vel = new Vector(mouseX-enemyProjectiles.get(i).x,mouseY-enemyProjectiles.get(i).y);
-					enemyProjectiles.get(i).vel.scaleMagnitudeTo(3);
+					enemyProjectiles.get(i).vel.scaleMagnitudeTo(10f);
 					friendlyProjectiles.add(enemyProjectiles.remove(i));
 				}
 			}

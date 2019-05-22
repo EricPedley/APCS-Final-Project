@@ -27,7 +27,7 @@ public class EricTester extends PApplet {
 		p.draw(this);
 		e.draw(this);
 		if(p.intersects(e))
-			System.out.println("yayy");
+			rect(500,0,100,100);
 	}
 	
 	public void mouseClicked() {
@@ -35,9 +35,9 @@ public class EricTester extends PApplet {
 	}
 	
 	public void mouseWheel() {
-		p.angle+= PApplet.PI/12;
-		if(p.angle>=PApplet.PI*2)
-			p.angle=0;
+		e.angle+= PApplet.PI/12;
+		if(e.angle>=PApplet.PI*2)
+			e.angle=0;
 	}
 	
 	public void keyPressed() {
