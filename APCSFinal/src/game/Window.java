@@ -9,7 +9,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 enum GameState {
-	START,PAUSE,INGAME,GAMEOVER,INSTRUCTIONS,WON;
+	START,PAUSE,INGAME,GAMEOVER,INSTRUCTIONS,WON,LEVEL;
 }
 
 public class Window extends PApplet{
@@ -19,18 +19,19 @@ public class Window extends PApplet{
 	private Player p;
 	private float startX = 300, startY = 200;
 	private Level currentLevel;
-	private Menu startScreen,pauseScreen,gameOverScreen,instructionScreen, winScreen;
+	private Menu startScreen,pauseScreen,gameOverScreen,instructionScreen, winScreen,levelSelect;
 	private GameState state;
 	//set up
 	public void setup() {
 		state = GameState.START;
-		currentLevel = new Level(1, 2,this);
+		currentLevel = new Level(1,2,this);
 		currentLevel.passKeysReference(keys);
 		startScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "startSample.png"));
 		pauseScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "pauseSample.png"));
 		gameOverScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "gameoverSample.png"));
 		instructionScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "instructionSample.png"));
 		winScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "winSample.png"));
+		levelSelect= new Menu(this.loadImage("resources" + fs + "images" + fs + "levelSample.png"));
 	}
 	
 	public void draw() {
@@ -46,6 +47,9 @@ public class Window extends PApplet{
 		switch(state) {
 		case START:
 			startScreen.draw(this);
+			break;
+		case LEVEL:
+			levelSelect.draw(this);
 			break;
 		case PAUSE:
 			pauseScreen.draw(this);
@@ -72,7 +76,7 @@ public class Window extends PApplet{
 		{
 			if(state==GameState.START||state==GameState.INSTRUCTIONS)
 			{
-				state=GameState.INGAME;
+				state=GameState.LEVEL;
 				//System.out.println("yIpeE");
 			}
 		}
@@ -95,6 +99,27 @@ public class Window extends PApplet{
 			if(state==GameState.START)
 			{
 				state=GameState.INSTRUCTIONS;
+			}
+		}
+		if(state==GameState.LEVEL)
+		{
+			if(keys[49])
+			{
+				currentLevel=new Level(1,2,this);
+				currentLevel.passKeysReference(keys);
+				state=GameState.INGAME;
+			}
+			if(keys[50])
+			{
+				currentLevel=new Level(2,2,this);
+				currentLevel.passKeysReference(keys);
+				state=GameState.INGAME;
+			}
+			if(keys[51])
+			{
+				currentLevel=new Level(3,2,this);
+				currentLevel.passKeysReference(keys);
+				state=GameState.INGAME;
 			}
 		}
 		if(state==GameState.WON)
