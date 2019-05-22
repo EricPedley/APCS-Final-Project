@@ -174,11 +174,14 @@ public class Level {
 		drawProjectiles(drawer);
 		handleMelee();
 		handleProjectileCollisions();
-		deflectCount--;
+		if(deflectCount>0) {
+			deflectCount--;
+		}
 		if(deflectCount==0)
 		{
 			deflectCount--;
 			deflectRchrg=400;
+			Player.isDeflecting=false;
 		}
 		if(deflectRchrg<0) {
 			deflectRchrg--;
@@ -225,7 +228,7 @@ public class Level {
 	public void handleKeys() {
 		Vector v = new Vector();
 		if(keys[81]) {
-			if(deflectCount>0)
+			if(deflectRchrg==0)
 			{
 				Player.isDeflecting = true;
 				deflectCount=200;
