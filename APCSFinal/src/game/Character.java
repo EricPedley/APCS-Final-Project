@@ -14,7 +14,7 @@ public class Character extends Sprite{
 		maxHp=hp;
 	}
 	
-	public void loseHP(int dmg) {//push pls
+	public void loseHP(int dmg) {//push pls again
 		
 		hp-=dmg;
 	}
