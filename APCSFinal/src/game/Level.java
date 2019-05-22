@@ -27,9 +27,11 @@ public class Level {
 	private int deflectRchrg;
 	// Constuctors
 	public Level(int levelNumber, int numEnemies, PApplet loader) {
+
 		readData("Levels" + fs + "Test_Level.txt");
 		p = new Player(200, 200, ImageLoader.Player, 100);
 		p.scale(2f);
+		Player.isDeflecting=false;
 		friendlyProjectiles = new ArrayList<Projectile>();
 		enemyProjectiles = new ArrayList<Projectile>();
 		enemies = new ArrayList<Enemy>();
