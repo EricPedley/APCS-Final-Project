@@ -23,7 +23,8 @@ public class Level {
 	private Player p;
 	private boolean[] keys;
 	private float mouseX,mouseY;
-
+	private int deflectCount;
+	private int deflectRchrg;
 	// Constuctors
 	public Level(int levelNumber, int numEnemies, PApplet loader) {
 		readData("Levels" + fs + "Test_Level.txt");
@@ -38,6 +39,8 @@ public class Level {
 			baddie.scale(2f);
 			enemies.add(baddie);
 		}
+		deflectCount=-1;
+		deflectRchrg=0;
 	}
 
 	/**
@@ -171,6 +174,15 @@ public class Level {
 		drawProjectiles(drawer);
 		handleMelee();
 		handleProjectileCollisions();
+		deflectCount--;
+		if(deflectCount==0)
+		{
+			deflectCount--;
+			deflectRchrg=400;
+		}
+		if(deflectRchrg<0) {
+			deflectRchrg--;
+		}
 	}
 	
 	public void handleEnemies(PApplet drawer) {
@@ -213,10 +225,17 @@ public class Level {
 	public void handleKeys() {
 		Vector v = new Vector();
 		if(keys[81]) {
-			Player.isDeflecting = true;
+			if(deflectCount>0)
+			{
+				Player.isDeflecting = true;
+				deflectCount=200;
+			}
 		}
 		if(keys[69]) {
 			Player.isDeflecting = false;
+			deflectRchrg=2*deflectCount;
+			deflectCount=-1;
+			
 		}
 		if (keys[65]) {
 			v.x--;
