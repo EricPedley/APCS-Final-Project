@@ -57,7 +57,8 @@ public class Level {
 
 	public void mouseClicked(float mouseX, float mouseY, int mouseButton) {
 		if (mouseButton == 37) {// left mouse button
-			p.startMeleeAnimation(new Vector(mouseX - p.x, mouseY - p.y).getAngle());
+			if(!p.isMeleeing())
+				p.startMeleeAnimation(new Vector(mouseX - p.x, mouseY - p.y).getAngle());
 //			System.out.println("wtf");
 //			p.vel=new Vector(mouseX-p.x,mouseY-p.y);
 //			p.vel.scaleMagnitudeTo(5f);
@@ -268,7 +269,7 @@ public class Level {
 	}
 
 	public void handleMelee() {
-		if (p.meleeing()) {
+		if (p.isMeleeing()) {
 			for (Enemy e : enemies) {
 				if (e.intersects(p.getMeleeHitbox())) {
 					e.loseHP(10);
