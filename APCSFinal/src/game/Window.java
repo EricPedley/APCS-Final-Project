@@ -9,7 +9,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 enum GameState {
-	START,PAUSE,INGAME,GAMEOVER;
+	START,PAUSE,INGAME,GAMEOVER,INSTRUCTIONS,WON;
 }
 
 public class Window extends PApplet{
@@ -19,7 +19,7 @@ public class Window extends PApplet{
 	private Player p;
 	private float startX = 300, startY = 200;
 	private Level currentLevel;
-	private Menu startScreen,pauseScreen,gameOverScreen;
+	private Menu startScreen,pauseScreen,gameOverScreen,instructionScreen, winScreen;
 	private GameState state;
 	//set up
 	public void setup() {
@@ -29,10 +29,20 @@ public class Window extends PApplet{
 		startScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "startSample.png"));
 		pauseScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "pauseSample.png"));
 		gameOverScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "gameoverSample.png"));
+		instructionScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "instructionSample.png"));
+		winScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "winSample.png"));
 	}
 	
 	public void draw() {
 		background(255);
+		if(currentLevel.getGameStatus()==1)
+		{
+			state=GameState.WON;
+		}
+		else if(currentLevel.getGameStatus()==-1)
+		{
+			state=GameState.GAMEOVER;
+		}
 		switch(state) {
 		case START:
 			startScreen.draw(this);
@@ -46,18 +56,24 @@ public class Window extends PApplet{
 		case GAMEOVER:
 			gameOverScreen.draw(this);
 			break;
+		case INSTRUCTIONS:
+			instructionScreen.draw(this);
+			break;
+		case WON:
+			winScreen.draw(this);
+			break;
 		}
 		
 	}
-	
+	 
 	public void keyPressed() {
 		keys[keyCode]=true;
 		if(keys[83])
 		{
-			if(state==GameState.START)
+			if(state==GameState.START||state==GameState.INSTRUCTIONS)
 			{
 				state=GameState.INGAME;
-				System.out.println("yIpeE");
+				//System.out.println("yIpeE");
 			}
 		}
 		if(keys[82])
@@ -74,6 +90,16 @@ public class Window extends PApplet{
 			{
 				restart();
 			}
+		}
+		if(keys[73]) {
+			if(state==GameState.START)
+			{
+				state=GameState.INSTRUCTIONS;
+			}
+		}
+		if(state==GameState.WON)
+		{
+			restart();
 		}
 		//program spec key codes for pausing, resuming, restarting, instructions, credits, etc.
 	}
