@@ -32,9 +32,12 @@ public class Level {
 		friendlyProjectiles = new ArrayList<Projectile>();
 		enemyProjectiles = new ArrayList<Projectile>();
 		enemies = new ArrayList<Enemy>();
-		Enemy baddie = new Enemy(500, 200,ImageLoader.Enemy , 100);
-		baddie.scale(2f);
-		enemies.add(baddie);
+		for(int i=0;i<numEnemies;i++)
+		{
+			Enemy baddie = new Enemy(500, 200,ImageLoader.Enemy , 100);
+			baddie.scale(2f);
+			enemies.add(baddie);
+		}
 	}
 
 	/**
