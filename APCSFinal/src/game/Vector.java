@@ -20,7 +20,10 @@ public class Vector {
 	
 	public Vector getParallelComponentTo(Vector other) {
 		Vector v = new Vector(other.x,other.y);
-		v.multiply(this.dot(other)/other.length()/other.length());//math magic
+		float l = other.length();
+		if(l<0.0000001)
+			return new Vector();
+		v.multiply(this.dot(other)/l/l);//math magic
 		return v;
 	}
 	
@@ -140,7 +143,8 @@ public class Vector {
 	
 	public void scaleMagnitudeTo(float magnitude) {
 		float l = length();
-		multiply(magnitude/l);
+		if(l!=0)
+			multiply(magnitude/l);
 	}
 	
 	public boolean asPointIntersectsCircle(Vector center, float radius) {

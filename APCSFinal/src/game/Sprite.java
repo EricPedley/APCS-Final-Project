@@ -9,7 +9,8 @@ public class Sprite {
 	protected float width, height;
 	protected PImage img;
 	protected int hitboxMode;// 0 is rectangle and 1 is circle
-
+	protected float maxSpeed;
+	
 	public Sprite(float x, float y, PImage img) {
 		this.x = x;
 		this.y = y;
@@ -75,24 +76,17 @@ public class Sprite {
 	 */
 	public void updatePos(Level l) {
 		vel.add(acc);
-		int[][] tiles = l.getTileArray();
-		if (vel.length() > 0)
+		
+		if(maxSpeed>0&&vel.length()>maxSpeed) 
+			vel.scaleMagnitudeTo(maxSpeed);
+		if (vel.length() > 0) {
 			this.angle = vel.getAngle();
+		}
+		
 		x += vel.x;
 		y += vel.y;
 		//debugger.fill(0);
-		Vector v = new Vector((int) (x / Level.TILE_SIZE), (int) (y / Level.TILE_SIZE));
-		Vector[] transformations = { new Vector(-1, -1), new Vector(0, -1), new Vector(1, -1), new Vector(-1, 0),
-				new Vector(1, 0), new Vector(-1, 1), new Vector(0, 1), new Vector(1, 1) };
-		for (int i = 0; i < 8; i++) {
-			Vector v2 = v.addN(transformations[i]);
-			if (v2.x >= 0 && v2.y >= 0 && v2.x < tiles.length && v2.y < tiles[0].length
-					&& tiles[(int) v2.x][(int) v2.y] == 0) {
-				Sprite tile = new Sprite(v2.x * Level.TILE_SIZE + Level.TILE_SIZE / 2,
-						v2.y * Level.TILE_SIZE + Level.TILE_SIZE / 2, Level.TILE_SIZE, Level.TILE_SIZE);
-				handleTileCollisions(tile);
-			}
-		}
+		checkTileCollisions(l);
 
 		//debugger.rect(v.x * Level.TILE_SIZE, v.y * Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
 
@@ -234,7 +228,21 @@ public class Sprite {
 
 	}
 	
-	
+	public void checkTileCollisions(Level l) {
+		int[][] tiles = l.getTileArray();
+		Vector v = new Vector((int) (x / Level.TILE_SIZE), (int) (y / Level.TILE_SIZE));
+		Vector[] transformations = { new Vector(-1, -1), new Vector(0, -1), new Vector(1, -1), new Vector(-1, 0),
+				new Vector(1, 0), new Vector(-1, 1), new Vector(0, 1), new Vector(1, 1) };
+		for (int i = 0; i < 8; i++) {
+			Vector v2 = v.addN(transformations[i]);
+			if (v2.x >= 0 && v2.y >= 0 && v2.x < tiles.length && v2.y < tiles[0].length
+					&& tiles[(int) v2.x][(int) v2.y] == 0) {
+				Sprite tile = new Sprite(v2.x * Level.TILE_SIZE + Level.TILE_SIZE / 2,
+						v2.y * Level.TILE_SIZE + Level.TILE_SIZE / 2, Level.TILE_SIZE, Level.TILE_SIZE);
+				handleTileCollisions(tile);
+			}
+		}
+	}
 
 	/**
 	 * Makes this sprite not move inside another sprite, as long as tile's hitbox is

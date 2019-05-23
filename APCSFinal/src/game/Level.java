@@ -23,12 +23,12 @@ public class Level {
 	private Player p;
 	private boolean[] keys;
 	private float mouseX,mouseY;
-	private int deflectCount;
-	private int deflectRchrg;
 	// Constuctors
 	public Level(int levelNumber, int numEnemies, PApplet loader) {
-
-		readData("Levels" + fs + "Test_Level.txt");
+		if(levelNumber==1) {
+			readData("Levels"+fs+"level"+levelNumber+".txt");
+		} else
+			readData("Levels" + fs + "Test_Level.txt");
 		p = new Player(200, 200, 100);
 		p.scale(2f);
 		p.isDeflecting=false;
@@ -41,8 +41,6 @@ public class Level {
 			baddie.scale(2f);
 			enemies.add(baddie);
 		}
-		deflectCount=-1;
-		deflectRchrg=0;
 	}
 
 	/**
@@ -59,12 +57,7 @@ public class Level {
 
 	public void mouseClicked(float mouseX, float mouseY, int mouseButton) {
 		if (mouseButton == 37) {// left mouse button
-			if(!p.isMeleeing())
-				p.startMeleeAnimation(new Vector(mouseX - p.x, mouseY - p.y).getAngle());
-//			System.out.println("wtf");
-//			p.vel=new Vector(mouseX-p.x,mouseY-p.y);
-//			p.vel.scaleMagnitudeTo(5f);
-//			p.angle=p.vel.getAngle()+PApplet.PI/2;
+			p.startMeleeAnimation(new Vector(mouseX - p.x, mouseY - p.y).getAngle());
 		}
 	}
 	//
@@ -100,11 +93,6 @@ public class Level {
 	}
 	public int[][] getTileArray() {
 		return tileType;
-	}
-
-	// Methods
-	public void assignIndices(PApplet p) {
-
 	}
 
 	/**
@@ -177,18 +165,6 @@ public class Level {
 		drawProjectiles(drawer);
 		handleMelee();
 		handleProjectileCollisions();
-		if(deflectCount>0) {
-			deflectCount--;
-		}
-		if(deflectCount==0)
-		{
-			deflectCount--;
-			deflectRchrg=400;
-			p.isDeflecting=false;
-		}
-		if(deflectRchrg<0) {
-			deflectRchrg--;
-		}
 	}
 	
 	public void handleEnemies(PApplet drawer) {
@@ -229,37 +205,25 @@ public class Level {
 	}
 
 	public void handleKeys() {
-		Vector v = new Vector();
 		if(keys[81]) {
-			if(deflectRchrg==0)
-			{
-				p.isDeflecting = true;
-				deflectCount=200;
-			}
+			p.startDeflecting();
 		}
-		if(keys[69]) {
-			p.isDeflecting = false;
-			deflectRchrg=2*deflectCount;
-			deflectCount=-1;
-			
-		}
-		if (keys[65]) {
+		Vector v = new Vector();//player direction for movement
+		if (keys[65]) {//a
 			v.x--;
 		}
-		if (keys[87]) {
+		if (keys[87]) {//w
 			v.y--;
 		}
-		if (keys[68]) {
+		if (keys[68]) {//d
 			v.x++;
 		}
-		if (keys[83]) {
+		if (keys[83]) {//s
 			v.y++;
 		}
-		if (v.length() > 0) {
-			v.scaleMagnitudeTo(1f);
-			p.angle = v.getAngle() + PApplet.PI / 2;
-		}
-		p.vel = v.multiplyN(5f);
+		v.scaleMagnitudeTo(0.5f);
+		p.acc = v;
+//		}
 	}
 
 	public ArrayList<Projectile> getEnemyProjectiles() {
