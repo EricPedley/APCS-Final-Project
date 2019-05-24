@@ -167,9 +167,9 @@ public class Level {
 		drawer.strokeWeight(1);
 		for (int i = 0; i < tiles.length; i++) {
 			for (int j = 0; j < tiles[0].length; j++) {
-				float t = Level.TILE_SIZE;
-				drawer.rect(i*t, j*t, t, t);
-				//ImageLoader.tileIndices[tiles[i][j]].draw(drawer,  i*Level.TILE_SIZE, j*Level.TILE_SIZE,Level.TILE_SIZE);
+				int t = Level.TILE_SIZE;
+				//drawer.rect(i*t, j*t, t, t);
+				ImageLoader.tileIndices[tiles[i][j]].draw(drawer,  i*t, j*t,t);
 			}
 		} // draws grid overlay to debug stuff cuz tiles arent actually finished yet
 		handleKeys();
