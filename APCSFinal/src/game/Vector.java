@@ -2,6 +2,11 @@ package game;
 
 import processing.core.PApplet;
 
+/**
+ * Represents a mathematical 2d vector
+ * @author epedley885
+ *
+ */
 public class Vector {
 	public float x,y;
 	

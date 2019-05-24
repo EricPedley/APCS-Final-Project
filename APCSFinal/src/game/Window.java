@@ -6,6 +6,12 @@ enum GameState {
 	START,PAUSE,INGAME,GAMEOVER,INSTRUCTIONS,WON,LEVEL;
 }
 
+/**
+ * The drawingsurface for the program, where everything is drawn to the window. That includes
+ * the levels and the menus.
+ * @author owong458
+ *
+ */
 public class Window extends PApplet{
 
 	private boolean[] keys = new boolean[500];

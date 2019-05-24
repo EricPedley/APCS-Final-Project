@@ -3,6 +3,11 @@ package game;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * Holds constants for each image in the game that other classes can use
+ * @author rkoka209
+ *
+ */
 public class ImageLoader {
 	
 	private static String fs = System.getProperty("file.separator");

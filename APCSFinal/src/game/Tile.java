@@ -4,7 +4,11 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 
-
+/**
+ * Represents a tile of the background or walls of the level in the game
+ * @author rkoka209
+ *
+ */
 public class Tile {
 	
 		
