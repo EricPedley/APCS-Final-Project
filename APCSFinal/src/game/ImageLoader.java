@@ -7,6 +7,8 @@ public class ImageLoader {
 	
 	private static String fs = System.getProperty("file.separator");
 	public static PImage Enemy,Player,Projectile,Player_Sword,Player_Deflecting; 
+	public static Tile[] tileIndices = new Tile[6];
+
 	
 	public static void setup(PApplet p) {
 		
@@ -15,6 +17,13 @@ public class ImageLoader {
 		Player_Sword = p.loadImage("resources" + fs + "images" + fs + "Hero_Sword.gif");
 		Player_Deflecting = p.loadImage("resources" + fs + "images" + fs + "Hero_Deflecting.gif");
 		Projectile = p.loadImage("resources" + fs + "images" + fs + "Projectile.gif");
-	
+		tileIndices[0] = new Tile(p.loadImage("resources" + fs + "images" + fs + "Floor.gif"),0);
+		tileIndices[1] = new Tile(p.loadImage("resources" + fs + "images" + fs + "Wall.gif"),1);
+		tileIndices[2] = new Tile(p.loadImage("resources" + fs + "images" + fs + "BottomLeft.gif"),2);
+		tileIndices[3] = new Tile(p.loadImage("resources" + fs + "images" + fs + "BottomRight.gif"),3);
+		tileIndices[4] = new Tile(p.loadImage("resources" + fs + "images" + fs + "TopLeft.gif"),4);
+		tileIndices[5] = new Tile(p.loadImage("resources" + fs + "images" + fs + "TopRight.gif"),5);
+
+		
 	}
 }
