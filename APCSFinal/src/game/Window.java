@@ -28,7 +28,7 @@ public class Window extends PApplet{
 		startScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "title1.png"));
 		pauseScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "pauseSample.png"));
 		gameOverScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "gameoverSample.png"));
-		instructionScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "instructions2.png"));
+		instructionScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "instructions3.png"));
 		winScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "winSample.png"));
 		levelSelect= new Menu(this.loadImage("resources" + fs + "images" + fs + "level1.png"));
 	}
