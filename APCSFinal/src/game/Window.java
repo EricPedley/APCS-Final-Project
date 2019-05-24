@@ -143,6 +143,7 @@ public class Window extends PApplet{
 		if(state==GameState.WON&&keys[82])
 		{
 			restart();
+			state=GameState.LEVEL;
 		}
 		//program spec key codes for pausing, resuming, restarting, instructions, credits, etc.
 	}
