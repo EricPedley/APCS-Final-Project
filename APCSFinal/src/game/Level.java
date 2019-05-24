@@ -40,7 +40,7 @@ public class Level {
 				xSpawn = (int)(Math.random()*tileType.length);
 				ySpawn = (int)(Math.random()*tileType[0].length);
 			}
-			Enemy baddie = new Enemy(xSpawn*Level.TILE_SIZE, ySpawn*Level.TILE_SIZE, ImageLoader.Enemy, 100);
+			Enemy baddie = new Enemy((xSpawn+0.5f)*Level.TILE_SIZE, (ySpawn+0.5f)*Level.TILE_SIZE, ImageLoader.Enemy, 100);
 			baddie.scale(2f);
 			enemies.add(baddie);
 		}
@@ -199,7 +199,7 @@ public class Level {
 		drawProjectiles(drawer);
 		handleMelee();
 		drawer.strokeWeight(20);
-		drawer.image(ImageLoader.Crosshair,mouseX, mouseY);
+		drawer.image(ImageLoader.Crosshair,mouseX, mouseY);//draws crosshair
 		drawer.strokeWeight(1);
 		
 		if(p.inBulletTime) {//code for slowing down time
@@ -211,7 +211,12 @@ public class Level {
 			drawer.frameRate(60);
 		}
 	}
-
+	
+	/**
+	 * Checks if enemies are dead and if so removes them from the game.
+	 * 
+	 * @param drawer
+	 */
 	public void handleEnemies(PApplet drawer) {
 		for (int i = 0; i < enemies.size(); i++) {
 			if (enemies.get(i).isDead()) {
