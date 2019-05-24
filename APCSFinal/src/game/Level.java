@@ -27,10 +27,7 @@ public class Level {
 
 	// Constuctors
 	public Level(int levelNumber, int numEnemies, PApplet loader) {
-		if (levelNumber == 1) {
-			readData("Levels" + fs + "level" + levelNumber + ".txt");
-		} else
-			readData("Levels" + fs + "Test_Level.txt");
+		readData("Levels" + fs + "level" + levelNumber + ".txt");
 		p = new Player(200, 200, 100);
 		p.scale(2f);
 		p.isDeflecting = false;
