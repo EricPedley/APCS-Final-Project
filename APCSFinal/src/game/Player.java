@@ -164,7 +164,7 @@ public class Player extends Character {
 	}
 
 	public void dash(Vector direction) {
-		if (!isDashing && dashFrames >= 0) {
+		if (!isDashing && dashFrames >= dashMaxFrames/2) {
 			isDashing = true;
 			dashVector = new Vector(direction.x, direction.y);
 			dashDist = dashVector.length();
