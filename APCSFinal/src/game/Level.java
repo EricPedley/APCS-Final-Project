@@ -24,6 +24,7 @@ public class Level {
 	private boolean[] keys;
 	private float mouseX, mouseY;
 	private float startX = 650, startY = 350;
+	
 
 	// Constuctors
 	public Level(int levelNumber, int numEnemies, PApplet loader) {
@@ -64,7 +65,9 @@ public class Level {
 		}
 	}
 
-	//
+	/**
+	 * 
+	 */
 	public void handleProjectileCollisions() {
 		if (p.isDeflecting) {
 			for (int i = 0; i < enemyProjectiles.size(); i++) {
