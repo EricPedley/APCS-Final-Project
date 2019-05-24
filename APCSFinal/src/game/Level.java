@@ -97,6 +97,10 @@ public class Level {
 		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int[][] getTileArray() {
 		return tileType;
 	}
