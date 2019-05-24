@@ -23,6 +23,7 @@ public class Window extends PApplet{
 	public void setup() {
 		ImageLoader.setup(this);
 		state = GameState.START;
+		this.cursor(ImageLoader.Crosshair);
 //		currentLevel = new Level(1,2,this);
 //		currentLevel.passKeysReference(keys);
 		startScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "title1.png"));

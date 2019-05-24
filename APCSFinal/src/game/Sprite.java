@@ -3,6 +3,14 @@ package game;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * This class represents all moving objects in the game that are displayed as images.
+ * A sprite can move according to its velocity and acceleration vectors, and can collide 
+ * with other sprites, based on its hitboxMode. hitboxMode determines if the sprite is treated
+ * as a rectangle or circle when colliding with other sprites.
+ * @author epedley885
+ *
+ */
 public class Sprite {
 	public float x, y, angle;
 	public Vector vel, acc;
@@ -11,6 +19,12 @@ public class Sprite {
 	protected int hitboxMode;// 0 is rectangle and 1 is circle
 	protected float maxSpeed;
 	
+	/**
+	 * Creates a sprite from an image
+	 * @param x
+	 * @param y
+	 * @param img
+	 */
 	public Sprite(float x, float y, PImage img) {
 		this.x = x;
 		this.y = y;
@@ -22,6 +36,13 @@ public class Sprite {
 		acc = new Vector();
 	}
 
+	/**
+	 * Creates a sprite without an image, but with a defined width and height
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
 	public Sprite(float x, float y, float width, float height) {
 		this.x = x;
 		this.y = y;
@@ -228,6 +249,10 @@ public class Sprite {
 
 	}
 	
+	/**
+	 * Checks if this sprite is going to collide with a wall tile
+	 * @param l
+	 */
 	public void checkTileCollisions(Level l) {
 		int[][] tiles = l.getTileArray();
 		Vector v = new Vector((int) (x / Level.TILE_SIZE), (int) (y / Level.TILE_SIZE));
@@ -248,6 +273,7 @@ public class Sprite {
 	 * Makes this sprite not move inside another sprite, as long as tile's hitbox is
 	 * a rectangle and is axis-aligned(edges are parallel to x or y axes) and this
 	 * sprite's hitbox is a circle
+	 * moves the sprite out of tile if it is in it.
 	 * 
 	 * @pre hitboxMode must be 1
 	 * @param tile     hitboxMode has to be 0 and angle must be an integer multiple

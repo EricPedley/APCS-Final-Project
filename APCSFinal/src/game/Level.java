@@ -169,9 +169,6 @@ public class Level {
 		handleProjectileCollisions();
 		drawProjectiles(drawer);
 		handleMelee();
-		drawer.strokeWeight(20);
-		drawer.image(ImageLoader.Crosshair, mouseX, mouseY);// draws crosshair
-		drawer.strokeWeight(1);
 
 		hpCount++;
 		if(hpCount>120) {

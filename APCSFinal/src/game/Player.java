@@ -1,7 +1,6 @@
 package game;
 
 import processing.core.PApplet;
-import processing.core.PImage;
 
 public class Player extends Character {
 
@@ -10,7 +9,6 @@ public class Player extends Character {
 	private final int maxMeleeFrames = 10;
 	private Sprite meleeSword;
 	public boolean isDeflecting, isDashing, inMeleeAttack, inBulletTime;
-	private PImage otherImage;
 	private final int deflectMaxFrames = 240;
 	private final int dashMaxFrames = 120, timeMaxFrames = 240;
 	private Vector dashVector;
@@ -44,6 +42,7 @@ public class Player extends Character {
 		}
 	}
 
+	
 	public void startDeflecting() {
 
 		if (deflectCount >= deflectMaxFrames) {
@@ -51,6 +50,9 @@ public class Player extends Character {
 		}
 	}
 
+	/**
+	 * Draws the player on drawer
+	 */
 	public void draw(PApplet drawer) {
 		if (inMeleeAttack) {
 			drawMelee(drawer);
@@ -98,11 +100,13 @@ public class Player extends Character {
 		super.draw(drawer);
 	}
 
+	/**
+	 * Draws the players sword on drawer
+	 * @param drawer
+	 */
 	private void drawMelee(PApplet drawer) {
 		float a = meleeAttackDirectionAngle;
 		float m = meleeAnimationFrames;
-		float startPos = PApplet.PI / 2;
-		float endPos = -PApplet.PI / 2;
 		// drawer.line(x, y, x+200*PApplet.cos(a), y+200*PApplet.sin(a));
 		// drawer.line(x,y,x+200*PApplet.cos(PApplet.PI*m/maxMeleeFrames+a-PApplet.PI/2),y+200*PApplet.sin(PApplet.PI*m/maxMeleeFrames+a-PApplet.PI/2));
 		meleeAnimationFrames++;
@@ -132,7 +136,6 @@ public class Player extends Character {
 
 	@Override
 	public void updatePos(Level l) {
-
 		if (isDashing) {
 			if (dashVector.length() * (dashMaxFrames - dashFrames) / 10 >= dashDist) {
 				isDashing = false;
@@ -178,10 +181,17 @@ public class Player extends Character {
 		}
 	}
 
+	/**
+	 * Returns what percent of time the player has left in its timeslow ability
+	 * @return
+	 */
 	public float timeSlowBarPercentage() {
 		return (float) timeFrames / timeMaxFrames;
 	}
 
+	/**
+	 * Applies force to the player to prevent them from walking into a tile
+	 */
 	@Override
 	public void handleTileCollisions(Sprite tile) {// simpler collisions method because tiles are
 		if(inBulletTime) {
