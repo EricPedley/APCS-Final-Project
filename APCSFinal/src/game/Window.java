@@ -30,7 +30,7 @@ public class Window extends PApplet{
 		gameOverScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "gameoverSample.png"));
 		instructionScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "instructions3.png"));
 		winScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "winSample.png"));
-		levelSelect= new Menu(this.loadImage("resources" + fs + "images" + fs + "Level1.png"));
+		levelSelect= new Menu(this.loadImage("resources" + fs + "images" + fs + "level3.png"));
 	}
 	
 	public void draw() {
@@ -137,9 +137,21 @@ public class Window extends PApplet{
 				currentLevel.passKeysReference(keys);
 				state=GameState.INGAME;
 			}
-			if(keys[55])
+			if(keys[55])//7
 			{
 				currentLevel=new Level(7,6,this);
+				currentLevel.passKeysReference(keys);
+				state=GameState.INGAME;
+			}
+			if(keys[56])//8
+			{
+				currentLevel=new Level(7,7,this);
+				currentLevel.passKeysReference(keys);
+				state=GameState.INGAME;
+			}
+			if(keys[57])//9
+			{
+				currentLevel=new Level(7,8,this);
 				currentLevel.passKeysReference(keys);
 				state=GameState.INGAME;
 			}
