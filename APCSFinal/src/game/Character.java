@@ -19,6 +19,10 @@ public class Character extends Sprite{
 		hp-=dmg;
 	}
 	
+	public void addHP(int heal) {
+		hp+=heal;
+	}
+	
 	public boolean isDead() {
 		if(hp <= 0)
 			return true;
