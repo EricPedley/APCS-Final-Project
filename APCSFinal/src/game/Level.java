@@ -23,9 +23,14 @@ public class Level {
 	private boolean[] keys;
 	private float mouseX, mouseY;
 	private float startX = 650, startY = 350;
-	
 
-	// Constuctors
+	/**
+	 * Constructs a new level
+	 * 
+	 * @param levelNumber the level number
+	 * @param numEnemies  number of enemies in the level
+	 * @param loader      PApplet on which the level is to be drawn
+	 */
 	public Level(int levelNumber, int numEnemies, PApplet loader) {
 		readData("Levels" + fs + "level" + levelNumber + ".txt");
 		p = new Player(200, 200, 100);
@@ -35,12 +40,13 @@ public class Level {
 		enemyProjectiles = new ArrayList<Projectile>();
 		enemies = new ArrayList<Enemy>();
 		for (int i = 0; i < numEnemies; i++) {
-			int xSpawn=0, ySpawn=0;
-			while(tileType[xSpawn][ySpawn]!=1) {
-				xSpawn = (int)(Math.random()*tileType.length);
-				ySpawn = (int)(Math.random()*tileType[0].length);
+			int xSpawn = 0, ySpawn = 0;
+			while (tileType[xSpawn][ySpawn] != 1) {
+				xSpawn = (int) (Math.random() * tileType.length);
+				ySpawn = (int) (Math.random() * tileType[0].length);
 			}
-			Enemy baddie = new Enemy((xSpawn+0.5f)*Level.TILE_SIZE, (ySpawn+0.5f)*Level.TILE_SIZE, ImageLoader.Enemy, 100);
+			Enemy baddie = new Enemy((xSpawn + 0.5f) * Level.TILE_SIZE, (ySpawn + 0.5f) * Level.TILE_SIZE,
+					ImageLoader.Enemy, 100);
 			baddie.scale(2f);
 			enemies.add(baddie);
 		}
@@ -65,7 +71,7 @@ public class Level {
 	}
 
 	/**
-	 * 
+	 * Tests for projectile collisions and acts accordingly
 	 */
 	public void handleProjectileCollisions() {
 		if (p.isDeflecting) {
@@ -98,16 +104,18 @@ public class Level {
 	}
 
 	/**
+	 * Returns the array of tile types
 	 * 
-	 * @return
+	 * @return the 2D array of tiles types
 	 */
 	public int[][] getTileArray() {
 		return tileType;
 	}
 
 	/**
+	 * Reads the data from a text file to create a map
 	 * 
-	 * @param filename
+	 * @param filename file to be read from
 	 */
 	private void readData(String filename) {
 		File dataFile = new File(filename);
@@ -150,26 +158,28 @@ public class Level {
 	}
 
 	/**
-	 *
-	 * @param drawer
+	 * Draws the level
+	 * 
+	 * @param drawer the PApplet on which the level is drawn
 	 */
 	public void draw(PApplet drawer) {
-		
+
 		drawer.background(255);
-		Vector trans = new Vector(0,-20);//moves the camera to be centered on the player but not go past the edges of the map
+		Vector trans = new Vector(0, -20);// moves the camera to be centered on the player but not go past the edges of
+											// the map
 		trans.add(new Vector(startX - (float) p.x, startY - (float) p.y));
 		if (p.x < drawer.width / 2)
 			trans.add(new Vector((float) (p.x - drawer.width / 2), 0));
 		if (p.y < drawer.height / 2)
 			trans.add(new Vector(0, (float) (p.y - drawer.height / 2)));
-		if (tileType.length * TILE_SIZE - p.x < drawer.width / 2) 
+		if (tileType.length * TILE_SIZE - p.x < drawer.width / 2)
 			trans.add(new Vector((float) (-(tileType.length * TILE_SIZE - p.x) + drawer.width / 2), 0));
-		if (tileType[0].length * TILE_SIZE - p.y < drawer.height / 2) 
+		if (tileType[0].length * TILE_SIZE - p.y < drawer.height / 2)
 			trans.add(new Vector(0, (float) (-(tileType[0].length * TILE_SIZE - p.y) + drawer.height / 2)));
-		this.mouseX = drawer.mouseX-trans.x;
-		this.mouseY = drawer.mouseY-trans.y;
+		this.mouseX = drawer.mouseX - trans.x;
+		this.mouseY = drawer.mouseY - trans.y;
 		drawer.translate(trans.x, trans.y);
-		
+
 		Level l = this;
 		int[][] tiles = l.getTileArray();
 		drawer.noFill();
@@ -177,14 +187,15 @@ public class Level {
 		for (int i = 0; i < tiles.length; i++) {
 			for (int j = 0; j < tiles[0].length; j++) {
 				int t = Level.TILE_SIZE;
-				//drawer.rect(i*t, j*t, t, t);
-				if(i*t+trans.x>-t&&i*t+trans.x<drawer.width+t&&j*t+trans.y>-t&&j*t+trans.y<drawer.height+t) {
-					if(ImageLoader.tileIndices[tiles[i][j]].getType()==1) {
+				// drawer.rect(i*t, j*t, t, t);
+				if (i * t + trans.x > -t && i * t + trans.x < drawer.width + t && j * t + trans.y > -t
+						&& j * t + trans.y < drawer.height + t) {
+					if (ImageLoader.tileIndices[tiles[i][j]].getType() == 1) {
 						drawer.fill(200);
 						drawer.stroke(190);
-						drawer.rect(i*t, j*t,t,t);
+						drawer.rect(i * t, j * t, t, t);
 					} else {
-						ImageLoader.tileIndices[tiles[i][j]].draw(drawer,  i*t, j*t,t);
+						ImageLoader.tileIndices[tiles[i][j]].draw(drawer, i * t, j * t, t);
 					}
 				}
 //				if(tiles[i][j]==0) {
@@ -203,18 +214,17 @@ public class Level {
 		drawProjectiles(drawer);
 		handleMelee();
 		drawer.strokeWeight(20);
-		drawer.image(ImageLoader.Crosshair,mouseX, mouseY);//draws crosshair
+		drawer.image(ImageLoader.Crosshair, mouseX, mouseY);// draws crosshair
 		drawer.strokeWeight(1);
-		if(p.inBulletTime) {
+		if (p.inBulletTime) {
 			drawer.frameRate(30);
-			drawer.fill(255,0,255,5+20*p.timeSlowBarPercentage());
+			drawer.fill(255, 0, 255, 5 + 20 * p.timeSlowBarPercentage());
 			drawer.rect(-trans.x, -trans.y, drawer.width, drawer.height);
-		}
-		else {
+		} else {
 			drawer.frameRate(60);
 		}
 	}
-	
+
 	/**
 	 * Checks if enemies are dead and if so removes them from the game.
 	 * 
@@ -234,6 +244,11 @@ public class Level {
 		}
 	}
 
+	/**
+	 * Tests if projectiles are to be drawn, and if so, draws them
+	 * 
+	 * @param drawer the PApplet on which the projectiles are to be drawn
+	 */
 	public void drawProjectiles(PApplet drawer) {
 		ArrayList<Projectile> toDelete = new ArrayList<Projectile>();
 		for (Projectile p : enemyProjectiles) {
@@ -257,12 +272,15 @@ public class Level {
 		}
 	}
 
+	/**
+	 * Handles actions relating to user input
+	 */
 	public void handleKeys() {
-		if (keys[81]) {//q
+		if (keys[81]) {// q
 			p.startDeflecting();
 		}
-		if(keys[32]) {//space
-			p.dash(new Vector(mouseX-p.x,mouseY-p.y));
+		if (keys[32]) {// space
+			p.dash(new Vector(mouseX - p.x, mouseY - p.y));
 		}
 		Vector v = new Vector();// player direction for movement
 		if (keys[65]) {// a
@@ -277,7 +295,7 @@ public class Level {
 		if (keys[83]) {// s
 			v.y++;
 		}
-		if(keys[16]) {//shift
+		if (keys[16]) {// shift
 			p.timeSlow();
 		}
 		v.scaleMagnitudeTo(0.5f);
@@ -285,14 +303,27 @@ public class Level {
 //		}
 	}
 
+	/**
+	 * Returns an ArrayList of enemy projectiles
+	 * 
+	 * @return ArrayList of enemy projectiles
+	 */
 	public ArrayList<Projectile> getEnemyProjectiles() {
 		return enemyProjectiles;
 	}
 
+	/**
+	 * Returns the player
+	 * 
+	 * @return the player
+	 */
 	public Player getPlayer() {
 		return p;
 	}
 
+	/**
+	 * Handles collision detection for the player's melee attack
+	 */
 	public void handleMelee() {
 		if (p.isMeleeing()) {
 			for (Enemy e : enemies) {
