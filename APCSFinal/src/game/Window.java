@@ -27,7 +27,7 @@ public class Window extends PApplet{
 		state = GameState.START;
 		currentLevel = new Level(1,2,this);
 		currentLevel.passKeysReference(keys);
-		startScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "startSample.png"));
+		startScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "title1.png"));
 		pauseScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "pauseSample.png"));
 		gameOverScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "gameoverSample.png"));
 		instructionScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "instructions2.png"));
