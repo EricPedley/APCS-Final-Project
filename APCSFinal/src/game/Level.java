@@ -19,7 +19,6 @@ public class Level {
 	// private Enemy testBaddie;
 	public static final int TILE_SIZE = 64;
 	private String fs = System.getProperty("file.separator");
-	private int numEnemies;
 	private Player p;
 	private boolean[] keys;
 	private float mouseX, mouseY;
@@ -216,6 +215,7 @@ public class Level {
 		for (int i = 0; i < enemies.size(); i++) {
 			if (enemies.get(i).isDead()) {
 				enemies.remove(i);
+				p.addHP(35);
 			}
 		}
 		for (Enemy baddie : enemies) {
