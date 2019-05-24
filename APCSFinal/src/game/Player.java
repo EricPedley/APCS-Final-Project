@@ -79,8 +79,6 @@ public class Player extends Character {
 		}
 		if(timeFrames<=0) {
 			inBulletTime=false;
-			vel.multiply(1/1.5f);
-			acc.multiply(1/1.5f);
 		}
 		
 		if(dashFrames<=0) {
@@ -141,7 +139,7 @@ public class Player extends Character {
 		}
 		
 		if(inBulletTime)
-			vel.add(acc);
+			vel.add(acc.multiplyN(1.5f));
 		else
 			vel.add(acc);
 		if(maxSpeed>0&&vel.length()>maxSpeed&&!isDashing) 
@@ -153,8 +151,8 @@ public class Player extends Character {
 			this.angle = vel.getAngle();
 		}
 		if(inBulletTime) {
-			x+=vel.x;
-			y+=vel.y;
+			x+=1.5*vel.x;
+			y+=1.5*vel.y;
 		} else {
 			x += vel.x;
 			y += vel.y;
@@ -175,8 +173,6 @@ public class Player extends Character {
 	public void timeSlow() {
 		if(!inBulletTime&&timeFrames>=timeMaxFrames) {
 			inBulletTime=true;
-			vel.multiply(1.5f);
-			acc.multiply(1.5f);
 		}
 	}
 	
