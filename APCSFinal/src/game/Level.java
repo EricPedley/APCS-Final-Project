@@ -65,7 +65,9 @@ public class Level {
 		}
 	}
 
-	//
+	/**
+	 * 
+	 */
 	public void handleProjectileCollisions() {
 		if (p.isDeflecting) {
 			for (int i = 0; i < enemyProjectiles.size(); i++) {
