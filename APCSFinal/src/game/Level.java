@@ -35,7 +35,12 @@ public class Level {
 		enemyProjectiles = new ArrayList<Projectile>();
 		enemies = new ArrayList<Enemy>();
 		for (int i = 0; i < numEnemies; i++) {
-			Enemy baddie = new Enemy(500, 200, ImageLoader.Enemy, 100);
+			int xSpawn=0, ySpawn=0;
+			while(tileType[xSpawn][ySpawn]!=1) {
+				xSpawn = (int)(Math.random()*tileType.length);
+				ySpawn = (int)(Math.random()*tileType[0].length);
+			}
+			Enemy baddie = new Enemy(xSpawn*Level.TILE_SIZE, ySpawn*Level.TILE_SIZE, ImageLoader.Enemy, 100);
 			baddie.scale(2f);
 			enemies.add(baddie);
 		}
@@ -143,6 +148,13 @@ public class Level {
 	 * @param drawer
 	 */
 	public void draw(PApplet drawer) {
+		if(p.inBulletTime) {
+			System.out.println("bullet time");
+			drawer.frameRate(30);
+		}
+		else {
+			drawer.frameRate(60);
+		}
 		drawer.background(255);
 		Vector trans = new Vector(0,-20);//moves the camera to be centered on the player but not go past the edges of the map
 		trans.add(new Vector(startX - (float) p.x, startY - (float) p.y));
@@ -232,10 +244,10 @@ public class Level {
 	}
 
 	public void handleKeys() {
-		if (keys[81]) {
+		if (keys[81]) {//q
 			p.startDeflecting();
 		}
-		if(keys[32]) {
+		if(keys[32]) {//space
 			p.dash(new Vector(mouseX-p.x,mouseY-p.y));
 		}
 		Vector v = new Vector();// player direction for movement
@@ -250,6 +262,9 @@ public class Level {
 		}
 		if (keys[83]) {// s
 			v.y++;
+		}
+		if(keys[16]) {//shift
+			p.timeSlow();
 		}
 		v.scaleMagnitudeTo(0.5f);
 		p.acc = v;

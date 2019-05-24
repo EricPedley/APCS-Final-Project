@@ -34,7 +34,7 @@ public class Enemy extends  Character {
 	@Override
 	public void draw(PApplet drawer) {
 		super.draw(drawer);
-		drawer.noFill();
+		drawer.fill(255,0,0,10);
 		drawer.ellipseMode(PApplet.CENTER);
 		drawer.stroke(255,0,0);
 		drawer.ellipse(x, y,1000, 1000);

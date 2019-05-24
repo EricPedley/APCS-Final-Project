@@ -4,14 +4,14 @@ import processing.core.PImage;
 
 public class Player extends Character {
 
-	private int meleeAnimationFrames,deflectCount,dashFrames,meleeDmg;
+	private int meleeAnimationFrames,deflectCount,dashFrames,timeFrames;
 	private float meleeAttackDirectionAngle;
 	private final int maxMeleeFrames=10;
 	private Sprite meleeSword;
-	public boolean isDeflecting,isDashing,inMeleeAttack;
+	public boolean isDeflecting,isDashing,inMeleeAttack,inBulletTime;
 	private PImage otherImage;
 	private final int deflectMaxFrames=240;
-	private final int dashMaxFrames = 120;
+	private final int dashMaxFrames = 120,timeMaxFrames=240;
 	private Vector dashVector;
 	
 	public Player(float x, float y, int hp) {
@@ -22,8 +22,8 @@ public class Player extends Character {
 		hp=10;
 		deflectCount=deflectMaxFrames;
 		dashFrames=dashMaxFrames;
+		timeFrames=timeMaxFrames;
 		maxSpeed=6;
-		meleeDmg=10;
 	}
 	
 	public int getMeleeDmg() {
@@ -70,6 +70,14 @@ public class Player extends Character {
 			if(dashFrames<dashMaxFrames)
 				dashFrames++;
 		}
+		if(inBulletTime) {
+			timeFrames-=timeMaxFrames/80;
+		} else {
+			if(timeFrames<timeMaxFrames)
+				timeFrames++;
+		}
+		if(timeFrames<=0)
+			inBulletTime=false;
 		
 		if(dashFrames<=0) {
 			isDashing=false;
@@ -77,10 +85,13 @@ public class Player extends Character {
 		drawer.noFill();
 		drawer.rect(x-20, y+height/2+10, 40, 10);
 		drawer.rect(x-20, y+height/2+20, 40, 10);
+		drawer.rect(x-20, y+height/2+30, 40, 10);
 		drawer.fill(0,255,255);
 		drawer.rect(x-20, y+height/2+10, 40*deflectCount/deflectMaxFrames, 10);
 		drawer.fill(255,130,0);
 		drawer.rect(x-20, y+height/2+20, 40*dashFrames/dashMaxFrames, 10);
+		drawer.fill(255,0,255);
+		drawer.rect(x-20, y+height/2+30, 40*timeFrames/timeMaxFrames, 10);
 		super.draw(drawer);
 	}
 	
@@ -143,5 +154,10 @@ public class Player extends Character {
 		}
 	}
 	
+	public void timeSlow() {
+		if(!inBulletTime&&timeFrames>=timeMaxFrames) {
+			inBulletTime=true;
+		}
+	}
 
 }
