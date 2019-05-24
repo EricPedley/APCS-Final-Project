@@ -42,9 +42,9 @@ Sprite, Player, Enemy, Projectile, Main, Window, Level, Menu, Vector, Character,
 
 
 Credits List:
-Eric: Sprite, Player, Enemy, Projectile, Vector
-Rishab: Level, Main,Character
-Osman: Menu, Window, Level
+Eric: Sprite, Player, Enemy, Projectile, Vector, Level
+Rishab: Level, Main,Character, created sprites
+Osman: Menu, Window, Level, created menu/title screens
 
 
 Sources:
