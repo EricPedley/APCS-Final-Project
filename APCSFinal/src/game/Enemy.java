@@ -41,6 +41,10 @@ public class Enemy extends  Character {
 		drawer.stroke(0);
 	}
 
+	/**
+	 * Determines what the enemy should do next and executes that action
+	 * @param l the level the enemy is in
+	 */
 	public void act(Level l) {
 		framesWandered++;
 		framesWithoutAttacking++;
