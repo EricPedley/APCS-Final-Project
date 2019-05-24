@@ -16,8 +16,6 @@ public class Window extends PApplet{
 
 	private boolean[] keys = new boolean[500];
 	private static String fs = System.getProperty("file.separator");
-	private Player p;
-	private float startX = 300, startY = 200;
 	private Level currentLevel;
 	private Menu startScreen,pauseScreen,gameOverScreen,instructionScreen, winScreen,levelSelect;
 	private GameState state;
@@ -25,8 +23,8 @@ public class Window extends PApplet{
 	public void setup() {
 		ImageLoader.setup(this);
 		state = GameState.START;
-		currentLevel = new Level(1,2,this);
-		currentLevel.passKeysReference(keys);
+//		currentLevel = new Level(1,2,this);
+//		currentLevel.passKeysReference(keys);
 		startScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "title1.png"));
 		pauseScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "pauseSample.png"));
 		gameOverScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "gameoverSample.png"));
@@ -36,11 +34,11 @@ public class Window extends PApplet{
 	}
 	
 	public void draw() {
-		if(currentLevel.getGameStatus()==1)
+		if(currentLevel!=null&&currentLevel.getGameStatus()==1)
 		{
 			state=GameState.WON;
 		}
-		else if(currentLevel.getGameStatus()==-1)
+		else if(currentLevel!=null&&currentLevel.getGameStatus()==-1)
 		{
 			state=GameState.GAMEOVER;
 		}
@@ -152,7 +150,8 @@ public class Window extends PApplet{
 	}
 	
 	public void mousePressed() {//mousebutton 37 is left, 39 is right, 3 is middle
-		currentLevel.mouseClicked(mouseButton);
+		if(currentLevel!=null)
+			currentLevel.mouseClicked(mouseButton);
 	}
 	
 	public void restart() {
