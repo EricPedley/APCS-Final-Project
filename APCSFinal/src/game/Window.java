@@ -2,12 +2,6 @@ package game;
 
 
 import processing.core.PApplet;
-import processing.core.PImage;
-
-
-import processing.core.PApplet;
-import processing.core.PImage;
-
 enum GameState {
 	START,PAUSE,INGAME,GAMEOVER,INSTRUCTIONS,WON,LEVEL;
 }
