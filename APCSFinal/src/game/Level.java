@@ -22,22 +22,23 @@ public class Level {
 	private int numEnemies;
 	private Player p;
 	private boolean[] keys;
-	private float mouseX,mouseY;
+	private float mouseX, mouseY;
+	private float startX = 650, startY = 350;
+
 	// Constuctors
 	public Level(int levelNumber, int numEnemies, PApplet loader) {
-		if(levelNumber==1) {
-			readData("Levels"+fs+"level"+levelNumber+".txt");
+		if (levelNumber == 1) {
+			readData("Levels" + fs + "level" + levelNumber + ".txt");
 		} else
 			readData("Levels" + fs + "Test_Level.txt");
 		p = new Player(200, 200, 100);
 		p.scale(2f);
-		p.isDeflecting=false;
+		p.isDeflecting = false;
 		friendlyProjectiles = new ArrayList<Projectile>();
 		enemyProjectiles = new ArrayList<Projectile>();
 		enemies = new ArrayList<Enemy>();
-		for(int i=0;i<numEnemies;i++)
-		{
-			Enemy baddie = new Enemy(500, 200,ImageLoader.Enemy , 100);
+		for (int i = 0; i < numEnemies; i++) {
+			Enemy baddie = new Enemy(500, 200, ImageLoader.Enemy, 100);
 			baddie.scale(2f);
 			enemies.add(baddie);
 		}
@@ -60,37 +61,38 @@ public class Level {
 			p.startMeleeAnimation(new Vector(mouseX - p.x, mouseY - p.y).getAngle());
 		}
 	}
+
 	//
 	public void handleProjectileCollisions() {
-		if(p.isDeflecting) {
-			for(int i = 0; i<enemyProjectiles.size();i++) {
-				if(p.intersects(enemyProjectiles.get(i))) {
-					//System.out.println("wtf");
-					enemyProjectiles.get(i).vel = new Vector(mouseX-enemyProjectiles.get(i).x,mouseY-enemyProjectiles.get(i).y);
+		if (p.isDeflecting) {
+			for (int i = 0; i < enemyProjectiles.size(); i++) {
+				if (p.intersects(enemyProjectiles.get(i))) {
+					// System.out.println("wtf");
+					enemyProjectiles.get(i).vel = new Vector(mouseX - enemyProjectiles.get(i).x,
+							mouseY - enemyProjectiles.get(i).y);
 					enemyProjectiles.get(i).vel.scaleMagnitudeTo(20f);
 					friendlyProjectiles.add(enemyProjectiles.remove(i));
 				}
 			}
-		}
-		else
-		{
-			for(int i = 0; i<enemyProjectiles.size();i++) {
-				if(p.intersects(enemyProjectiles.get(i))) {
+		} else {
+			for (int i = 0; i < enemyProjectiles.size(); i++) {
+				if (p.intersects(enemyProjectiles.get(i))) {
 					enemyProjectiles.remove(i);
 					p.loseHP(35);
 				}
 			}
 		}
-		for(Enemy e: enemies) {
-			for(int i = 0; i<friendlyProjectiles.size();i++) {
-				if(e.intersects(friendlyProjectiles.get(i))) {
+		for (Enemy e : enemies) {
+			for (int i = 0; i < friendlyProjectiles.size(); i++) {
+				if (e.intersects(friendlyProjectiles.get(i))) {
 					friendlyProjectiles.remove(i);
 					e.loseHP(35);
-					
+
 				}
 			}
 		}
 	}
+
 	public int[][] getTileArray() {
 		return tileType;
 	}
@@ -144,8 +146,22 @@ public class Level {
 	 * @param drawer
 	 */
 	public void draw(PApplet drawer) {
+
+		drawer.translate(startX - (float) p.x, startY - (float) p.y);
+		if (p.x < drawer.width / 2)
+			drawer.translate((float) (p.x - drawer.width / 2), 0);
+		if (p.y < drawer.height / 2)
+			drawer.translate(0, (float) (p.y - drawer.height / 2));
+		if (tileType.length * TILE_SIZE - p.x < drawer.width / 2) {
+			drawer.translate((float) (-(tileType.length * TILE_SIZE - p.x) + drawer.width / 2), 0);
+		}
+		if (tileType[0].length * TILE_SIZE - p.y < drawer.height / 2) {
+			drawer.translate(0, (float) (-(tileType[0].length * TILE_SIZE - p.y) + drawer.height / 2));
+		}
+
 		this.mouseX = drawer.mouseX;
 		this.mouseY = drawer.mouseY;
+		// drawer.translate(p.x+drawer.width/2-200, p.y+drawer.height/2-200);
 		Level l = this;
 		int[][] tiles = l.getTileArray();
 		drawer.noFill();
@@ -166,11 +182,10 @@ public class Level {
 		handleMelee();
 		handleProjectileCollisions();
 	}
-	
+
 	public void handleEnemies(PApplet drawer) {
-		for(int i=0;i<enemies.size();i++) {
-			if(enemies.get(i).isDead())
-			{
+		for (int i = 0; i < enemies.size(); i++) {
+			if (enemies.get(i).isDead()) {
 				enemies.remove(i);
 			}
 		}
@@ -180,7 +195,7 @@ public class Level {
 			baddie.draw(drawer);
 		}
 	}
-	
+
 	public void drawProjectiles(PApplet drawer) {
 		ArrayList<Projectile> toDelete = new ArrayList<Projectile>();
 		for (Projectile p : enemyProjectiles) {
@@ -205,20 +220,20 @@ public class Level {
 	}
 
 	public void handleKeys() {
-		if(keys[81]) {
+		if (keys[81]) {
 			p.startDeflecting();
 		}
-		Vector v = new Vector();//player direction for movement
-		if (keys[65]) {//a
+		Vector v = new Vector();// player direction for movement
+		if (keys[65]) {// a
 			v.x--;
 		}
-		if (keys[87]) {//w
+		if (keys[87]) {// w
 			v.y--;
 		}
-		if (keys[68]) {//d
+		if (keys[68]) {// d
 			v.x++;
 		}
-		if (keys[83]) {//s
+		if (keys[83]) {// s
 			v.y++;
 		}
 		v.scaleMagnitudeTo(0.5f);
@@ -239,27 +254,26 @@ public class Level {
 			for (Enemy e : enemies) {
 				if (e.intersects(p.getMeleeHitbox())) {
 					e.loseHP(10);
-					//System.out.println("yipee!");
+					// System.out.println("yipee!");
 				}
 			}
 		}
 	}
+
 	/**
 	 * Returns -1 for game lost, 0 for game in progress, and 1 for game won
+	 * 
 	 * @return the state of the game
 	 */
 	public int getGameStatus() {
-		if(enemies.size()==0)
-		{
+		if (enemies.size() == 0) {
 			return 1;
-		}
-		else if(p.getHP()<=0)
-		{
+		} else if (p.getHP() <= 0) {
 			return -1;
 		}
-			
+
 		return 0;
-	} 
+	}
 	/*
 	 * public ArrayList<Projectile> getMyProjectiles() { // TODO Auto-generated
 	 * method stub return myProjectiles; }

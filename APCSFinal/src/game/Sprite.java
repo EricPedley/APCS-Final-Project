@@ -292,4 +292,7 @@ public class Sprite {
 		height=i.height*scale;
 	}
 	
+	public float distance(Sprite other) {
+		return (float) Math.sqrt((x-other.x)*(x-other.x)+(y-other.y)*(y-other.y));
+	}
 }

@@ -9,6 +9,7 @@ enum State {
 public class Enemy extends  Character {
 	private State state;
 	private int framesWandered;
+	private int framesWithoutAttacking;
 	
 	public Enemy(float x, float y, PImage img, int hp) {
 		super(x, y, img,hp);
@@ -29,14 +30,27 @@ public class Enemy extends  Character {
 		p.vel.scaleMagnitudeTo(20f);
 		l.getEnemyProjectiles().add(p);
 	}
+	
+	@Override
+	public void draw(PApplet drawer) {
+		super.draw(drawer);
+		drawer.noFill();
+		drawer.ellipseMode(PApplet.CENTER);
+		drawer.ellipse(x, y,1400, 1400);
+	}
 
 	public void act(Level l) {
 		framesWandered++;
+		framesWithoutAttacking++;
 		if (framesWandered > 60) {
 			vel = new Vector(0, 5);
 			vel.rotate((float) (Math.random() * Math.PI * 2));
 			framesWandered = 0;
+		}
+		if(framesWithoutAttacking>45&&this.distance(l.getPlayer())<700) {
+			vel = new Vector();
 			attack(l);
+			framesWithoutAttacking=0;
 		}
 	}
 
