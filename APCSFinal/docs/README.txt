@@ -2,7 +2,7 @@
 Title: 
 Dodge attack  [subject to change]
 Intro:
-Primarily, this program acts as a game, intended to provide quick, easy entertainment to bored individuals or possibly to act as inspiration for game design. Our program is a 2D top down game, in which you control a character with melee attacks and attempt to defeat ranged enemies, avoiding enemy attacks as much as possible. You have a few abilities that can be activated for certain amounts of time, as well as temporary power ups that can be attained by defeating enemies. The game is (intended to be) multi leveled, where you must defeat all enemies on the map without dying in order to win. Each level is a big square area with randomly placed obstacles all over it and enemies randomly placed. This game can be played by individuals of all ages.
+Primarily, this program acts as a game, intended to provide quick, easy entertainment to bored individuals or possibly to act as inspiration for game design. Our program is a 2D top down game, in which you control a character with melee attacks and attempt to defeat ranged enemies, avoiding enemy attacks as much as possible. You have deflection, dash, and time slow abilities, each of which is temporary and takes time to recharge. The game is multi leveled, where you must defeat all enemies on the map without dying in order to win. Each level is a big square area with obstacles all over it and enemies randomly placed. This game can be played by individuals of all ages.
 
 
 Instructions:
