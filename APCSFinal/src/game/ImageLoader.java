@@ -6,16 +6,16 @@ import processing.core.PImage;
 public class ImageLoader {
 	
 	private static String fs = System.getProperty("file.separator");
-	public static PImage Enemy,Player,Projectile,Player_Sword,Player_Deflecting;
+	public static PImage Enemy,Player,Projectile,Player_Sword,Player_Deflecting,Crosshair;
 	public static Tile[] tileIndices = new Tile[6];
 
-	
 	public static void setup(PApplet p) {
 		Enemy = p.loadImage("resources" + fs + "images" + fs + "Enemy.gif");
 		Player = p.loadImage("resources" + fs + "images" + fs + "Hero.gif");
 		Player_Sword = p.loadImage("resources" + fs + "images" + fs + "Hero_Sword.gif");
 		Player_Deflecting = p.loadImage("resources" + fs + "images" + fs + "Hero_Deflecting.gif");
 		Projectile = p.loadImage("resources" + fs + "images" + fs + "Projectile.gif");
+		Crosshair = p.loadImage("resources" + fs + "images" + fs + "Crosshair.gif");
 		tileIndices[0] = new Tile(p.loadImage("resources" + fs + "images" + fs + "Wall.gif"),0);
 		tileIndices[1] = new Tile(p.loadImage("resources" + fs + "images" + fs + "Floor.gif"),1);
 		tileIndices[2] = new Tile(p.loadImage("resources" + fs + "images" + fs + "BottomLeft.gif"),2);

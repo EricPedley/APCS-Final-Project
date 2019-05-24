@@ -200,10 +200,11 @@ public class Level {
 		drawProjectiles(drawer);
 		handleMelee();
 		drawer.strokeWeight(20);
-		drawer.point(mouseX, mouseY);
+		drawer.image(ImageLoader.Crosshair,mouseX, mouseY);
 		drawer.strokeWeight(1);
-		if(p.inBulletTime) {
-			drawer.frameRate(30);
+		
+		if(p.inBulletTime) {//code for slowing down time
+			drawer.frameRate(20);
 			drawer.fill(255,0,255,5+20*p.timeSlowBarPercentage());
 			drawer.rect(-trans.x, -trans.y, drawer.width, drawer.height);
 		}
