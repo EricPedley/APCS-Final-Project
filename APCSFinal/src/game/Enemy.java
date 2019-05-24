@@ -2,24 +2,20 @@ package game;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-
-enum State {
-	WANDERING,ATTACKING,IDLING;
-}
+/**
+ * Represents the enemies in the game. After every few seconds, changes direction to a random 
+ * direction and starts moving in that direction. If the player is within its range, it will
+ * shoot at them every 3/4 of a second
+ * @author epedley885
+ *
+ */
 public class Enemy extends  Character {
-	private State state;
 	private int framesWandered;
 	private int framesWithoutAttacking;
 	
 	public Enemy(float x, float y, PImage img, int hp) {
 		super(x, y, img,hp);
 		// TODO Auto- generated constructor stub
-	}
-	
-	public void updateState() {
-		if(state==State.WANDERING||state==State.IDLING) {
-			
-		}
 	}
 
 	public void attack(Level l) {

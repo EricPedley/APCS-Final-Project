@@ -3,7 +3,11 @@ package game;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-
+/**
+ * Superclass for sprites that have health; player and enemies
+ * @author epedley885
+ *
+ */
 public class Character extends Sprite{
 	private int hp;
 	private final int maxHp;

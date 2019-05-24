@@ -2,6 +2,12 @@ package game;
 
 import processing.core.PApplet;
 
+/**
+ * The player. Has ability to attack in an arc around it with a sword,
+ * deflect bullets, dash forward, and slow down time
+ * @author epedley885
+ *
+ */
 public class Player extends Character {
 
 	private int meleeAnimationFrames, deflectCount, dashFrames, timeFrames;
@@ -93,7 +99,7 @@ public class Player extends Character {
 		drawer.rect(x - 20, y + height / 2 + 30, 40, 10);
 		drawer.fill(0, 255, 255);
 		drawer.rect(x - 20, y + height / 2 + 10, 40 * deflectCount / deflectMaxFrames, 10);
-		drawer.fill(255, 130, 0);
+		drawer.fill(255, 255, 0);
 		drawer.rect(x - 20, y + height / 2 + 20, 40 * dashFrames / dashMaxFrames, 10);
 		drawer.fill(255, 0, 255);
 		drawer.rect(x - 20, y + height / 2 + 30, 40 * timeFrames / timeMaxFrames, 10);

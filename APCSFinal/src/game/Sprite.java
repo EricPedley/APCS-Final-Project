@@ -8,6 +8,8 @@ import processing.core.PImage;
  * A sprite can move according to its velocity and acceleration vectors, and can collide 
  * with other sprites, based on its hitboxMode. hitboxMode determines if the sprite is treated
  * as a rectangle or circle when colliding with other sprites.
+ * 
+ * Basically the superclass for most of the other objects
  * @author epedley885
  *
  */
