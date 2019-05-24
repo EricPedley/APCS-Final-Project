@@ -4,15 +4,15 @@ import processing.core.PImage;
 
 public class Player extends Character {
 
-
-	private boolean inMeleeAttack;
-	private int meleeAnimationFrames,deflectCount;
+	private int meleeAnimationFrames,deflectCount,dashFrames;
 	private float meleeAttackDirectionAngle;
 	private final int maxMeleeFrames=10;
 	private Sprite meleeSword;
-	public boolean isDeflecting;
+	public boolean isDeflecting,isDashing,inMeleeAttack;
 	private PImage otherImage;
-	private final int deflectFrames=240;
+	private final int deflectMaxFrames=240;
+	private final int dashMaxFrames = 120;
+	private Vector dashVector;
 	
 	public Player(float x, float y, int hp) {
 		super(x, y, ImageLoader.Player,hp);
@@ -20,9 +20,9 @@ public class Player extends Character {
 		meleeSword = new Sprite(x,y,ImageLoader.Player_Sword);
 		meleeSword.scale(2f);
 		hp=10;
-		deflectCount=deflectFrames;
+		deflectCount=deflectMaxFrames;
+		dashFrames=dashMaxFrames;
 		maxSpeed=6;
-		// TODO Auto-generated constructor stub
 	}
 
 	public void startMeleeAnimation(float angle) {
@@ -35,7 +35,7 @@ public class Player extends Character {
 	
 	public void startDeflecting() {
 		
-		if(deflectCount>=deflectFrames) {
+		if(deflectCount>=deflectMaxFrames) {
 			isDeflecting=true;
 		}
 	}
@@ -49,16 +49,29 @@ public class Player extends Character {
 			deflectCount-=2;
 		} else {
 			changeImage(ImageLoader.Player);
-			if(deflectCount<deflectFrames)
+			if(deflectCount<deflectMaxFrames)
 				deflectCount++;
 		}
 		if(deflectCount<=0) {
 			isDeflecting=false;
 		}
+		if(isDashing) {
+			dashFrames-=dashMaxFrames/10;
+		} else {
+			if(dashFrames<dashMaxFrames)
+				dashFrames++;
+		}
+		
+		if(dashFrames<=0) {
+			isDashing=false;
+		}
 		drawer.noFill();
 		drawer.rect(x-20, y+height/2+10, 40, 10);
-		drawer.fill(0,0,255);
-		drawer.rect(x-20, y+height/2+10, 40*deflectCount/deflectFrames, 10);
+		drawer.rect(x-20, y+height/2+20, 40, 10);
+		drawer.fill(0,255,255);
+		drawer.rect(x-20, y+height/2+10, 40*deflectCount/deflectMaxFrames, 10);
+		drawer.fill(255,130,0);
+		drawer.rect(x-20, y+height/2+20, 40*dashFrames/dashMaxFrames, 10);
 		super.draw(drawer);
 	}
 	
@@ -95,20 +108,31 @@ public class Player extends Character {
 	
 	@Override
 	public void updatePos(Level l) {
+		if(isDashing) {
+			vel=dashVector;
+		}
 		vel.add(acc);
-		
-		if(maxSpeed>0&&vel.length()>maxSpeed) 
+		System.out.println(vel);
+		if(maxSpeed>0&&vel.length()>maxSpeed&&!isDashing) 
 			vel.scaleMagnitudeTo(maxSpeed);
 		if (vel.length() > 0) {
-			Vector orth = vel.getOrthogonalComponentTo(acc);
+			Vector desiredDirection = (isDashing)? dashVector:acc;
+			Vector orth = vel.getOrthogonalComponentTo(desiredDirection);
 			vel.subtract(orth.multiplyN(0.5f));
 			this.angle = vel.getAngle();
 		}
-		
 		x += vel.x;
 		y += vel.y;
 		
 		super.checkTileCollisions(l);
+	}
+	
+	public void dash(Vector direction) {
+		if(!isDashing&&dashFrames>=dashMaxFrames) {
+			isDashing=true;
+			dashVector = new Vector(direction.x,direction.y);
+			dashVector.scaleMagnitudeTo(30f);
+		}
 	}
 	
 

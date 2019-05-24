@@ -56,7 +56,7 @@ public class Level {
 		this.keys = keys;
 	}
 
-	public void mouseClicked(float mouseX, float mouseY, int mouseButton) {
+	public void mouseClicked(int mouseButton) {
 		if (mouseButton == 37) {// left mouse button
 			p.startMeleeAnimation(new Vector(mouseX - p.x, mouseY - p.y).getAngle());
 		}
@@ -147,20 +147,26 @@ public class Level {
 	 */
 	public void draw(PApplet drawer) {
 
-		drawer.translate(startX - (float) p.x, startY - (float) p.y);
+		Vector trans = new Vector();
+		trans.add(new Vector(startX - (float) p.x, startY - (float) p.y));
+		//drawer.translate(startX - (float) p.x, startY - (float) p.y);
 		if (p.x < drawer.width / 2)
-			drawer.translate((float) (p.x - drawer.width / 2), 0);
+			trans.add(new Vector((float) (p.x - drawer.width / 2), 0));
+			//drawer.translate((float) (p.x - drawer.width / 2), 0);
 		if (p.y < drawer.height / 2)
-			drawer.translate(0, (float) (p.y - drawer.height / 2));
+			trans.add(new Vector(0, (float) (p.y - drawer.height / 2)));
+			//drawer.translate(0, (float) (p.y - drawer.height / 2));
 		if (tileType.length * TILE_SIZE - p.x < drawer.width / 2) {
-			drawer.translate((float) (-(tileType.length * TILE_SIZE - p.x) + drawer.width / 2), 0);
+			trans.add(new Vector((float) (-(tileType.length * TILE_SIZE - p.x) + drawer.width / 2), 0));
+			//drawer.translate((float) (-(tileType.length * TILE_SIZE - p.x) + drawer.width / 2), 0);
 		}
 		if (tileType[0].length * TILE_SIZE - p.y < drawer.height / 2) {
-			drawer.translate(0, (float) (-(tileType[0].length * TILE_SIZE - p.y) + drawer.height / 2));
+			trans.add(new Vector(0, (float) (-(tileType[0].length * TILE_SIZE - p.y) + drawer.height / 2)));
+			//drawer.translate(0, (float) (-(tileType[0].length * TILE_SIZE - p.y) + drawer.height / 2));
 		}
-
-		this.mouseX = drawer.mouseX;
-		this.mouseY = drawer.mouseY;
+		this.mouseX = drawer.mouseX-trans.x;
+		this.mouseY = drawer.mouseY-trans.y;
+		drawer.translate(trans.x, trans.y);
 		// drawer.translate(p.x+drawer.width/2-200, p.y+drawer.height/2-200);
 		Level l = this;
 		int[][] tiles = l.getTileArray();
@@ -181,6 +187,9 @@ public class Level {
 		drawProjectiles(drawer);
 		handleMelee();
 		handleProjectileCollisions();
+		drawer.strokeWeight(20);
+		drawer.point(mouseX, mouseY);
+		drawer.strokeWeight(1);
 	}
 
 	public void handleEnemies(PApplet drawer) {
@@ -222,6 +231,9 @@ public class Level {
 	public void handleKeys() {
 		if (keys[81]) {
 			p.startDeflecting();
+		}
+		if(keys[32]) {
+			p.dash(new Vector(mouseX-p.x,mouseY-p.y));
 		}
 		Vector v = new Vector();// player direction for movement
 		if (keys[65]) {// a

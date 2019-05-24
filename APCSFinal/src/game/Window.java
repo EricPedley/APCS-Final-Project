@@ -135,7 +135,7 @@ public class Window extends PApplet{
 	}
 	
 	public void mousePressed() {//mousebutton 37 is left, 39 is right, 3 is middle
-		currentLevel.mouseClicked(mouseX,mouseY, mouseButton);
+		currentLevel.mouseClicked(mouseButton);
 	}
 	
 	public void restart() {
