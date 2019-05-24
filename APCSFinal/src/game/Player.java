@@ -13,6 +13,7 @@ public class Player extends Character {
 	private final int deflectMaxFrames=240;
 	private final int dashMaxFrames = 120,timeMaxFrames=240;
 	private Vector dashVector;
+	private float dashDist;
 	
 	public Player(float x, float y, int hp) {
 		super(x, y, ImageLoader.Player,hp);
@@ -128,9 +129,14 @@ public class Player extends Character {
 	
 	@Override
 	public void updatePos(Level l) {
+		
 		if(isDashing) {
+			if(dashVector.length()*(dashMaxFrames-dashFrames)/10>=dashDist) {
+				isDashing=false;
+			}
 			vel=dashVector;
 		}
+		
 		if(inBulletTime)
 			vel.add(acc.multiplyN(1.5f));
 		else
@@ -158,6 +164,7 @@ public class Player extends Character {
 		if(!isDashing&&dashFrames>=dashMaxFrames) {
 			isDashing=true;
 			dashVector = new Vector(direction.x,direction.y);
+			dashDist=dashVector.length();
 			dashVector.scaleMagnitudeTo(30f);
 		}
 	}
