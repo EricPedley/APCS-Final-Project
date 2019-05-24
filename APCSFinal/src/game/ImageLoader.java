@@ -6,7 +6,7 @@ import processing.core.PImage;
 public class ImageLoader {
 	
 	private static String fs = System.getProperty("file.separator");
-	public static PImage Enemy,Player,Projectile,Player_Sword,Player_Deflecting; 
+	public static PImage Enemy,Player,Projectile,Player_Sword,Player_Deflecting;
 	public static Tile[] tileIndices = new Tile[6];
 
 	
@@ -22,6 +22,5 @@ public class ImageLoader {
 		tileIndices[5] = new Tile(p.loadImage("resources" + fs + "images" + fs + "TopRight.gif"),5);
 		tileIndices[2] = new Tile(p.loadImage("resources" + fs + "images" + fs + "BottomRight.gif"),3);
 		tileIndices[3] = new Tile(p.loadImage("resources" + fs + "images" + fs + "BottomLeft.gif"),2);
-		
 	}
 }

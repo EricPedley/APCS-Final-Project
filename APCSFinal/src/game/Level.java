@@ -147,7 +147,7 @@ public class Level {
 	 */
 	public void draw(PApplet drawer) {
 		drawer.background(255);
-		Vector trans = new Vector();//moves the camera to be centered on the player but not go past the edges of the map
+		Vector trans = new Vector(0,-20);//moves the camera to be centered on the player but not go past the edges of the map
 		trans.add(new Vector(startX - (float) p.x, startY - (float) p.y));
 		if (p.x < drawer.width / 2)
 			trans.add(new Vector((float) (p.x - drawer.width / 2), 0));
@@ -169,16 +169,30 @@ public class Level {
 			for (int j = 0; j < tiles[0].length; j++) {
 				int t = Level.TILE_SIZE;
 				//drawer.rect(i*t, j*t, t, t);
-				ImageLoader.tileIndices[tiles[i][j]].draw(drawer,  i*t, j*t,t);
+				if(i*t+trans.x>-t&&i*t+trans.x<drawer.width+t&&j*t+trans.y>-t&&j*t+trans.y<drawer.height+t) {
+					if(ImageLoader.tileIndices[tiles[i][j]].getType()==1) {
+						drawer.fill(200);
+						drawer.stroke(190);
+						drawer.rect(i*t, j*t,t,t);
+					} else {
+						ImageLoader.tileIndices[tiles[i][j]].draw(drawer,  i*t, j*t,t);
+					}
+				}
+//				if(tiles[i][j]==0) {
+//					drawer.image(ImageLoader.Wall, i*t+t/2, j*t+t/2,t,t);
+//				} else {
+//					drawer.image(ImageLoader.Floor, i*t+t/2, j*t+t/2);
+//				}
 			}
 		} // draws grid overlay to debug stuff cuz tiles arent actually finished yet
+		drawer.stroke(0);
 		handleKeys();
 		p.updatePos(this);
 		handleEnemies(drawer);
 		p.draw(drawer);
+		handleProjectileCollisions();
 		drawProjectiles(drawer);
 		handleMelee();
-		handleProjectileCollisions();
 		drawer.strokeWeight(20);
 		drawer.point(mouseX, mouseY);
 		drawer.strokeWeight(1);

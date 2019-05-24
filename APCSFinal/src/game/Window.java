@@ -72,7 +72,7 @@ public class Window extends PApplet{
 	 
 	public void keyPressed() {
 		keys[keyCode]=true;
-		if(keys[83])
+		if(keys[83])//s
 		{
 			if(state==GameState.START||state==GameState.INSTRUCTIONS)
 			{
@@ -80,7 +80,7 @@ public class Window extends PApplet{
 				//System.out.println("yIpeE");
 			}
 		}
-		if(keys[82])
+		if(keys[82])//r
 		{
 			if(state==GameState.INGAME)
 			{
@@ -95,7 +95,7 @@ public class Window extends PApplet{
 				restart();
 			}
 		}
-		if(keys[73]) {
+		if(keys[73]) {//i
 			if(state==GameState.START)
 			{
 				state=GameState.INSTRUCTIONS;
@@ -103,26 +103,26 @@ public class Window extends PApplet{
 		}
 		if(state==GameState.LEVEL)
 		{
-			if(keys[49])
+			if(keys[49])//1
 			{
 				currentLevel=new Level(1,1,this);
 				currentLevel.passKeysReference(keys);
 				state=GameState.INGAME;
 			}
-			if(keys[50])
+			if(keys[50])//2
 			{
 				currentLevel=new Level(2,2,this);
 				currentLevel.passKeysReference(keys);
 				state=GameState.INGAME;
 			}
-			if(keys[51])
+			if(keys[51])//3
 			{
 				currentLevel=new Level(3,3,this);
 				currentLevel.passKeysReference(keys);
 				state=GameState.INGAME;
 			}
 		}
-		if(state==GameState.WON)
+		if(state==GameState.WON&&keys[82])
 		{
 			restart();
 		}

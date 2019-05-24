@@ -36,7 +36,9 @@ public class Enemy extends  Character {
 		super.draw(drawer);
 		drawer.noFill();
 		drawer.ellipseMode(PApplet.CENTER);
-		drawer.ellipse(x, y,1400, 1400);
+		drawer.stroke(255,0,0);
+		drawer.ellipse(x, y,1000, 1000);
+		drawer.stroke(0);
 	}
 
 	public void act(Level l) {
@@ -47,7 +49,7 @@ public class Enemy extends  Character {
 			vel.rotate((float) (Math.random() * Math.PI * 2));
 			framesWandered = 0;
 		}
-		if(framesWithoutAttacking>45&&this.distance(l.getPlayer())<700) {
+		if(framesWithoutAttacking>45&&this.distance(l.getPlayer())<500) {
 			vel = new Vector();
 			attack(l);
 			framesWithoutAttacking=0;
