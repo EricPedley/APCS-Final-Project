@@ -138,7 +138,7 @@ public class Window extends PApplet{
 				state=GameState.INGAME;
 			}
 		}
-		if(state==GameState.WON)
+		if(state==GameState.WON&&keys[82])
 		{
 			restart();
 			state=GameState.LEVEL;

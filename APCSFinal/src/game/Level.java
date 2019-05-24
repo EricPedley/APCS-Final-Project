@@ -97,6 +97,10 @@ public class Level {
 		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int[][] getTileArray() {
 		return tileType;
 	}
@@ -201,9 +205,8 @@ public class Level {
 		drawer.strokeWeight(20);
 		drawer.image(ImageLoader.Crosshair,mouseX, mouseY);//draws crosshair
 		drawer.strokeWeight(1);
-		
-		if(p.inBulletTime) {//code for slowing down time
-			drawer.frameRate(20);
+		if(p.inBulletTime) {
+			drawer.frameRate(30);
 			drawer.fill(255,0,255,5+20*p.timeSlowBarPercentage());
 			drawer.rect(-trans.x, -trans.y, drawer.width, drawer.height);
 		}
