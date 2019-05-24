@@ -36,7 +36,6 @@ public class Window extends PApplet{
 	}
 	
 	public void draw() {
-		background(255);
 		if(currentLevel.getGameStatus()==1)
 		{
 			state=GameState.WON;

@@ -28,8 +28,8 @@ public class Tile {
 		return type;
 	}
 		
-	public void draw(PApplet p, int size) {
-		p.image(image, 0, 0, size, size);
+	public void draw(PApplet p, float x, float y, int size) {
+		p.image(image, x+size/2, y+size/2, size, size);
 	}
 		
 }

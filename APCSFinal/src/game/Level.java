@@ -146,38 +146,30 @@ public class Level {
 	 * @param drawer
 	 */
 	public void draw(PApplet drawer) {
-
-		Vector trans = new Vector();
+		drawer.background(255);
+		Vector trans = new Vector();//moves the camera to be centered on the player but not go past the edges of the map
 		trans.add(new Vector(startX - (float) p.x, startY - (float) p.y));
-		//drawer.translate(startX - (float) p.x, startY - (float) p.y);
 		if (p.x < drawer.width / 2)
 			trans.add(new Vector((float) (p.x - drawer.width / 2), 0));
-			//drawer.translate((float) (p.x - drawer.width / 2), 0);
 		if (p.y < drawer.height / 2)
 			trans.add(new Vector(0, (float) (p.y - drawer.height / 2)));
-			//drawer.translate(0, (float) (p.y - drawer.height / 2));
-		if (tileType.length * TILE_SIZE - p.x < drawer.width / 2) {
+		if (tileType.length * TILE_SIZE - p.x < drawer.width / 2) 
 			trans.add(new Vector((float) (-(tileType.length * TILE_SIZE - p.x) + drawer.width / 2), 0));
-			//drawer.translate((float) (-(tileType.length * TILE_SIZE - p.x) + drawer.width / 2), 0);
-		}
-		if (tileType[0].length * TILE_SIZE - p.y < drawer.height / 2) {
+		if (tileType[0].length * TILE_SIZE - p.y < drawer.height / 2) 
 			trans.add(new Vector(0, (float) (-(tileType[0].length * TILE_SIZE - p.y) + drawer.height / 2)));
-			//drawer.translate(0, (float) (-(tileType[0].length * TILE_SIZE - p.y) + drawer.height / 2));
-		}
 		this.mouseX = drawer.mouseX-trans.x;
 		this.mouseY = drawer.mouseY-trans.y;
 		drawer.translate(trans.x, trans.y);
-		// drawer.translate(p.x+drawer.width/2-200, p.y+drawer.height/2-200);
+		
 		Level l = this;
 		int[][] tiles = l.getTileArray();
 		drawer.noFill();
 		drawer.strokeWeight(1);
 		for (int i = 0; i < tiles.length; i++) {
 			for (int j = 0; j < tiles[0].length; j++) {
-				drawer.fill(255);
-				if (tiles[i][j] == 0)
-					drawer.fill(0, 0, 255);
-				drawer.rect(i * Level.TILE_SIZE, j * Level.TILE_SIZE, Level.TILE_SIZE, Level.TILE_SIZE);
+				float t = Level.TILE_SIZE;
+				drawer.rect(i*t, j*t, t, t);
+				//ImageLoader.tileIndices[tiles[i][j]].draw(drawer,  i*Level.TILE_SIZE, j*Level.TILE_SIZE,Level.TILE_SIZE);
 			}
 		} // draws grid overlay to debug stuff cuz tiles arent actually finished yet
 		handleKeys();
@@ -265,8 +257,7 @@ public class Level {
 		if (p.isMeleeing()) {
 			for (Enemy e : enemies) {
 				if (e.intersects(p.getMeleeHitbox())) {
-					e.loseHP(10);
-					// System.out.println("yipee!");
+					e.loseHP(p.getMeleeDmg());
 				}
 			}
 		}
