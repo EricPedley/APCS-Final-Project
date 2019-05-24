@@ -4,7 +4,7 @@ import processing.core.PImage;
 
 public class Player extends Character {
 
-	private int meleeAnimationFrames,deflectCount,dashFrames;
+	private int meleeAnimationFrames,deflectCount,dashFrames,meleeDmg;
 	private float meleeAttackDirectionAngle;
 	private final int maxMeleeFrames=10;
 	private Sprite meleeSword;
@@ -23,6 +23,15 @@ public class Player extends Character {
 		deflectCount=deflectMaxFrames;
 		dashFrames=dashMaxFrames;
 		maxSpeed=6;
+		meleeDmg=10;
+	}
+	
+	public int getMeleeDmg() {
+		if(isDashing) {
+			return 20;
+		} else {
+			return 10;
+		}
 	}
 
 	public void startMeleeAnimation(float angle) {
@@ -112,7 +121,6 @@ public class Player extends Character {
 			vel=dashVector;
 		}
 		vel.add(acc);
-		System.out.println(vel);
 		if(maxSpeed>0&&vel.length()>maxSpeed&&!isDashing) 
 			vel.scaleMagnitudeTo(maxSpeed);
 		if (vel.length() > 0) {
