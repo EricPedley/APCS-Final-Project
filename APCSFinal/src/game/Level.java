@@ -148,13 +148,7 @@ public class Level {
 	 * @param drawer
 	 */
 	public void draw(PApplet drawer) {
-		if(p.inBulletTime) {
-			System.out.println("bullet time");
-			drawer.frameRate(30);
-		}
-		else {
-			drawer.frameRate(60);
-		}
+		
 		drawer.background(255);
 		Vector trans = new Vector(0,-20);//moves the camera to be centered on the player but not go past the edges of the map
 		trans.add(new Vector(startX - (float) p.x, startY - (float) p.y));
@@ -205,6 +199,14 @@ public class Level {
 		drawer.strokeWeight(20);
 		drawer.point(mouseX, mouseY);
 		drawer.strokeWeight(1);
+		if(p.inBulletTime) {
+			drawer.frameRate(30);
+			drawer.fill(255,0,255,5+20*p.timeSlowBarPercentage());
+			drawer.rect(-trans.x, -trans.y, drawer.width, drawer.height);
+		}
+		else {
+			drawer.frameRate(60);
+		}
 	}
 
 	public void handleEnemies(PApplet drawer) {

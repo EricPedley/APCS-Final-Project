@@ -1,9 +1,8 @@
 package testers;
 
-import game.Enemy;
+import game.ImageLoader;
 import game.Player;
 import game.Projectile;
-import game.Sprite;
 import game.Vector;
 import processing.core.PApplet;
 
@@ -16,6 +15,7 @@ public class EricTester extends PApplet {
 	}
 	
 	public void setup() {
+		ImageLoader.setup(this);
 		p=new Player(300,200,10);
 		e=new Projectile(200,200,loadImage("resources\\images\\bullet.gif"),new Vector(0,0));
 		e.scale(0.05f);

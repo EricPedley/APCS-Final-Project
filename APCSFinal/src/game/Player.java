@@ -159,5 +159,9 @@ public class Player extends Character {
 			inBulletTime=true;
 		}
 	}
+	
+	public float timeSlowBarPercentage() {
+		return (float)timeFrames/timeMaxFrames;
+	}
 
 }
