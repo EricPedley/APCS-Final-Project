@@ -140,8 +140,13 @@ public class Player extends Character {
 			vel.subtract(orth.multiplyN(0.5f));
 			this.angle = vel.getAngle();
 		}
-		x += vel.x;
-		y += vel.y;
+		if(inBulletTime) {
+			x+=2*vel.x;
+			y+=2*vel.y;
+		} else {
+			x += vel.x;
+			y += vel.y;
+		}
 		
 		super.checkTileCollisions(l);
 	}
