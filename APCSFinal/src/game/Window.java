@@ -30,7 +30,7 @@ public class Window extends PApplet{
 		gameOverScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "gameoverSample.png"));
 		instructionScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "instructions3.png"));
 		winScreen = new Menu(this.loadImage("resources" + fs + "images" + fs + "winSample.png"));
-		levelSelect= new Menu(this.loadImage("resources" + fs + "images" + fs + "Level1.png"));
+		levelSelect= new Menu(this.loadImage("resources" + fs + "images" + fs + "level3.png"));
 	}
 	
 	public void draw() {
