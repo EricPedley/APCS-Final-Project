@@ -216,7 +216,7 @@ public class Level {
 		for (int i = 0; i < enemies.size(); i++) {
 			if (enemies.get(i).isDead()) {
 				enemies.remove(i);
-				p.addHP(35);
+				p.addHP(25);
 			}
 		}
 		for (Enemy baddie : enemies) {
