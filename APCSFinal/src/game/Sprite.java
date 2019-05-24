@@ -69,7 +69,7 @@ public class Sprite {
 	}
 
 	/**
-	 * Makes the sprite move based on its velocity
+	 * Makes the sprite move based on its velocity and changed the velocity based on the acceleration
 	 * 
 	 * @param l
 	 * @param debugger
@@ -269,7 +269,7 @@ public class Sprite {
 		for (int[] i : transformations) {
 			Vector corner = new Vector(tile.x + r2 * i[0], tile.y + r2 * i[1]);
 			if (corner.asPointIntersectsCircle(new Vector(x, y), r)) {
-//				System.out.println("eyyy gang gang gang");
+//				System.out.println("eyyy");
 				//debugger.strokeWeight(10);
 //				Vector test = vel.getOrthogonalComponentTo(new Vector(x,y).subtractN(corner));
 //				test.multiply(100f);

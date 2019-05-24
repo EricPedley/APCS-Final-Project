@@ -21,6 +21,8 @@ public class Character extends Sprite{
 	
 	public void addHP(int heal) {
 		hp+=heal;
+		if(hp>maxHp)
+			hp=maxHp;
 	}
 	
 	public boolean isDead() {

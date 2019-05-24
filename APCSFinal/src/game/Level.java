@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import processing.core.PApplet;
-import processing.core.PImage;
 
 public class Level {
 	private int[][] tileType;
@@ -23,6 +22,7 @@ public class Level {
 	private boolean[] keys;
 	private float mouseX, mouseY;
 	private float startX = 650, startY = 350;
+	private int hpCount;
 	
 
 	// Constuctors
@@ -58,6 +58,10 @@ public class Level {
 		this.keys = keys;
 	}
 
+	/**
+	 * 
+	 * @param mouseButton
+	 */
 	public void mouseClicked(int mouseButton) {
 		if (mouseButton == 37) {// left mouse button
 			p.startMeleeAnimation(new Vector(mouseX - p.x, mouseY - p.y).getAngle());
@@ -105,49 +109,7 @@ public class Level {
 		return tileType;
 	}
 
-	/**
-	 * 
-	 * @param filename
-	 */
-	private void readData(String filename) {
-		File dataFile = new File(filename);
-
-		if (dataFile.exists()) {
-			int count = 0;
-
-			FileReader reader = null;
-			Scanner in = null;
-			try {
-				reader = new FileReader(dataFile);
-				in = new Scanner(reader);
-				String s = in.nextLine();
-				System.out.println(s);
-				x = Integer.parseInt(s.substring(0, s.indexOf(',')));
-				s = s.substring(s.indexOf(',') + 1);
-				y = Integer.parseInt(s);// s.substring(s.indexOf(',')));
-				tileType = new int[x][y];
-
-				while (in.hasNext()) {
-					String line = in.nextLine();
-					for (int i = 0; line.indexOf(',') != -1; line = line.substring(line.indexOf(',') + 1)) {
-
-						tileType[i][count] = Integer.parseInt(line.substring(0, line.indexOf(',')));
-						i++;
-						// System.out.println(gameData[i][count]);
-					}
-					count++;
-				}
-			} catch (IOException ex) {
-				throw new IllegalArgumentException("Data file " + filename + " cannot be read.");
-			} finally {
-				if (in != null)
-					in.close();
-			}
-
-		} else {
-			throw new IllegalArgumentException("Data file " + filename + " does not exist.");
-		}
-	}
+	
 
 	/**
 	 *
@@ -187,13 +149,8 @@ public class Level {
 						ImageLoader.tileIndices[tiles[i][j]].draw(drawer,  i*t, j*t,t);
 					}
 				}
-//				if(tiles[i][j]==0) {
-//					drawer.image(ImageLoader.Wall, i*t+t/2, j*t+t/2,t,t);
-//				} else {
-//					drawer.image(ImageLoader.Floor, i*t+t/2, j*t+t/2);
-//				}
 			}
-		} // draws grid overlay to debug stuff cuz tiles arent actually finished yet
+		}
 		drawer.stroke(0);
 		handleKeys();
 		p.updatePos(this);
@@ -205,7 +162,12 @@ public class Level {
 		drawer.strokeWeight(20);
 		drawer.image(ImageLoader.Crosshair,mouseX, mouseY);//draws crosshair
 		drawer.strokeWeight(1);
-		if(p.inBulletTime) {
+		hpCount++;
+		if(hpCount>120) {
+			hpCount=0;
+			p.addHP(5);
+		}
+		if(p.inBulletTime) {//handles time slowing
 			drawer.frameRate(30);
 			drawer.fill(255,0,255,5+20*p.timeSlowBarPercentage());
 			drawer.rect(-trans.x, -trans.y, drawer.width, drawer.height);
@@ -317,8 +279,47 @@ public class Level {
 
 		return 0;
 	}
-	/*
-	 * public ArrayList<Projectile> getMyProjectiles() { // TODO Auto-generated
-	 * method stub return myProjectiles; }
+	/**
+	 * 
+	 * @param filename
 	 */
+	private void readData(String filename) {
+		File dataFile = new File(filename);
+
+		if (dataFile.exists()) {
+			int count = 0;
+
+			FileReader reader = null;
+			Scanner in = null;
+			try {
+				reader = new FileReader(dataFile);
+				in = new Scanner(reader);
+				String s = in.nextLine();
+				System.out.println(s);
+				x = Integer.parseInt(s.substring(0, s.indexOf(',')));
+				s = s.substring(s.indexOf(',') + 1);
+				y = Integer.parseInt(s);// s.substring(s.indexOf(',')));
+				tileType = new int[x][y];
+
+				while (in.hasNext()) {
+					String line = in.nextLine();
+					for (int i = 0; line.indexOf(',') != -1; line = line.substring(line.indexOf(',') + 1)) {
+
+						tileType[i][count] = Integer.parseInt(line.substring(0, line.indexOf(',')));
+						i++;
+						// System.out.println(gameData[i][count]);
+					}
+					count++;
+				}
+			} catch (IOException ex) {
+				throw new IllegalArgumentException("Data file " + filename + " cannot be read.");
+			} finally {
+				if (in != null)
+					in.close();
+			}
+
+		} else {
+			throw new IllegalArgumentException("Data file " + filename + " does not exist.");
+		}
+	}
 }
