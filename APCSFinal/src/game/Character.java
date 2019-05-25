@@ -12,23 +12,37 @@ public class Character extends Sprite{
 	private int hp;
 	private final int maxHp;
 	
+	
 	public Character(float x, float y, PImage img,int hp) {
 		super(x,y,img);
 		this.hp = hp;
 		maxHp=hp;
 	}
 	
+	/**
+	 * Subtracts hp to the character
+	 * @param dmg the amount of hp lost
+	 */
 	public void loseHP(int dmg) {//push pls again
 		
 		hp-=dmg;
 	}
 	
+	/**
+	 * Adds hp to the character
+	 * @param heal the amount of hp to add back
+	 */
 	public void addHP(int heal) {
 		hp+=heal;
 		if(hp>maxHp)
 			hp=maxHp;
 	}
 	
+	/**
+	 * Checks if the character is alive
+	 * @return If the character is dead or not
+	 */
+
 	public boolean isDead() {
 		if(hp <= 0)
 			return true;
@@ -36,10 +50,18 @@ public class Character extends Sprite{
 			return false;
 	}
 	
+	/**
+	 * 
+	 * @return hp of character
+	 */
 	public int getHP() {
 		return hp;
 	}
 	
+	/**
+	 * 
+	 * @param hp the start hp of the character
+	 */
 	public void setHP(int hp) {
 		this.hp = hp;
 	}

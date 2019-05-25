@@ -14,6 +14,11 @@ public class ImageLoader {
 	public static PImage Enemy,Player,Projectile,Player_Sword,Player_Deflecting,Crosshair;
 	public static Tile[] tileIndices = new Tile[6];
 
+	/**
+	 * setup() makes it we can access all the images
+	 * 
+	 * @param p PApplet 
+	 */
 	public static void setup(PApplet p) {
 		Enemy = p.loadImage("resources" + fs + "images" + fs + "Enemy.gif");
 		Player = p.loadImage("resources" + fs + "images" + fs + "Hero.gif");
