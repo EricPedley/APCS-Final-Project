@@ -5,7 +5,7 @@ import processing.core.PImage;
 
 /**
  * Superclass for sprites that have health; player and enemies
- * @author epedley885
+ * @author rkoka209
  *
  */
 public class Character extends Sprite{

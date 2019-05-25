@@ -11,7 +11,7 @@ import processing.core.PApplet;
 /**
  * Contains all the objects that are drawn when in game, including all of the enemies and projectiles,
  * the player, and the terrain of the map. Also handles interactions between all of these things.
- * @author epedley885
+ * @author rkoka209
  *
  */
 public class Level {
