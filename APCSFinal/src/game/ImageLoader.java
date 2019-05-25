@@ -15,7 +15,7 @@ public class ImageLoader {
 	public static Tile[] tileIndices = new Tile[6];
 
 	/**
-	 * setup() makes it we can access all the images
+	 * setup() makes it we can access images
 	 * 
 	 * @param p PApplet 
 	 */
