@@ -11,8 +11,11 @@ Primarily, this program acts as a game, intended to provide quick, easy entertai
 Instructions:
 
 WASD for movement
+
 Click to attack
+
 Q to toggle deflect
+
 Deflected shots move to the mouse
 
 
