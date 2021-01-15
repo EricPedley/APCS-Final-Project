@@ -8,6 +8,9 @@ Intro:
 Primarily, this program acts as a game, intended to provide quick, easy entertainment to bored individuals or possibly to act as inspiration for game design. Our program is a 2D top down game, in which you control a character with melee attacks and attempt to defeat ranged enemies, avoiding enemy attacks as much as possible. You have deflection, dash, and time slow abilities, each of which is temporary and takes time to recharge. The game is multi leveled, where you must defeat all enemies on the map without dying in order to win. Each level is a big square area with obstacles all over it and enemies randomly placed. This game can be played by individuals of all ages.
 
 
+![Screen Shot 2021-01-14 at 10 46 55 PM](https://user-images.githubusercontent.com/50178083/104691149-8cbc7980-56ba-11eb-98ab-25a2233ce41b.png)
+
+
 Instructions:
 
 WASD for movement
